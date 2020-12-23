@@ -1,9 +1,24 @@
 <template>
-  <div>test</div>
+  <div>
+    <base-card><nup-form></nup-form></base-card>
+    <base-card><nup-canvas></nup-canvas></base-card>
+  </div>
 </template>
 
 <script>
-export default {};
+import NupForm from '../components/nup/NupForm.vue';
+import NupCanvas from '../components/nup/NupCanvas.vue';
+
+export default {
+  components: {
+    NupForm,
+    NupCanvas,
+  },
+};
 </script>
 
-<style></style>
+<style scoped>
+div {
+  display: flex;
+}
+</style>

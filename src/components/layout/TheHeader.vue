@@ -16,7 +16,7 @@ export default {};
 
 <style scoped>
 header {
-  background: #244564;
+  background: var(--mid-blue);
   padding: 0.5rem;
 }
 
@@ -34,11 +34,11 @@ a {
 }
 
 a.router-link-active {
-  background: #3674a7;
+  background: var(--light-blue);
 }
 
 a:not(.router-link-active):hover {
-  background: #25384f;
+  background: var(--dark-blue);
 }
 
 header nav {

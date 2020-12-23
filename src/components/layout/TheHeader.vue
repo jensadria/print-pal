@@ -1,11 +1,11 @@
 <template>
   <header>
     <nav>
-      <h1>Logo here</h1>
       <ul>
-        <li><router-link to="/">Price Calculator</router-link></li>
+        <li><router-link to="/price">Price Calculator</router-link></li>
         <li><router-link to="/nup">N-Up Calculator</router-link></li>
       </ul>
+      <h1>Print Pal</h1>
     </nav>
   </header>
 </template>
@@ -15,16 +15,34 @@ export default {};
 </script>
 
 <style scoped>
-header a {
+header {
+  background: #244564;
+  padding: 0.5rem;
+}
+
+header h1 {
+  color: #fff;
+}
+
+a {
   text-decoration: none;
-  color: #f391e3;
+  color: #fff;
   display: inline-block;
   padding: 0.75rem 1.5rem;
   border: 1px solid transparent;
+  border-radius: 0.5rem;
+}
+
+a.router-link-active {
+  background: #3674a7;
+}
+
+a:not(.router-link-active):hover {
+  background: #25384f;
 }
 
 header nav {
-  width: 90%;
+  width: 95%;
   margin: auto;
   display: flex;
   justify-content: space-between;

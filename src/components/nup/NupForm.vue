@@ -1,38 +1,60 @@
 <template>
   <!-- Finished Size -->
-  <form @submit.prevent="calculateNup">
-    <div class="form-control">
-      <label for="qty">Quantity</label><br />
-      <input type="number" id="qty" v-model.number="qty" />
-    </div>
-    <div class="form-control dimensions">
-      <div>
-        <label for="width">Width in mm</label><br />
-        <input type="number" id="width" v-model.number="width" />
-      </div>
-      <div class="x">x</div>
-      <div>
-        <label for="height">Height in mm</label><br />
-        <input type="number" id="height" v-model.number="height" />
-      </div>
-    </div>
+  <div class="container">
+    <div id="form">
+      <form @submit.prevent="calculateNup">
+        <div class="form-control">
+          <label for="qty">Quantity</label><br />
+          <input type="number" id="qty" v-model.number="qty" />
+        </div>
+        <div class="form-control dimensions">
+          <div>
+            <label for="width">Width in mm</label><br />
+            <input type="number" id="width" v-model.number="width" />
+          </div>
+          <div class="x">x</div>
+          <div>
+            <label for="height">Height in mm</label><br />
+            <input type="number" id="height" v-model.number="height" />
+          </div>
+        </div>
+        <div class="form-control">
+          <div>
+            <label for="margins">Outside Margin</label><br />
+            <input type="number" id="margins" v-model.number="margins" />
+          </div>
+          <div>
+            <label for="gutters">Gutters</label><br />
+            <input type="number" id="gutters" v-model.number="gutters" />
+          </div>
+        </div>
 
-    <!-- Sheet Size -->
-    <div class="form-control sheet-dimensions">
-      <div>
-        <label for="sheet-width">Sheet Width in mm</label><br />
-        <input type="number" id="sheet-width" v-model.number="sheetWidth" />
-      </div>
-      <div class="x">x</div>
-      <div>
-        <label for="sheet-height">Height in mm</label><br />
-        <input type="number" id="sheet-height" v-model.number="sheetHeight" />
-      </div>
+        <!-- Sheet Size -->
+        <div class="form-control">
+          <div>
+            <label for="sheet-width">Sheet Width in mm</label><br />
+            <input type="number" id="sheet-width" v-model.number="sheetWidth" />
+          </div>
+          <div class="x">x</div>
+          <div>
+            <label for="sheet-height">Height in mm</label><br />
+            <input
+              type="number"
+              id="sheet-height"
+              v-model.number="sheetHeight"
+            />
+          </div>
+        </div>
+        <button>Calculate</button>
+        <button type="button" @click="switchOrientation">
+          Switch Orientation
+        </button>
+      </form>
     </div>
-    <button>Calculate</button>
-    <button type="button" @click="switchOrientation">Switch Orientation</button>
-  </form>
-  <div>{{ result }}</div>
+    <div class="results">
+      <div>Number out on Page :{{ result }}</div>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -49,6 +71,7 @@ export default {
       result: 0,
       nUp1: null,
       nUp2: null,
+      sizes: {},
     };
   },
   computed: {
@@ -97,6 +120,10 @@ export default {
 /* * {
   border: 1px dotted red;
 } */
+.container {
+  display: flex;
+  flex-direction: column;
+}
 
 .form-control {
   display: flex;
@@ -133,8 +160,15 @@ input:focus {
 #width,
 #height,
 #sheet-width,
-#sheet-height {
+#sheet-height,
+#margins,
+#gutters {
   width: 50%;
   text-align: center;
+}
+
+#margins,
+#gutters {
+  font-size: 18px;
 }
 </style>

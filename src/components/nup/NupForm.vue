@@ -29,9 +29,10 @@
         <input type="number" id="sheet-height" v-model.number="sheetHeight" />
       </div>
     </div>
-    <button type="submit">Submit</button>
-    <div>{{ result }}</div>
+    <button>Calculate</button>
+    <button type="button" @click="switchOrientation">Switch Orientation</button>
   </form>
+  <div>{{ result }}</div>
 </template>
 
 <script>
@@ -39,49 +40,54 @@ export default {
   data() {
     return {
       qty: 10,
-      width: 210,
-      height: 148,
+      width: 90,
+      height: 55,
       sheetWidth: 450,
       sheetHeight: 320,
-      gutters: 0,
-      margins: 0,
+      gutters: 5,
+      margins: 5,
       result: 0,
+      nUp1: null,
+      nUp2: null,
     };
   },
   computed: {
     totalMargins() {
       return +(this.margins * 2);
     },
-    activeGutters() {
-      return +((this.qty - 1) * this.gutters);
-    },
-    activeWidth() {
-      return +(this.sheetWidth - this.totalMargins - this.activeGutters);
-    },
-    activeHeight() {
-      return +(this.sheetHeight - this.totalMargins - this.activeGutters);
-    },
   },
   methods: {
     calculateNup() {
       // Calculate width divided by activeWidth & activeHeight
-      const widthInWidth = Math.floor(this.activeWidth / this.width);
-      const widthInHeight = Math.floor(this.activeHeight / this.width);
+      const widthInWidth = Math.floor(
+        (this.sheetWidth + this.gutters) / (this.width + this.gutters)
+      );
+      const widthInHeight = Math.floor(
+        (this.sheetHeight + this.gutters) / (this.width + this.gutters)
+      );
 
       // Calculate height divided by activeWidth & activeHeight
-      const heightInWidth = Math.floor(this.activeWidth / this.height);
-      const heightInHeight = Math.floor(this.activeHeight / this.height);
+      const heightInWidth = Math.floor(
+        (this.sheetWidth + this.gutters) / (this.height + this.gutters)
+      );
+      const heightInHeight = Math.floor(
+        (this.sheetHeight + this.gutters) / (this.height + this.gutters)
+      );
 
       //   Calculate nUps
-      const nUp1 = widthInWidth * heightInHeight;
-      const nUp2 = widthInHeight * heightInWidth;
+      this.nUp1 = widthInWidth * heightInHeight;
+      this.nUp2 = widthInHeight * heightInWidth;
 
       // Figure out which one fits more on a page
-      const nUpOnPage = Math.max(nUp1, nUp2);
+      const nUpOnPage = Math.max(this.nUp1, this.nUp2);
 
       this.result = nUpOnPage;
 
-      console.log(nUpOnPage);
+      console.log(this.nUp1, this.nUp2);
+    },
+    switchOrientation() {
+      const otherOrientation = Math.min(this.nUp1, this.nUp2);
+      this.result = otherOrientation;
     },
   },
 };

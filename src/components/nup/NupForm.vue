@@ -5,27 +5,35 @@
       <form @submit.prevent="calculateNup">
         <div class="form-control">
           <label for="qty">Quantity</label><br />
-          <input type="number" id="qty" v-model.number="qty" />
+          <input type="number" id="qty" v-model.number="nUpInput.qty" />
         </div>
         <div class="form-control dimensions">
           <div>
             <label for="width">Width in mm</label><br />
-            <input type="number" id="width" v-model.number="width" />
+            <input type="number" id="width" v-model.number="nUpInput.width" />
           </div>
           <div class="x">x</div>
           <div>
             <label for="height">Height in mm</label><br />
-            <input type="number" id="height" v-model.number="height" />
+            <input type="number" id="height" v-model.number="nUpInput.height" />
           </div>
         </div>
         <div class="form-control">
           <div>
             <label for="margins">Outside Margin</label><br />
-            <input type="number" id="margins" v-model.number="margins" />
+            <input
+              type="number"
+              id="margins"
+              v-model.number="nUpInput.margins"
+            />
           </div>
           <div>
             <label for="gutters">Gutters</label><br />
-            <input type="number" id="gutters" v-model.number="gutters" />
+            <input
+              type="number"
+              id="gutters"
+              v-model.number="nUpInput.gutters"
+            />
           </div>
         </div>
 
@@ -33,7 +41,11 @@
         <div class="form-control">
           <div>
             <label for="sheet-width">Sheet Width in mm</label><br />
-            <input type="number" id="sheet-width" v-model.number="sheetWidth" />
+            <input
+              type="number"
+              id="sheet-width"
+              v-model.number="nUpInput.sheetWidth"
+            />
           </div>
           <div class="x">x</div>
           <div>
@@ -41,7 +53,7 @@
             <input
               type="number"
               id="sheet-height"
-              v-model.number="sheetHeight"
+              v-model.number="nUpInput.sheetHeight"
             />
           </div>
         </div>
@@ -59,26 +71,33 @@
 
 <script>
 export default {
-  data() {
-    return {
-      qty: 10,
-      width: 90,
-      height: 55,
-      sheetWidth: 450,
-      sheetHeight: 320,
-      gutters: 5,
-      margins: 5,
-      result: 0,
-      nUp1: null,
-      nUp2: null,
-      sizes: {},
-    };
-  },
+  // data() {
+  //   return {
+  //     qty: 10,
+  //     width: 90,
+  //     height: 55,
+  //     sheetWidth: 450,
+  //     sheetHeight: 320,
+  //     gutters: 5,
+  //     margins: 5,
+  //     result: 0,
+  //     nUp1: null,
+  //     nUp2: null,
+  //     sizes: {},
+  //   };
+  // },
   computed: {
     totalMargins() {
       return +(this.margins * 2);
     },
+    nUpInput() {
+      return this.$store.getters.loadInputData;
+    },
+    nUpResult() {
+      return this.$store.getters.loadResults;
+    },
   },
+
   methods: {
     calculateNup() {
       // Calculate width divided by activeWidth & activeHeight
@@ -114,7 +133,6 @@ export default {
     },
   },
 };
-TEST;
 </script>
 
 <style scoped>

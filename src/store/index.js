@@ -9,17 +9,19 @@ const store = createStore({
     return {
       nUpInput: {
         qty: 10,
-        width: 90,
-        height: 55,
+        width: 105,
+        height: 148,
         sheetWidth: 450,
         sheetHeight: 320,
         gutters: 5,
         margins: 5,
       },
       nUpResult: {
-        result: 0,
-        nUp1: null,
-        nUp2: null,
+        // nUp1 is the most amount that can fit on a sheet using only one orientation
+        nUp1: 0,
+        // nUp1 is the least amount that can fit on a sheet using only one orientation
+        nUp2: 0,
+        sheetsAmount: 0,
       },
     };
   },

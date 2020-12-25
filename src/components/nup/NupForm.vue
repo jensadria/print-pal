@@ -64,31 +64,47 @@
       </form>
     </div>
     <div class="results">
-      <div>Number out on Page :{{ nUpResult.result }}</div>
+      <div>Maximum number out on Page :{{ result }}</div>
+      <div>Sheets Required: {{ calculateSheets }}</div>
     </div>
   </div>
 </template>
 
 <script>
 export default {
+  data() {
+    return {
+      mostOut: true,
+      calculatedButtonPressed: false,
+    };
+  },
   computed: {
-    totalMargins() {
-      return +(this.margins * 2);
-    },
     nUpInput() {
       return this.$store.getters.loadInputData;
     },
     nUpResult() {
       return this.$store.getters.loadResults;
     },
+    result() {
+      return this.mostOut ? this.nUpResult.nUp1 : this.nUpResult.nUp2;
+    },
+    calculateSheets() {
+      if (!this.calculatedButtonPressed) {
+        return 0;
+      } else {
+        return Math.ceil(this.$store.state.nUpInput.qty / this.result);
+      }
+    },
   },
 
   methods: {
     calculateNup() {
+      this.mostOut = true;
+      this.calculatedButtonPressed = true;
       this.$store.dispatch('calculateNup');
     },
     switchOrientation() {
-      this.$store.dispatch('switchOrientation');
+      this.mostOut = false;
     },
   },
 };
@@ -148,5 +164,14 @@ input:focus {
 #margins,
 #gutters {
   font-size: 18px;
+}
+
+.results {
+  width: 100%;
+  height: 5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 </style>

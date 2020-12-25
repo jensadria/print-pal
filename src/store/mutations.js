@@ -1,8 +1,6 @@
 export default {
   changeResults(state, payload) {
-    state.nUpResult.result = payload;
-  },
-  switchOrientation(state, payload) {
-    state.nUpResult.result = payload;
+    state.nUpResult.nUp1 = payload.mainOrientation;
+    state.nUpResult.nUp2 = payload.otherOrientation;
   },
 };

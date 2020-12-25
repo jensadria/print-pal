@@ -15,6 +15,8 @@ export default {
 </script>
 
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
+
 :root {
   --dark-blue: #25384f;
   --mid-blue: #244564;
@@ -24,6 +26,7 @@ export default {
 * {
   margin: 0px;
   padding: 0px;
+  font-family: 'Nunito', sans-serif;
 }
 
 #app {

@@ -64,28 +64,13 @@
       </form>
     </div>
     <div class="results">
-      <div>Number out on Page :{{ result }}</div>
+      <div>Number out on Page :{{ nUpResult.result }}</div>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  // data() {
-  //   return {
-  //     qty: 10,
-  //     width: 90,
-  //     height: 55,
-  //     sheetWidth: 450,
-  //     sheetHeight: 320,
-  //     gutters: 5,
-  //     margins: 5,
-  //     result: 0,
-  //     nUp1: null,
-  //     nUp2: null,
-  //     sizes: {},
-  //   };
-  // },
   computed: {
     totalMargins() {
       return +(this.margins * 2);
@@ -100,36 +85,10 @@ export default {
 
   methods: {
     calculateNup() {
-      // Calculate width divided by activeWidth & activeHeight
-      const widthInWidth = Math.floor(
-        (this.sheetWidth + this.gutters) / (this.width + this.gutters)
-      );
-      const widthInHeight = Math.floor(
-        (this.sheetHeight + this.gutters) / (this.width + this.gutters)
-      );
-
-      // Calculate height divided by activeWidth & activeHeight
-      const heightInWidth = Math.floor(
-        (this.sheetWidth + this.gutters) / (this.height + this.gutters)
-      );
-      const heightInHeight = Math.floor(
-        (this.sheetHeight + this.gutters) / (this.height + this.gutters)
-      );
-
-      //   Calculate nUps
-      this.nUp1 = widthInWidth * heightInHeight;
-      this.nUp2 = widthInHeight * heightInWidth;
-
-      // Figure out which one fits more on a page
-      const nUpOnPage = Math.max(this.nUp1, this.nUp2);
-
-      this.result = nUpOnPage;
-
-      console.log(this.nUp1, this.nUp2);
+      this.$store.dispatch('calculateNup');
     },
     switchOrientation() {
-      const otherOrientation = Math.min(this.nUp1, this.nUp2);
-      this.result = otherOrientation;
+      this.$store.dispatch('switchOrientation');
     },
   },
 };

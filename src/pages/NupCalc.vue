@@ -22,4 +22,8 @@ div {
   display: flex;
   width: 100%;
 }
+
+/* .size-control {
+  width: 50%;
+} */
 </style>

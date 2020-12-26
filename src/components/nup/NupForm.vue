@@ -12,13 +12,15 @@
             <label for="width">Width in mm</label><br />
             <input type="number" id="width" v-model.number="nUpInput.width" />
           </div>
-          <div class="x">x</div>
+          <div class="x">X</div>
           <div>
             <label for="height">Height in mm</label><br />
             <input type="number" id="height" v-model.number="nUpInput.height" />
           </div>
         </div>
-        <div class="form-control">
+
+        <!-- Margins & Gutters -->
+        <div class="form-control guttersmargins">
           <div>
             <label for="margins">Outside Margin</label><br />
             <input
@@ -27,6 +29,7 @@
               v-model.number="nUpInput.margins"
             />
           </div>
+          <div class="x"></div>
           <div>
             <label for="gutters">Gutters</label><br />
             <input
@@ -47,7 +50,7 @@
               v-model.number="nUpInput.sheetWidth"
             />
           </div>
-          <div class="x">x</div>
+          <div class="x">X</div>
           <div>
             <label for="sheet-height">Height in mm</label><br />
             <input
@@ -57,10 +60,12 @@
             />
           </div>
         </div>
-        <button>Calculate</button>
-        <button type="button" @click="switchOrientation">
-          Switch Orientation
-        </button>
+        <div class="buttons">
+          <button>Calculate</button>
+          <button type="button" @click="switchOrientation">
+            Switch Orientation
+          </button>
+        </div>
       </form>
     </div>
     <div class="results">
@@ -104,7 +109,7 @@ export default {
       this.$store.dispatch('calculateNup');
     },
     switchOrientation() {
-      this.mostOut = false;
+      this.mostOut = !this.mostOut;
     },
   },
 };
@@ -121,7 +126,6 @@ export default {
 
 .form-control {
   display: flex;
-  width: 40vw;
   margin: 0.8rem;
 }
 
@@ -144,11 +148,12 @@ input:focus {
 }
 
 .x {
-  font-size: 24px;
+  font-size: 30px;
+  font-weight: bold;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 5px;
+  width: 60px;
 }
 
 #width,
@@ -159,6 +164,11 @@ input:focus {
 #gutters {
   width: 50%;
   text-align: center;
+}
+
+.guttersmargins {
+  display: flex;
+  justify-content: center;
 }
 
 #margins,
@@ -173,5 +183,18 @@ input:focus {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+}
+
+.buttons {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.buttons button {
+  margin: 0.5rem;
+  width: 40%;
+  height: 3rem;
 }
 </style>

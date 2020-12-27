@@ -5,7 +5,7 @@
       :width="nUpInput.sheetWidth"
       :height="nUpInput.sheetHeight"
     ></canvas>
-    <p><button type="button" @click="drawRect()">Test</button></p>
+    <button @click="drawOnSheet">Test</button>
   </div>
 </template>
 
@@ -31,15 +31,15 @@ export default {
     const c = document.getElementById('nup-canvas');
     const ctx = c.getContext('2d');
     this.vueCanvas = ctx;
+
+    this.drawOnSheet();
   },
   methods: {
-    drawRect() {
-      let width = this.nUpInput.width;
-      let height = this.nUpInput.height;
+    drawOnSheet() {
+      const { width, height, margins, gutters } = this.nUpInput;
+
       let startingPointX = this.nUpInput.margins;
       let startingPointY = this.nUpInput.margins;
-      let margin = this.nUpInput.margins;
-      // let qty = this.nUpInput.qty;
 
       this.vueCanvas.clearRect(
         0,
@@ -47,15 +47,31 @@ export default {
         this.nUpInput.sheetWidth,
         this.nUpInput.sheetHeight
       );
-      // this.vueCanvas.beginPath();
-      this.vueCanvas.fillRect(startingPointX, startingPointY, width, height);
-      startingPointX = startingPointX + width + margin;
-      this.vueCanvas.fillRect(startingPointX, startingPointY, width, height);
-      startingPointX = startingPointX + width + margin;
-      this.vueCanvas.fillRect(startingPointX, startingPointY, width, height);
-      startingPointX = startingPointX + width + margin;
-      this.vueCanvas.fillRect(startingPointX, startingPointY, width, height);
-      // this.vueCanvas.stroke();
+
+      for (
+        let i = 0;
+        startingPointY < this.nUpInput.sheetHeight - height - margins;
+        i++
+      ) {
+        for (
+          let j = 0;
+          startingPointX < this.nUpInput.sheetWidth - width - margins;
+          j++
+        ) {
+          this.vueCanvas.fillRect(
+            startingPointX,
+            startingPointY,
+            width,
+            height
+          );
+          startingPointX = startingPointX + width + gutters;
+        }
+
+        startingPointX = this.nUpInput.margins;
+        startingPointY = startingPointY + height + gutters;
+      }
+
+      this.$emit;
     },
   },
 };

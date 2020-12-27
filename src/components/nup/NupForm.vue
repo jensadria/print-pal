@@ -2,7 +2,7 @@
   <!-- Finished Size -->
   <div class="container">
     <div id="form">
-      <form @submit.prevent="calculateNup">
+      <form @submit.prevent="imposeOnSheet">
         <div class="form-control">
           <label for="qty">Quantity</label><br />
           <input type="number" id="qty" v-model.number="nUpInput.qty" />
@@ -61,7 +61,7 @@
           </div>
         </div>
         <div class="buttons">
-          <button>Calculate</button>
+          <button>Impose</button>
           <button type="button" @click="switchOrientation">
             Switch Orientation
           </button>
@@ -103,10 +103,16 @@ export default {
   },
 
   methods: {
-    calculateNup() {
+    // calculateNup() {
+    //   this.mostOut = true;
+    //   this.calculatedButtonPressed = true;
+    //   this.$store.dispatch('calculateNup');
+    // },
+    imposeOnSheet() {
       this.mostOut = true;
       this.calculatedButtonPressed = true;
-      this.$store.dispatch('calculateNup');
+      this.$store.dispatch('imposeOnSheet');
+      // this.$store.dispatch('drawOnSheet');
     },
     switchOrientation() {
       this.mostOut = !this.mostOut;

@@ -1,30 +1,48 @@
 export default {
-  calculateNup(context) {
-    const { nUpInput } = context.state;
-    const allMargins = nUpInput.margins * 2;
+  imposeOnSheet(context) {
+    const {
+      width,
+      height,
+      margins,
+      gutters,
+      sheetWidth,
+      sheetHeight,
+    } = context.state.nUpInput;
 
-    const activeWidth = nUpInput.sheetWidth - allMargins;
-    const activeHeight = nUpInput.sheetHeight - allMargins;
+    const activeWidth = sheetWidth - 2 * margins;
+    const activeHeight = sheetHeight - 2 * margins;
 
-    // Calculate width divided by activeWidth & activeHeight
-    const widthInWidth = Math.floor(
-      (activeWidth + nUpInput.gutters) / (nUpInput.width + nUpInput.gutters)
-    );
-    const widthInHeight = Math.floor(
-      (activeHeight + nUpInput.gutters) / (nUpInput.width + nUpInput.gutters)
-    );
+    let startingPointX = 0;
+    let startingPointY = 0;
 
-    // Calculate height divided by activeWidth & activeHeight
-    const heightInWidth = Math.floor(
-      (activeWidth + nUpInput.gutters) / (nUpInput.height + nUpInput.gutters)
-    );
-    const heightInHeight = Math.floor(
-      (activeHeight + nUpInput.gutters) / (nUpInput.height + nUpInput.gutters)
-    );
+    // FIRST ORIENTATION
+    let i = 0;
+    let j = 0;
+
+    for (i; startingPointY + height < activeHeight; i++) {
+      startingPointY = startingPointY + height + gutters;
+    }
+    for (j; startingPointX + width < activeWidth; j++) {
+      startingPointX = startingPointX + width + gutters;
+    }
+
+    // SECOND ORIENTATION
+    startingPointX = 0;
+    startingPointY = 0;
+
+    let m = 0;
+    let n = 0;
+
+    for (m; startingPointY + height < activeWidth; m++) {
+      startingPointY = startingPointY + height + gutters;
+    }
+    for (n; startingPointX + width < activeHeight; n++) {
+      startingPointX = startingPointX + width + gutters;
+    }
 
     //   Calculate nUps
-    const firstOption = widthInWidth * heightInHeight;
-    const secondOption = widthInHeight * heightInWidth;
+    const firstOption = i * j;
+    const secondOption = m * n;
 
     // Figure out which one fits more on a page
     const mainOrientation = Math.max(firstOption, secondOption);
@@ -32,4 +50,29 @@ export default {
 
     context.commit('changeResults', { mainOrientation, otherOrientation });
   },
+  //   drawOnSheet(_, canvas) {
+  //     const {
+  //       width,
+  //       height,
+  //       margins,
+  //       gutters,
+  //       sheetHeight,
+  //       sheetWidth,
+  //     } = this.context.nUpInput;
+
+  //     let startingPointX = margins;
+  //     let startingPointY = margins;
+
+  //     canvas.clearRect(0, 0, sheetWidth, sheetHeight);
+
+  //     for (let i = 0; startingPointY < sheetHeight - height - margins; i++) {
+  //       for (let j = 0; startingPointX < sheetWidth - width - margins; j++) {
+  //         canvas.fillRect(startingPointX, startingPointY, width, height);
+  //         startingPointX = startingPointX + width + gutters;
+  //       }
+
+  //       startingPointX = margins;
+  //       startingPointY = startingPointY + height + gutters;
+  //     }
+  //   },
 };

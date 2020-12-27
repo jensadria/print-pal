@@ -9,8 +9,8 @@ const store = createStore({
     return {
       nUpInput: {
         qty: 10,
-        width: 105,
-        height: 148,
+        width: 55,
+        height: 90,
         sheetWidth: 450,
         sheetHeight: 320,
         gutters: 5,
@@ -23,6 +23,7 @@ const store = createStore({
         nUp2: 0,
         sheetsAmount: 0,
       },
+      vueCanvas: null,
     };
   },
   getters,

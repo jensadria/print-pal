@@ -5,17 +5,19 @@
       <div id="form">
         <form @submit.prevent="imposeOnSheet">
           <div class="form-control">
-            <label for="qty">Quantity</label><br />
-            <input type="number" id="qty" v-model.number="nUpInput.qty" />
-          </div>
-          <div class="form-control dimensions">
             <div>
-              <label for="width">Width in mm</label><br />
+              <label for="qty">Quantity</label>
+              <input type="number" id="qty" v-model.number="nUpInput.qty" />
+            </div>
+          </div>
+          <div class="form-control">
+            <div>
+              <label for="width">Width in mm</label>
               <input type="number" id="width" v-model.number="nUpInput.width" />
             </div>
             <div class="x">X</div>
             <div>
-              <label for="height">Height in mm</label><br />
+              <label for="height">Height in mm</label>
               <input
                 type="number"
                 id="height"
@@ -25,18 +27,19 @@
           </div>
 
           <!-- Margins & Gutters -->
-          <div class="form-control guttersmargins">
+          <div class="form-control">
             <div>
-              <label for="margins">Outside Margin</label><br />
+              <label for="margins">Outside Margin</label>
               <input
                 type="number"
                 id="margins"
                 v-model.number="nUpInput.margins"
               />
             </div>
-            <div class="x"></div>
+          </div>
+          <div class="form-control">
             <div>
-              <label for="gutters">Gutters</label><br />
+              <label for="gutters">Gutters</label>
               <input
                 type="number"
                 id="gutters"
@@ -48,7 +51,7 @@
           <!-- Sheet Size -->
           <div class="form-control">
             <div>
-              <label for="sheet-width">Sheet Width in mm</label><br />
+              <label for="sheet-width">Sheet Width in mm</label>
               <input
                 type="number"
                 id="sheet-width"
@@ -57,7 +60,7 @@
             </div>
             <div class="x">X</div>
             <div>
-              <label for="sheet-height">Height in mm</label><br />
+              <label for="sheet-height">Height in mm</label>
               <input
                 type="number"
                 id="sheet-height"
@@ -236,9 +239,9 @@ export default {
 </script>
 
 <style scoped>
-* {
-  border: 1px dotted red;
-}
+/* * {
+  border: 0.1px dotted red;
+} */
 .container {
   display: flex;
   justify-content: space-evenly;
@@ -249,22 +252,41 @@ export default {
   margin: 0.8rem;
 }
 
+input,
+label {
+  /* width: 100px; */
+  display: block;
+  text-align: left;
+  padding: 0.5px;
+}
+
 input {
+  display: block;
   border: 2px solid gray;
-  border-radius: 0.5rem;
+  border-top: none;
+  border-right: none;
+  border-left: none;
   font-size: 30px;
+  font-weight: medium;
 }
 
 input:focus {
   border: 2px solid var(--mid-blue);
-  border-radius: 0.5rem;
+  border-top: none;
+  border-right: none;
+  border-left: none;
+  background-color: var(--very-light-blue);
   outline: none;
 }
 
-#qty {
+#qty,
+#width,
+#height {
+  font-size: 50px;
   width: 30%;
-  text-align: center;
-  margin-left: 1rem;
+  height: 70px;
+
+  /* margin-left: 1rem; */
 }
 
 .x {
@@ -283,12 +305,7 @@ input:focus {
 #margins,
 #gutters {
   width: 50%;
-  text-align: center;
-}
-
-.guttersmargins {
-  display: flex;
-  justify-content: center;
+  text-align: left;
 }
 
 #margins,

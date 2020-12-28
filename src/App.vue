@@ -23,6 +23,7 @@ export default {
   --dark-blue: #25384f;
   --mid-blue: #244564;
   --light-blue: #3674a7;
+  --very-light-blue: #adc5d8;
 }
 
 * {

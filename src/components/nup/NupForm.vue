@@ -17,6 +17,11 @@
             <label for="height">Height in mm</label><br />
             <input type="number" id="height" v-model.number="nUpInput.height" />
           </div>
+          <div>
+            <button type="button" @click="switchOrientation">
+              Switch Orientation
+            </button>
+          </div>
         </div>
 
         <!-- Margins & Gutters -->
@@ -62,9 +67,6 @@
         </div>
         <div class="buttons">
           <button>Impose</button>
-          <button type="button" @click="switchOrientation">
-            Switch Orientation
-          </button>
         </div>
       </form>
     </div>
@@ -79,7 +81,7 @@
 export default {
   data() {
     return {
-      mostOut: true,
+      // mostOut: true,
       calculatedButtonPressed: false,
     };
   },
@@ -91,7 +93,8 @@ export default {
       return this.$store.getters.loadResults;
     },
     result() {
-      return this.mostOut ? this.nUpResult.nUp1 : this.nUpResult.nUp2;
+      // return this.mostOut ? this.nUpResult.nUp1 : this.nUpResult.nUp2;
+      return this.nUpResult.nUp1;
     },
     calculateSheets() {
       if (!this.calculatedButtonPressed) {
@@ -114,7 +117,8 @@ export default {
       this.$store.dispatch('imposeOnSheet');
     },
     switchOrientation() {
-      this.mostOut = !this.mostOut;
+      this.$store.dispatch('switchOrientation');
+      this.calculateSheets();
     },
   },
 };

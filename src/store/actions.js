@@ -45,34 +45,37 @@ export default {
     const secondOption = m * n;
 
     // Figure out which one fits more on a page
-    const mainOrientation = Math.max(firstOption, secondOption);
-    const otherOrientation = Math.min(firstOption, secondOption);
+    // const mainOrientation = Math.max(firstOption, secondOption);
+    // const otherOrientation = Math.min(firstOption, secondOption);
 
-    context.commit('changeResults', { mainOrientation, otherOrientation });
+    context.commit('changeResults', { firstOption, secondOption });
   },
-  drawOnSheet(context, payload) {
-    const {
-      width,
-      height,
-      margins,
-      gutters,
-      sheetHeight,
-      sheetWidth,
-    } = context.state.nUpInput;
+  //   drawOnSheet(context, payload) {
+  //     const {
+  //       width,
+  //       height,
+  //       margins,
+  //       gutters,
+  //       sheetHeight,
+  //       sheetWidth,
+  //     } = context.state.nUpInput;
 
-    let startingPointX = margins;
-    let startingPointY = margins;
+  //     let startingPointX = margins;
+  //     let startingPointY = margins;
 
-    payload.clearRect(0, 0, sheetWidth, sheetHeight);
+  //     payload.clearRect(0, 0, sheetWidth, sheetHeight);
 
-    for (let i = 0; startingPointY < sheetHeight - height - margins; i++) {
-      for (let j = 0; startingPointX < sheetWidth - width - margins; j++) {
-        payload.fillRect(startingPointX, startingPointY, width, height);
-        startingPointX = startingPointX + width + gutters;
-      }
+  //     for (let i = 0; startingPointY < sheetHeight - height - margins; i++) {
+  //       for (let j = 0; startingPointX < sheetWidth - width - margins; j++) {
+  //         payload.fillRect(startingPointX, startingPointY, width, height);
+  //         startingPointX = startingPointX + width + gutters;
+  //       }
 
-      startingPointX = margins;
-      startingPointY = startingPointY + height + gutters;
-    }
+  //       startingPointX = margins;
+  //       startingPointY = startingPointY + height + gutters;
+  //     }
+  //   },
+  switchOrientation(context) {
+    context.commit('switchOrientation');
   },
 };

@@ -1,18 +1,21 @@
 <template>
+  <!-- <base-card><nup-form></nup-form></base-card>
+    <base-card><nup-canvas></nup-canvas></base-card> -->
   <div>
-    <base-card><nup-form></nup-form></base-card>
-    <base-card><nup-canvas></nup-canvas></base-card>
+    <nup-form-calc></nup-form-calc>
   </div>
 </template>
 
 <script>
-import NupForm from '../components/nup/NupForm.vue';
-import NupCanvas from '../components/nup/NupCanvas.vue';
+// import NupForm from '../components/nup/NupForm.vue';
+// import NupCanvas from '../components/nup/NupCanvas.vue';
+import NupFormCalc from '../components/nup/NupFormCalc.vue';
 
 export default {
   components: {
-    NupForm,
-    NupCanvas,
+    // NupForm,
+    // NupCanvas,
+    NupFormCalc,
   },
 };
 </script>

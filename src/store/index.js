@@ -23,7 +23,7 @@ const store = createStore({
         nUp2: 0,
         sheetsAmount: 0,
       },
-      vueCanvas: null,
+      // vueCanvas: null,
     };
   },
   getters,

@@ -22,11 +22,6 @@
                 v-model.number="nUpInput.height"
               />
             </div>
-            <div>
-              <button type="button" @click="switchOrientation">
-                Switch Orientation
-              </button>
-            </div>
           </div>
 
           <!-- Margins & Gutters -->
@@ -72,6 +67,10 @@
           </div>
           <div class="buttons">
             <button>Impose</button>
+            <button type="button" @click="switchOrientation">
+              Switch Orientation
+            </button>
+            <button type="button" @click="resetNumbers">Reset</button>
           </div>
         </form>
       </div>
@@ -188,7 +187,6 @@ export default {
 
       this.drawOnSheet();
     },
-
     drawOnSheet() {
       const {
         width,
@@ -226,6 +224,11 @@ export default {
       this.imposeOnSheet();
       this.drawOnSheet();
     },
+    resetNumbers() {
+      for (let key in this.nUpInput) {
+        this.nUpInput[key] = 0;
+      }
+    },
   },
 
   //   END OF EXPORT DEFAULT
@@ -233,12 +236,12 @@ export default {
 </script>
 
 <style scoped>
-/* * {
+* {
   border: 1px dotted red;
-} */
+}
 .container {
   display: flex;
-  width: auto;
+  justify-content: space-evenly;
 }
 
 .form-control {
@@ -323,7 +326,7 @@ input:focus {
 
 #nup-canvas {
   border: 1px solid red;
-  position: relative;
+  /* position: relative; */
   width: 100%;
   height: auto;
 }

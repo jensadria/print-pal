@@ -112,7 +112,6 @@ export default {
       this.mostOut = true;
       this.calculatedButtonPressed = true;
       this.$store.dispatch('imposeOnSheet');
-      // this.$store.dispatch('drawOnSheet');
     },
     switchOrientation() {
       this.mostOut = !this.mostOut;

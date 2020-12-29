@@ -2,87 +2,92 @@
   <!-- Finished Size -->
   <div class="container">
     <base-card>
-      <div id="form">
-        <form @submit.prevent="imposeOnSheet">
-          <div class="form-control">
-            <div>
-              <label for="qty">Quantity</label>
-              <input type="number" id="qty" v-model.number="nUpInput.qty" />
+      <div class="calculations">
+        <div id="form">
+          <form @submit.prevent="imposeOnSheet">
+            <div class="form-control">
+              <div>
+                <label for="qty">Quantity</label>
+                <input type="number" id="qty" v-model.number="nUpInput.qty" />
+              </div>
             </div>
-          </div>
-          <div class="form-control">
-            <div>
-              <label for="width">Width in mm</label>
-              <input type="number" id="width" v-model.number="nUpInput.width" />
+            <div class="form-control">
+              <div>
+                <label for="width">Width in mm</label>
+                <input
+                  type="number"
+                  id="width"
+                  v-model.number="nUpInput.width"
+                />
+              </div>
+              <div class="x">X</div>
+              <div>
+                <label for="height">Height in mm</label>
+                <input
+                  type="number"
+                  id="height"
+                  v-model.number="nUpInput.height"
+                />
+              </div>
             </div>
-            <div class="x">X</div>
-            <div>
-              <label for="height">Height in mm</label>
-              <input
-                type="number"
-                id="height"
-                v-model.number="nUpInput.height"
-              />
-            </div>
-          </div>
 
-          <!-- Margins & Gutters -->
-          <div class="form-control">
-            <div>
-              <label for="margins">Outside Margin</label>
-              <input
-                type="number"
-                id="margins"
-                v-model.number="nUpInput.margins"
-              />
+            <!-- Margins & Gutters -->
+            <div class="form-control">
+              <div>
+                <label for="margins">Outside Margin</label>
+                <input
+                  type="number"
+                  id="margins"
+                  v-model.number="nUpInput.margins"
+                />
+              </div>
             </div>
-          </div>
-          <div class="form-control">
-            <div>
-              <label for="gutters">Gutters</label>
-              <input
-                type="number"
-                id="gutters"
-                v-model.number="nUpInput.gutters"
-              />
+            <div class="form-control">
+              <div>
+                <label for="gutters">Gutters</label>
+                <input
+                  type="number"
+                  id="gutters"
+                  v-model.number="nUpInput.gutters"
+                />
+              </div>
             </div>
-          </div>
 
-          <!-- Sheet Size -->
-          <div class="form-control">
-            <div>
-              <label for="sheet-width">Sheet Width in mm</label>
-              <input
-                type="number"
-                id="sheet-width"
-                v-model.number="nUpInput.sheetWidth"
-              />
+            <!-- Sheet Size -->
+            <div class="form-control">
+              <div>
+                <label for="sheet-width">Sheet Width in mm</label>
+                <input
+                  type="number"
+                  id="sheet-width"
+                  v-model.number="nUpInput.sheetWidth"
+                />
+              </div>
+              <div class="x">X</div>
+              <div>
+                <label for="sheet-height">Sheet Height in mm</label>
+                <input
+                  type="number"
+                  id="sheet-height"
+                  v-model.number="nUpInput.sheetHeight"
+                />
+              </div>
             </div>
-            <div class="x">X</div>
-            <div>
-              <label for="sheet-height">Height in mm</label>
-              <input
-                type="number"
-                id="sheet-height"
-                v-model.number="nUpInput.sheetHeight"
-              />
+            <div class="buttons">
+              <button>Impose</button>
+              <button type="button" @click="switchOrientation">
+                Switch Orientation
+              </button>
+              <button type="button" @click="resetNumbers">Reset</button>
             </div>
-          </div>
-          <div class="buttons">
-            <button>Impose</button>
-            <button type="button" @click="switchOrientation">
-              Switch Orientation
-            </button>
-            <button type="button" @click="resetNumbers">Reset</button>
-          </div>
-        </form>
-      </div>
-      <div class="results">
-        <div>Maximum number out on Page :{{ result }}</div>
-        <div>Sheets Required: {{ calculateSheets }}</div>
+          </form>
+        </div>
+        <div class="results">
+          <div>{{ result }} out of a page</div>
+          <div>{{ calculateSheets }} sheets required</div>
+        </div>
       </div>
     </base-card>
-
     <base-card>
       <div class="canvas-container">
         <canvas
@@ -90,7 +95,6 @@
           :width="nUpInput.sheetWidth"
           :height="nUpInput.sheetHeight"
         ></canvas>
-        <button @click="drawOnSheet">Test</button>
       </div>
     </base-card>
   </div>
@@ -133,7 +137,7 @@ export default {
       if (!this.calculatedButtonPressed) {
         return 0;
       } else {
-        return Math.ceil(this.$store.state.nUpInput.qty / this.result);
+        return Math.ceil(this.nUpInput.qty / this.result);
       }
     },
     result() {
@@ -207,12 +211,14 @@ export default {
 
       for (let i = 0; startingPointY < sheetHeight - height - margins; i++) {
         for (let j = 0; startingPointX < sheetWidth - width - margins; j++) {
+          this.vueCanvas.fillStyle = 'gray';
           this.vueCanvas.fillRect(
             startingPointX,
             startingPointY,
             width,
             height
           );
+
           startingPointX = startingPointX + width + gutters;
         }
 
@@ -244,17 +250,30 @@ export default {
 } */
 .container {
   display: flex;
-  justify-content: space-evenly;
+  flex-basis: auto;
+  flex-grow: 1;
+}
+
+.container > div {
+  flex: 1;
+  border: 1px solid;
+  flex-grow: 1;
+  flex-shrink: 0;
 }
 
 .form-control {
   display: flex;
   margin: 0.8rem;
 }
+.calculations {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
 
 input,
 label {
-  /* width: 100px; */
   display: block;
   text-align: left;
   padding: 0.5px;
@@ -283,28 +302,26 @@ input:focus {
 #width,
 #height {
   font-size: 50px;
-  width: 30%;
+  width: 200px;
   height: 70px;
 
   /* margin-left: 1rem; */
 }
 
 .x {
-  font-size: 30px;
-  font-weight: bold;
+  content: 'x';
+  font-size: 1.5rem;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  margin: 5px;
+  align-items: flex-end;
   width: 60px;
 }
 
-#width,
-#height,
 #sheet-width,
 #sheet-height,
 #margins,
 #gutters {
-  width: 50%;
+  width: 140px;
   text-align: left;
 }
 
@@ -314,37 +331,49 @@ input:focus {
 }
 
 .results {
-  width: 100%;
-  height: 5rem;
+  width: 70%;
+  height: 12rem;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  font-size: 50px;
+  background: var(--very-light-blue);
+  margin: 20px;
 }
 
 .buttons {
   display: flex;
-  flex-direction: column;
+  /* flex-direction: column; */
   align-items: center;
-  justify-content: center;
+  justify-content: left;
+  margin-top: 30px;
 }
 
 .buttons button {
-  margin: 0.5rem;
-  width: 40%;
+  margin: 0.3rem;
+  width: 30%;
   height: 3rem;
+  border-radius: 10px;
+  border-style: none;
+  background: var(--cool-gray);
+}
+
+.buttons button:first-child {
+  background: var(--light-blue);
 }
 
 .canvas-container {
-  width: 100%;
-  height: 100%;
-  display: inline-block;
+  max-height: 100%;
+  display: flex;
 }
 
 #nup-canvas {
-  border: 1px solid red;
+  /* border: 1px solid red; */
+  background-color: var(--cool-gray);
   /* position: relative; */
   width: 100%;
   height: auto;
+  max-height: 700px;
 }
 </style>

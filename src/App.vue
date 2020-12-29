@@ -24,6 +24,7 @@ export default {
   --mid-blue: #244564;
   --light-blue: #3674a7;
   --very-light-blue: #adc5d8;
+  --cool-gray: #b9bdcd;
 }
 
 * {

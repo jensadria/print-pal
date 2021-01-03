@@ -114,12 +114,12 @@ export default {
     return {
       nUpInput: {
         qty: 10,
-        width: 55,
-        height: 90,
-        sheetWidth: 450,
-        sheetHeight: 320,
+        width: 105,
+        height: 148,
+        sheetWidth: 435,
+        sheetHeight: 301,
         gutters: 5,
-        margins: 5,
+        margins: 0,
       },
       nUpResult: {
         nUp1: 0,
@@ -167,10 +167,10 @@ export default {
       let i = 0;
       let j = 0;
 
-      for (i; startingPointY + height < activeHeight; i++) {
+      for (i; startingPointY + height <= activeHeight + gutters; i++) {
         startingPointY = startingPointY + height + gutters;
       }
-      for (j; startingPointX + width < activeWidth; j++) {
+      for (j; startingPointX + width <= activeWidth + gutters; j++) {
         startingPointX = startingPointX + width + gutters;
       }
 
@@ -181,10 +181,10 @@ export default {
       let m = 0;
       let n = 0;
 
-      for (m; startingPointY + height < activeWidth; m++) {
+      for (m; startingPointY + height <= activeWidth + gutters; m++) {
         startingPointY = startingPointY + height + gutters;
       }
-      for (n; startingPointX + width < activeHeight; n++) {
+      for (n; startingPointX + width <= activeHeight + gutters; n++) {
         startingPointX = startingPointX + width + gutters;
       }
 
@@ -204,13 +204,16 @@ export default {
         sheetHeight,
       } = this.nUpInput;
 
+      //   const activeWidth = sheetWidth - 2 * margins;
+      //   const activeHeight = sheetHeight - 2 * margins;
+
       let startingPointX = margins;
       let startingPointY = margins;
 
       this.vueCanvas.clearRect(0, 0, sheetWidth, sheetHeight);
 
-      for (let i = 0; startingPointY < sheetHeight - height - margins; i++) {
-        for (let j = 0; startingPointX < sheetWidth - width - margins; j++) {
+      for (let i = 0; startingPointY < sheetHeight - height + gutters; i++) {
+        for (let j = 0; startingPointX < sheetWidth - width + gutters; j++) {
           this.vueCanvas.fillStyle = 'gray';
           this.vueCanvas.fillRect(
             startingPointX,
@@ -366,6 +369,9 @@ input:focus {
 .canvas-container {
   max-height: 100%;
   display: flex;
+  min-width: 500px;
+  max-height: 700px;
+  max-width: auto;
 }
 
 #nup-canvas {
@@ -373,7 +379,7 @@ input:focus {
   background-color: var(--cool-gray);
   /* position: relative; */
   width: 100%;
+
   height: auto;
-  max-height: 700px;
 }
 </style>

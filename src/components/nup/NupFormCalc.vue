@@ -253,8 +253,9 @@ export default {
 } */
 .container {
   display: flex;
-  flex-basis: auto;
-  flex-grow: 1;
+  /* flex-basis: auto; */
+  /* flex-grow: 1; */
+  width: 100%;
 }
 
 .container > div {

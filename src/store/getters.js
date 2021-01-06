@@ -1,11 +1,5 @@
 export default {
-  // getVueCanvas(state) {
-  //   return state.vueCanvas;
-  // },
-  loadInputData(state) {
-    return state.nUpInput;
-  },
-  loadResults(state) {
-    return state.nUpResult;
+  getProducts(state) {
+    return state.products;
   },
 };

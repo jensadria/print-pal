@@ -12,6 +12,11 @@
             <label for="name-search">Search By Name</label>
             <input type="search" name="name-search" id="name-search" />
           </div>
+          <ul>
+            <li v-for="product in products" :key="product">
+              {{ product.name }}
+            </li>
+          </ul>
         </form>
       </div>
     </base-card>
@@ -23,8 +28,11 @@
 export default {
   data() {
     return {
-      type: [],
+      products: null,
     };
+  },
+  created() {
+    this.products = this.$store.getters.getProducts;
   },
 };
 </script>
@@ -36,6 +44,10 @@ export default {
 .container {
   display: flex;
   width: 100%;
+}
+
+.container > div {
+  flex: 1;
 }
 
 .radio-toolbar input[type='radio'] {

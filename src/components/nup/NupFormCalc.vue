@@ -256,13 +256,14 @@ export default {
   /* flex-basis: auto; */
   /* flex-grow: 1; */
   width: 100%;
+  flex-wrap: wrap;
 }
 
 .container > div {
   flex: 1;
-  border: 1px solid;
+  /* border: 1px solid; */
   flex-grow: 1;
-  flex-shrink: 0;
+  /* flex-shrink: 0; */
 }
 
 .form-control {

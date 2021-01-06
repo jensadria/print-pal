@@ -74,11 +74,13 @@
               </div>
             </div>
             <div class="buttons">
-              <button>Impose</button>
-              <button type="button" @click="switchOrientation">
+              <base-button mode="blue-bg">Impose</base-button>
+              <base-button type="button" @click="switchOrientation">
                 Switch Orientation
-              </button>
-              <button type="button" @click="resetNumbers">Reset</button>
+              </base-button>
+              <base-button type="button" @click="resetNumbers"
+                >Reset</base-button
+              >
             </div>
           </form>
         </div>
@@ -353,19 +355,6 @@ input:focus {
   align-items: center;
   justify-content: left;
   margin-top: 30px;
-}
-
-.buttons button {
-  margin: 0.3rem;
-  width: 30%;
-  height: 3rem;
-  border-radius: 10px;
-  border-style: none;
-  background: var(--cool-gray);
-}
-
-.buttons button:first-child {
-  background: var(--light-blue);
 }
 
 .canvas-container {

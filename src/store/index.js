@@ -73,6 +73,7 @@ const store = createStore({
           millPackSize: 100,
         },
       ],
+      currentCuttingList: [],
     };
   },
   getters,

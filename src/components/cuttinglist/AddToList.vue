@@ -16,22 +16,25 @@
           <div>
             <label for="name-search">Search By Name</label>
             <input
-              type="search"
+              type="input"
               name="name-search"
               id="name-search"
-              v-model="searchName"
+              v-model.trim="searchName"
             />
           </div>
           <ul>
             <li
               v-for="product in filteredProducts"
+              v-show="itemVisible(product)"
               :key="product.name"
               @click="selectStock(product.id)"
+              class="search-result"
             >
               {{ product.name }}
+              {{ itemVisible(product) }}
             </li>
           </ul>
-          <div class="selectedStock">
+          <div class="selected-stock">
             <h2>{{ selectedStock.name }}</h2>
           </div>
           <div class="packs-bulks">
@@ -81,6 +84,16 @@ export default {
   methods: {
     selectStock(id) {
       this.selectedStock = this.products.find((stock) => stock.id === id);
+    },
+    addToList() {
+      this.$store.dispatch('addToList', this.selectedStock.id);
+      // console.log(this.$store.state.currentCuttingList);
+      console.log(this.itemVisible);
+    },
+    itemVisible(product) {
+      let currentProduct = product.name.toLowerCase();
+      let currentInput = this.searchName.toLowerCase();
+      return currentProduct.includes(currentInput);
     },
   },
   created() {
@@ -159,9 +172,11 @@ input:focus {
   margin-top: 30px;
 }
 
-.selectedStock {
+.selected-stock {
   display: block;
-  background-color: var(--light-blue;);
-  padding: 1rem;
+  background-color: var(--very-light-blue);
+  padding: 0.5rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
 }
 </style>

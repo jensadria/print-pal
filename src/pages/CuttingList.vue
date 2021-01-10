@@ -18,12 +18,15 @@ export default {
 </script>
 
 <style scoped>
+* {
+  border: 0.1px dotted red;
+}
 .container {
   display: flex;
+  width: auto;
 }
 
 .container > * {
   flex: 1 1 100%;
-  /* flex-grow: 1; */
 }
 </style>

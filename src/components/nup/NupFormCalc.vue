@@ -255,17 +255,11 @@ export default {
 } */
 .container {
   display: flex;
-  /* flex-basis: auto; */
-  /* flex-grow: 1; */
-  width: 100%;
-  flex-wrap: wrap;
+  /* flex-wrap: wrap; */
 }
 
 .container > div {
-  flex: 1;
-  /* border: 1px solid; */
-  flex-grow: 1;
-  /* flex-shrink: 0; */
+  flex: 1 1 100%;
 }
 
 .form-control {

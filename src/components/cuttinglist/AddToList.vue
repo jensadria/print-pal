@@ -6,11 +6,33 @@
         <form @submit.prevent="addToList">
           <div>
             <label for="code-search">Search By Code</label>
-            <input type="search" name="code-search" id="code-search" />
+            <input
+              type="search"
+              name="code-search"
+              id="code-search"
+              v-model="searchCode"
+            />
           </div>
           <div>
             <label for="name-search">Search By Name</label>
-            <input type="search" name="name-search" id="name-search" />
+            <input
+              type="search"
+              name="name-search"
+              id="name-search"
+              v-model="searchName"
+            />
+          </div>
+          <ul>
+            <li
+              v-for="product in filteredProducts"
+              :key="product.name"
+              @click="selectStock(product.id)"
+            >
+              {{ product.name }}
+            </li>
+          </ul>
+          <div class="selectedStock">
+            <h2>{{ selectedStock.name }}</h2>
           </div>
           <div class="packs-bulks">
             <div class="form-control">
@@ -25,13 +47,10 @@
             </div>
           </div>
           <div class="buttons">
-            <base-button mode="blue-bg">Save</base-button>
+            <base-button mode="blue-bg" @click="addToList"
+              >Add To List</base-button
+            >
           </div>
-          <!-- <ul>
-            <li v-for="product in products" :key="product.name">
-              {{ product.name }}
-            </li>
-          </ul> -->
         </form>
       </div>
     </base-card>
@@ -45,10 +64,24 @@ export default {
       products: null,
       packs: 0,
       bulks: 0,
+      searchCode: '',
+      searchName: '',
+      selectedStock: '',
     };
   },
+  computed: {
+    filteredProducts() {
+      return this.products.filter((product) => {
+        return product.name
+          .toLowerCase()
+          .includes(this.searchName.toLowerCase());
+      });
+    },
+  },
   methods: {
-    addToList() {},
+    selectStock(id) {
+      this.selectedStock = this.products.find((stock) => stock.id === id);
+    },
   },
   created() {
     this.products = this.$store.getters.getProducts;
@@ -67,6 +100,11 @@ export default {
 
 .container > div {
   flex: 1;
+}
+
+ul li {
+  list-style: none;
+  text-align: left;
 }
 
 #packs,
@@ -119,5 +157,11 @@ input:focus {
   align-items: center;
   justify-content: left;
   margin-top: 30px;
+}
+
+.selectedStock {
+  display: block;
+  background-color: var(--light-blue;);
+  padding: 1rem;
 }
 </style>

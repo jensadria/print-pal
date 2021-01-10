@@ -20,15 +20,10 @@ export default {
 <style scoped>
 .container {
   display: flex;
-  /* flex-basis: auto; */
-  /* flex-grow: 1; */
-  width: 100%;
-  /* flex-wrap: wrap; */
 }
 
-add-to-list,
-current-list {
-  flex: 1;
+.container > * {
+  flex: 1 1 100%;
   /* flex-grow: 1; */
 }
 </style>

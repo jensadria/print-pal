@@ -23,7 +23,8 @@ export default {
 }
 .container {
   display: flex;
-  width: auto;
+  width: 100%;
+  flex-direction: column;
 }
 
 .container > * {

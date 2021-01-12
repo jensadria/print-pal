@@ -12,4 +12,7 @@ export default {
 
     context.commit('addToList', addedStock);
   },
+  deleteItem(context, payload) {
+    context.commit('deleteItem', payload);
+  },
 };

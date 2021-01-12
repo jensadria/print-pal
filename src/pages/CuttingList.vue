@@ -18,9 +18,9 @@ export default {
 </script>
 
 <style scoped>
-* {
+/* * {
   border: 0.1px dotted red;
-}
+} */
 .container {
   display: flex;
   width: 100%;

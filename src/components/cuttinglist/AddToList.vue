@@ -62,6 +62,7 @@ export default {
       searchCode: '',
       searchName: '',
       selectedStock: '',
+      mto: [],
     };
   },
   // computed: {
@@ -131,7 +132,7 @@ ul li:hover {
 }
 
 .packs-bulks {
-  margin-top: 3rem;
+  margin-top: 1rem;
 }
 
 .form-control {
@@ -140,6 +141,7 @@ ul li:hover {
 
 .search-container {
   display: flex;
+  flex-direction: column;
   width: auto;
   flex-wrap: wrap;
   position: relative;
@@ -151,7 +153,7 @@ ul li:hover {
 }
 
 .selected-stock {
-  flex: 2;
+  height: 2rem;
 }
 
 label {

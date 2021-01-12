@@ -1,6 +1,8 @@
 <template>
   <div class="container">
     <base-card>
+      <h2>Current Cutting List</h2>
+
       <ul>
         <current-list-item
           v-for="product in currentCuttingList"
@@ -28,4 +30,9 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+h2 {
+  text-align: left;
+  margin-bottom: 1rem;
+}
+</style>

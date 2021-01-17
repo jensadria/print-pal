@@ -8,6 +8,7 @@ export default {
       ...selectedStock,
       packs: payload.packs,
       bulks: payload.bulks,
+      assignedJobs: payload.assignedJobs,
     };
 
     context.commit('addToList', addedStock);

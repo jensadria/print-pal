@@ -43,10 +43,13 @@
           </div>
         </div>
       </div>
-      <div class="assigned-jobs" v-for="job in assignedJobs" :key="job">
-        {{ job.petNr }} {{ job.jobBulks }} Bulks - {{ job.jobPacks }} Packs
-      </div>
-      <assign-to-job></assign-to-job>
+
+      <assigned-job
+        v-for="job in assignedJobs"
+        :key="job"
+        :job="job"
+      ></assigned-job>
+      <assign-to-job @assign-to-job="addAssignedJob"></assign-to-job>
 
       <div class="buttons">
         <base-button mode="blue-bg" @click.prevent="addToList"
@@ -59,9 +62,10 @@
 
 <script>
 import AssignToJob from '../cuttinglist/AssignToJob.vue';
+import AssignedJob from '../cuttinglist/AssignedJob.vue';
 
 export default {
-  components: { AssignToJob },
+  components: { AssignToJob, AssignedJob },
   data() {
     return {
       products: null,
@@ -70,7 +74,7 @@ export default {
       searchCode: '',
       searchName: '',
       selectedStock: '',
-      assignedJobs: [{ petNr: 'PET64321', jobBulks: 2, jobPacks: 1 }],
+      assignedJobs: [],
     };
   },
   // computed: {
@@ -92,13 +96,19 @@ export default {
         id: this.selectedStock.id,
         packs: this.packs,
         bulks: this.bulks,
+        assignedJobs: this.assignedJobs,
       };
       this.$store.dispatch('addToList', listItem);
+
+      (this.selectedStock = ''), (this.assignedJobs = []);
     },
     itemVisible(product) {
       let currentProduct = product.name.toLowerCase();
       let currentInput = this.searchName.toLowerCase();
       return currentProduct.includes(currentInput);
+    },
+    addAssignedJob(job) {
+      this.assignedJobs.push(job);
     },
   },
   mounted() {
@@ -192,10 +202,6 @@ input:focus {
   margin-bottom: 1rem;
   margin-right: 1rem;
   height: 1.3rem;
-}
-
-.assigned-jobs {
-  text-align: left;
 }
 
 .jobs-input {

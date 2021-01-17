@@ -1,32 +1,35 @@
 <template>
   <li>
-    <slot>
-      <div class="product-item">
-        <div class="amount">
-          <h3>{{ sheetsTotal }} x {{ product.name }}</h3>
-          <h4>
-            {{ flatSheetsRequired }} Flat Sheets ( {{ product.noOutFlatSheet }}
-            out )
-          </h4>
-        </div>
-        <div class="packing">
-          <h4>
-            {{ product.packs }} {{ product.packs > 1 ? 'Packs' : 'Pack' }} of
-            {{ product.packQty }} <br />
-            {{ product.bulks }} {{ product.bulks > 1 ? 'Bulks' : 'Bulk' }} of
-            {{ product.bulkQty }}
-          </h4>
-        </div>
-        <div class="jobs"></div>
-        <div class="buttons">
-          <i class="fas fa-edit edit"></i>
-          <i
-            class="fas fa-minus-circle delete"
-            @click="deleteItem(index - 1)"
-          ></i>
-        </div>
+    <div class="product-item">
+      <div class="amount">
+        <h3>{{ sheetsTotal }} x {{ product.name }}</h3>
+        <h4>
+          {{ flatSheetsRequired }} Flat Sheets ( {{ product.noOutFlatSheet }}
+          out )
+        </h4>
       </div>
-    </slot>
+      <div class="packing">
+        <h4>
+          {{ product.packs }} {{ product.packs > 1 ? 'Packs' : 'Pack' }} of
+          {{ product.packQty }} <br />
+          {{ product.bulks }} {{ product.bulks > 1 ? 'Bulks' : 'Bulk' }} of
+          {{ product.bulkQty }}
+        </h4>
+      </div>
+      <div class="jobs">
+        <h4 v-for="job in product.assignedJobs" :key="job.petNr">
+          {{ job.petNr }} - {{ job.jobBulks }} x Bulks - {{ job.jobPacks }} x
+          Packs
+        </h4>
+      </div>
+      <div class="buttons">
+        <i class="fas fa-edit edit"></i>
+        <i
+          class="fas fa-minus-circle delete"
+          @click="deleteItem(index - 1)"
+        ></i>
+      </div>
+    </div>
   </li>
 </template>
 
@@ -85,7 +88,10 @@ li:hover {
   padding-left: 1rem;
 }
 .jobs {
+  text-align: left;
   flex: 1;
+  border-left: 1px solid #000;
+  padding-left: 1rem;
 }
 
 .buttons {

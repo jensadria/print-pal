@@ -3,19 +3,19 @@
     <slot>
       <div class="product-item">
         <div class="amount">
-          <h2>{{ sheetsTotal }} x {{ product.name }}</h2>
-          <h3>
+          <h3>{{ sheetsTotal }} x {{ product.name }}</h3>
+          <h4>
             {{ flatSheetsRequired }} Flat Sheets ( {{ product.noOutFlatSheet }}
             out )
-          </h3>
+          </h4>
         </div>
         <div class="packing">
-          <h3>
+          <h4>
             {{ product.packs }} {{ product.packs > 1 ? 'Packs' : 'Pack' }} of
             {{ product.packQty }} <br />
             {{ product.bulks }} {{ product.bulks > 1 ? 'Bulks' : 'Bulk' }} of
             {{ product.bulkQty }}
-          </h3>
+          </h4>
         </div>
         <div class="jobs"></div>
         <div class="buttons">

@@ -19,7 +19,7 @@ export default {
 <style>
 button {
   margin: 0.3rem;
-  width: 30%;
+  width: 200px;
   height: 3rem;
   border-radius: 10px;
   border-style: none;

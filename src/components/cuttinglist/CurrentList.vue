@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <base-card>
-      <h2>Current Cutting List</h2>
+      <h2>Cutting List</h2>
 
       <ul>
         <current-list-item

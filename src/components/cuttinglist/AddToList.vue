@@ -1,59 +1,67 @@
 <template>
   <div class="container">
-    <base-card>
-      <div class="new-product">
-        <h2>Add Stock</h2>
-        <form @submit.prevent="addToList">
-          <div class="search-container">
-            <div class="search-input">
-              <label for="name-search">Search By Name or Code</label>
-              <input
-                type="input"
-                name="name-search"
-                id="name-search"
-                v-model.trim="searchName"
-                autocomplete="off"
-              />
-              <ul v-show="searchName" class="dropdown-list">
-                <li
-                  v-show="itemVisible(product)"
-                  v-for="product in products"
-                  :key="product.name"
-                  @click="selectStock(product.id)"
-                  class="dropdown-item"
-                >
-                  {{ product.name }} - {{ product.id }} -
-                  {{ itemVisible(product) }}
-                </li>
-              </ul>
-            </div>
-            <div class="selected-stock">
-              <h2>{{ selectedStock.name }}</h2>
-            </div>
-          </div>
-          <div class="packs-bulks">
-            <div class="form-control">
-              <div>
-                <label for="packs">Packs</label>
-                <input type="number" id="packs" v-model="packs" min="0" />
-              </div>
-              <div>
-                <label for="bulks">Bulks</label>
-                <input type="number" id="bulks" v-model="bulks" min="0" />
-              </div>
-            </div>
-          </div>
-          <div class="buttons">
-            <base-button mode="blue-bg">Add To List</base-button>
-          </div>
-        </form>
+    <h2>Add Stock</h2>
+    <form>
+      <div class="search-container">
+        <div class="search-input">
+          <label for="name-search">Search By Name or Code</label>
+          <input
+            type="input"
+            name="name-search"
+            id="name-search"
+            v-model.trim="searchName"
+            autocomplete="off"
+          />
+          <ul v-show="searchName" class="dropdown-list">
+            <li
+              v-show="itemVisible(product)"
+              v-for="product in products"
+              :key="product.name"
+              @click="selectStock(product.id)"
+              class="dropdown-item"
+            >
+              {{ product.name }} - {{ product.id }} -
+              {{ itemVisible(product) }}
+            </li>
+          </ul>
+        </div>
       </div>
-    </base-card>
+      <div class="stock">
+        <div class="selected-stock">
+          <h4>{{ selectedStock.name }}</h4>
+        </div>
+        <div class="packs-bulks">
+          <div class="form-control">
+            <div>
+              <label for="packs">Packs</label>
+              <input type="number" id="packs" v-model="packs" min="0" />
+            </div>
+            <div>
+              <label for="bulks">Bulks</label>
+              <input type="number" id="bulks" v-model="bulks" min="0" />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="assigned-jobs" v-for="job in assignedJobs" :key="job">
+        {{ job.petNr }} {{ job.jobBulks }} Bulks - {{ job.jobPacks }} Packs
+      </div>
+      <assign-to-job></assign-to-job>
+
+      <div class="buttons">
+        <base-button mode="blue-bg" @click.prevent="addToList"
+          >Add To List</base-button
+        >
+      </div>
+    </form>
   </div>
 </template>
 
 <script>
+import AssignToJob from '../cuttinglist/AssignToJob.vue';
+
 export default {
+  components: { AssignToJob },
   data() {
     return {
       products: null,
@@ -62,7 +70,7 @@ export default {
       searchCode: '',
       searchName: '',
       selectedStock: '',
-      mto: [],
+      assignedJobs: [{ petNr: 'PET64321', jobBulks: 2, jobPacks: 1 }],
     };
   },
   // computed: {
@@ -104,56 +112,40 @@ export default {
   border: 0.1px dotted red;
 } */
 .container {
+  background-color: var(--very-light-gray);
   display: flex;
   width: auto;
+  padding: 1rem;
+  margin: 1rem;
+}
+
+h2 {
+  text-align: left;
+  margin-bottom: 1rem;
 }
 
 .container > div {
   flex: 1;
 }
 
-ul li {
-  list-style: none;
-  text-align: left;
-  cursor: pointer;
+.form-control {
+  display: flex;
 }
 
-ul li:hover {
-  background-color: var(--very-light-blue);
+.stock {
+  display: flex;
+  /* flex-direction: column; */
+  width: auto;
+  /* flex-wrap: wrap; */
 }
 
 #packs,
 #bulks {
   text-align: left;
-  font-size: 50px;
-  width: 200px;
-  height: 70px;
-  margin-right: 3rem;
-}
-
-.packs-bulks {
-  margin-top: 1rem;
-}
-
-.form-control {
-  display: flex;
-}
-
-.search-container {
-  display: flex;
-  flex-direction: column;
-  width: auto;
-  flex-wrap: wrap;
-  position: relative;
-}
-
-.search-input {
-  flex: 1;
+  font-size: 1.5rem;
+  width: 50px;
+  height: 40px;
   margin-right: 1rem;
-}
-
-.selected-stock {
-  height: 2rem;
 }
 
 label {
@@ -169,7 +161,7 @@ input {
   border-top: none;
   border-right: none;
   border-left: none;
-  font-size: 30px;
+  font-size: 20px;
   font-weight: medium;
   padding: 0.5px;
 }
@@ -188,24 +180,32 @@ input:focus {
   /* flex-direction: column; */
   align-items: center;
   justify-content: left;
-  margin-top: 30px;
+  margin-top: 5px;
 }
 
 .selected-stock {
-  display: block;
+  flex-basis: 75%;
   text-align: left;
   background-color: var(--very-light-blue);
   padding: 1rem;
   margin-top: 1rem;
   margin-bottom: 1rem;
-  height: 2.1rem;
+  margin-right: 1rem;
+  height: 1.3rem;
+}
+
+.assigned-jobs {
+  text-align: left;
+}
+
+.jobs-input {
+  display: flex;
 }
 
 .dropdown-list {
   position: absolute;
   width: auto;
   max-height: 500px;
-
   overflow-y: auto;
   background: #ffffff;
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),

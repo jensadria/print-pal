@@ -1,6 +1,9 @@
 <template>
   <li>
     <div class="product-item">
+      <div class="due">
+        <h3>24/2</h3>
+      </div>
       <div class="amount">
         <h3>{{ sheetsTotal }} x {{ product.name }}</h3>
         <h4>
@@ -16,12 +19,7 @@
           {{ product.bulkQty }}
         </h4>
       </div>
-      <div class="jobs">
-        <h4 v-for="job in product.assignedJobs" :key="job.petNr">
-          {{ job.petNr }} - {{ job.jobBulks }} x Bulks - {{ job.jobPacks }} x
-          Packs
-        </h4>
-      </div>
+
       <div class="buttons">
         <i class="fas fa-edit edit"></i>
         <i
@@ -77,19 +75,17 @@ li:hover {
   width: 100%;
 }
 
+.due {
+  flex: 1;
+}
+
 .amount {
   text-align: left;
-  flex: 2;
+  flex: 5;
 }
 .packing {
   text-align: left;
-  flex: 1;
-  border-left: 1px solid #000;
-  padding-left: 1rem;
-}
-.jobs {
-  text-align: left;
-  flex: 1;
+  flex: 3;
   border-left: 1px solid #000;
   padding-left: 1rem;
 }

@@ -44,8 +44,6 @@ export default {
   data() {
     return {
       products: null,
-      packs: 0,
-      bulks: 0,
       searchCode: '',
       searchName: '',
       selectedStock: '',
@@ -68,9 +66,6 @@ export default {
     addToList() {
       const listItem = {
         id: this.selectedStock.id,
-        packs: this.packs,
-        bulks: this.bulks,
-        assignedJobs: this.assignedJobs,
       };
       this.$store.dispatch('addToList', listItem);
 

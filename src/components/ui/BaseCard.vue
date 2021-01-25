@@ -14,5 +14,6 @@ export default {};
   padding: 1rem;
   margin: 1rem;
   width: auto;
+  border-radius: 10px;
 }
 </style>

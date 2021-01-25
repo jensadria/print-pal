@@ -1,6 +1,9 @@
 <template>
   <li>
     <div class="product-item">
+      <div class="due">
+        <h3>24/2</h3>
+      </div>
       <div class="amount">
         <h3>{{ sheetsTotal }} x {{ product.name }}</h3>
         <h4>
@@ -8,22 +11,21 @@
           out )
         </h4>
       </div>
-      <div class="packing">
-        <h4>
-          {{ product.packs }} {{ product.packs > 1 ? 'Packs' : 'Pack' }} of
-          {{ product.packQty }} <br />
-          {{ product.bulks }} {{ product.bulks > 1 ? 'Bulks' : 'Bulk' }} of
-          {{ product.bulkQty }}
-        </h4>
-      </div>
-      <div class="jobs">
-        <h4 v-for="job in product.assignedJobs" :key="job.petNr">
-          {{ job.petNr }} - {{ job.jobBulks }} x Bulks - {{ job.jobPacks }} x
-          Packs
-        </h4>
+      <div class="orders">
+        <div>
+          <button @click="showAddEditOrderModal = true">
+            Add Order
+          </button>
+        </div>
+        <add-edit-order-modal
+          :show="showAddEditOrderModal"
+          @close="showAddEditOrderModal = false"
+          :id="product.id"
+          :bulkQty="product.bulkQty"
+          :packQty="product.packQty"
+        ></add-edit-order-modal>
       </div>
       <div class="buttons">
-        <i class="fas fa-edit edit"></i>
         <i
           class="fas fa-minus-circle delete"
           @click="deleteItem(index - 1)"
@@ -34,8 +36,19 @@
 </template>
 
 <script>
+import AddEditOrderModal from '../cuttinglist/AddEditOrderModal.vue';
+
 export default {
+  components: { AddEditOrderModal },
+
   props: ['product', 'index'],
+  data() {
+    return {
+      showAddEditOrderModal: false,
+      orderAdded: false,
+      orders: [],
+    };
+  },
   computed: {
     flatSheetsRequired() {
       const { packs, bulks, packQty, bulkQty, noOutFlatSheet } = this.product;
@@ -50,6 +63,9 @@ export default {
     },
   },
   methods: {
+    addOrder() {
+      this.orderAdded = true;
+    },
     deleteItem(index) {
       this.$store.dispatch('deleteItem', index);
     },
@@ -77,24 +93,36 @@ li:hover {
   width: 100%;
 }
 
+.due {
+  flex: 1;
+}
+
 .amount {
   text-align: left;
-  flex: 2;
+  flex: 5;
 }
-.packing {
+
+.orders {
+  flex: 3;
+}
+
+.orders-input {
   text-align: left;
-  flex: 1;
   border-left: 1px solid #000;
   padding-left: 1rem;
+  display: flex;
 }
-.jobs {
-  text-align: left;
-  flex: 1;
-  border-left: 1px solid #000;
-  padding-left: 1rem;
+
+.orders-input input:first-child {
+  flex: 4;
+}
+
+.orders-input input:not(:first-child) {
+  width: 50px;
 }
 
 .buttons {
+  flex: 1;
   display: flex;
   flex-direction: column;
 }

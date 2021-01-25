@@ -30,28 +30,7 @@
         <div class="selected-stock">
           <h4>{{ selectedStock.name }}</h4>
         </div>
-        <div class="packs-bulks">
-          <div class="form-control">
-            <div>
-              <label for="packs">Packs</label>
-              <input type="number" id="packs" v-model="packs" min="0" />
-            </div>
-            <div>
-              <label for="bulks">Bulks</label>
-              <input type="number" id="bulks" v-model="bulks" min="0" />
-            </div>
-          </div>
-        </div>
-      </div>
 
-      <assigned-job
-        v-for="job in assignedJobs"
-        :key="job"
-        :job="job"
-      ></assigned-job>
-      <assign-to-job @assign-to-job="addAssignedJob"></assign-to-job>
-
-      <div class="buttons">
         <base-button mode="blue-bg" @click.prevent="addToList"
           >Add To List</base-button
         >
@@ -61,20 +40,13 @@
 </template>
 
 <script>
-import AssignToJob from '../cuttinglist/AssignToJob.vue';
-import AssignedJob from '../cuttinglist/AssignedJob.vue';
-
 export default {
-  components: { AssignToJob, AssignedJob },
   data() {
     return {
       products: null,
-      packs: 0,
-      bulks: 0,
       searchCode: '',
       searchName: '',
       selectedStock: '',
-      assignedJobs: [],
     };
   },
   // computed: {
@@ -94,22 +66,19 @@ export default {
     addToList() {
       const listItem = {
         id: this.selectedStock.id,
-        packs: this.packs,
-        bulks: this.bulks,
-        assignedJobs: this.assignedJobs,
       };
       this.$store.dispatch('addToList', listItem);
 
-      (this.selectedStock = ''), (this.assignedJobs = []);
+      this.selectedStock = '';
     },
     itemVisible(product) {
       let currentProduct = product.name.toLowerCase();
       let currentInput = this.searchName.toLowerCase();
       return currentProduct.includes(currentInput);
     },
-    addAssignedJob(job) {
-      this.assignedJobs.push(job);
-    },
+    // addAssignedJob(job) {
+    //   this.assignedJobs.push(job);
+    // },
   },
   mounted() {
     this.products = this.$store.getters.getProducts;
@@ -127,6 +96,7 @@ export default {
   width: auto;
   padding: 1rem;
   margin: 1rem;
+  border-radius: 10px;
 }
 
 h2 {
@@ -144,18 +114,7 @@ h2 {
 
 .stock {
   display: flex;
-  /* flex-direction: column; */
-  width: auto;
-  /* flex-wrap: wrap; */
-}
-
-#packs,
-#bulks {
-  text-align: left;
-  font-size: 1.5rem;
-  width: 50px;
-  height: 40px;
-  margin-right: 1rem;
+  align-items: center;
 }
 
 label {
@@ -185,14 +144,6 @@ input:focus {
   outline: none;
 }
 
-.buttons {
-  display: flex;
-  /* flex-direction: column; */
-  align-items: center;
-  justify-content: left;
-  margin-top: 5px;
-}
-
 .selected-stock {
   flex-basis: 75%;
   text-align: left;
@@ -201,7 +152,7 @@ input:focus {
   margin-top: 1rem;
   margin-bottom: 1rem;
   margin-right: 1rem;
-  height: 1.3rem;
+  height: 1rem;
 }
 
 .jobs-input {

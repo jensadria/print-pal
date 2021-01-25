@@ -6,9 +6,8 @@ export default {
 
     const addedStock = {
       ...selectedStock,
-      packs: payload.packs,
-      bulks: payload.bulks,
-      assignedJobs: payload.assignedJobs,
+      packs: 0,
+      bulks: 0,
     };
 
     context.commit('addToList', addedStock);

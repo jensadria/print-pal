@@ -1,6 +1,6 @@
 <template>
   <teleport to="body">
-    <div v-if="show" @click="tryClose" class="backdrop"></div>
+    <div v-if="show" @click="exitOrder" class="backdrop"></div>
     <transition name="dialog">
       <dialog open v-if="show">
         <header>
@@ -10,7 +10,11 @@
           <div class="orders-input">
             <div>
               <label for="due-date">Due Date </label>
-              <input type="date" />
+              <input type="date" v-model="dueDate" />
+            </div>
+            <div>
+              <label for="due-time">Due Time </label>
+              <input type="time" v-model="dueTime" />
             </div>
             <div>
               <label for="pet-number">PET Number</label>
@@ -20,13 +24,13 @@
               <label for="packs">Packs</label>
               <input type="number" id="packs" v-model="packs" />
             </div>
+            <div>
+              <label for="bulks">Bulks</label>
+              <input type="number" id="bulks" v-model="bulks" />
+            </div>
           </div>
         </section>
-        <menu v-if="!saved">
-          <slot name="actions">
-            <base-button @click="saveOrder">Save</base-button>
-          </slot>
-        </menu>
+        <base-button @click="saveOrder">Save</base-button>
       </dialog>
     </transition>
   </teleport>
@@ -34,25 +38,39 @@
 
 <script>
 export default {
+  data() {
+    return {
+      dueDate: null,
+      dueTime: null,
+      petNumber: '',
+      packs: 0,
+      bulks: 0,
+    };
+  },
   props: {
     show: {
       type: Boolean,
       required: true,
     },
-    saved: {
-      type: Boolean,
-      required: false,
-      default: false,
-    },
-    bulkQty: Number,
-    packQty: Number,
+    id: String,
   },
-  emits: ['close'],
+  emits: ['close', 'save'],
   methods: {
     saveOrder() {
-      if (this.saved) {
-        return;
-      }
+      const id = this.id;
+      const savedOrder = {
+        dueDate: this.dueDate,
+        dueTime: this.dueTime,
+        petNumber: this.petNumber,
+        packs: this.packs,
+        bulks: this.bulks,
+      };
+
+      this.$store.dispatch('addOrder', { id, savedOrder });
+
+      this.$emit('close');
+    },
+    exitOrder() {
       this.$emit('close');
     },
   },
@@ -103,6 +121,10 @@ section {
 .orders-input {
   display: flex;
   flex-direction: column;
+}
+
+label {
+  width: 200px;
 }
 
 menu {

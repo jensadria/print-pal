@@ -8,7 +8,7 @@
           v-for="product in currentCuttingList"
           :key="product"
           :product="product"
-          :index="currentCuttingList.indexOf(product) + 1"
+          :index="currentCuttingList.indexOf(product)"
         >
         </current-list-item>
       </ul>

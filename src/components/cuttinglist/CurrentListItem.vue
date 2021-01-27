@@ -12,18 +12,22 @@
         </h4>
       </div>
       <div class="orders">
-        <div>
-          <button @click="showAddEditOrderModal = true">
-            Add Order
-          </button>
-        </div>
         <add-edit-order-modal
           :show="showAddEditOrderModal"
           @close="showAddEditOrderModal = false"
           :id="product.id"
-          :bulkQty="product.bulkQty"
-          :packQty="product.packQty"
         ></add-edit-order-modal>
+        <div v-if="orderAdded">
+          <div v-for="order in orders" :key="order">
+            {{ order.petNumber }} {{ order.packs }} {{ order.bulks }}
+            {{ order.dueDate }} {{ order.dueTime }}
+          </div>
+        </div>
+        <div class="add-order">
+          <button @click="showAddEditOrderModal = true">
+            Add Order
+          </button>
+        </div>
       </div>
       <div class="buttons">
         <i
@@ -63,9 +67,6 @@ export default {
     },
   },
   methods: {
-    addOrder() {
-      this.orderAdded = true;
-    },
     deleteItem(index) {
       this.$store.dispatch('deleteItem', index);
     },
@@ -119,6 +120,10 @@ li:hover {
 
 .orders-input input:not(:first-child) {
   width: 50px;
+}
+
+.add-order {
+  text-align: left;
 }
 
 .buttons {

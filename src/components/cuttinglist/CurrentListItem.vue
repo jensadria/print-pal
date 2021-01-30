@@ -10,6 +10,8 @@
           {{ flatSheetsRequired }} Flat Sheets ( {{ product.noOutFlatSheet }}
           out )
         </h4>
+        <h4>{{ packs }} Packs Total</h4>
+        <h4>{{ bulks }} Bulks Total</h4>
       </div>
       <div class="orders">
         <add-edit-order-modal
@@ -20,7 +22,7 @@
         <div>
           <div v-for="order in product.orders" :key="order">
             {{ order.petNumber }} {{ order.packs }} {{ order.bulks }}
-            {{ order.dueDate }} {{ order.dueTime }}
+            {{ formatDate(order.dueDate) }} {{ order.dueTime }}
           </div>
         </div>
         <div class="add-order">
@@ -53,21 +55,18 @@ export default {
     orders() {
       return this.product.orders;
     },
-    flatSheetsRequired() {
-      const packs = this.product.orders.reduce(
-        (acc, order) => acc + order.packs,
-        0
-      );
-      const bulks = this.product.orders.reduce(
-        (acc, order) => acc + order.bulks,
-        0
-      );
-      console.log(packs, bulks);
+    packs() {
+      return this.product.orders.reduce((acc, order) => acc + order.packs, 0);
+    },
+    bulks() {
+      return this.product.orders.reduce((acc, order) => acc + order.bulks, 0);
+    },
 
+    flatSheetsRequired() {
       const { packQty, bulkQty, noOutFlatSheet } = this.product;
 
-      const sheetsFromPacks = (packs * packQty) / noOutFlatSheet;
-      const sheetsFromBulks = (bulks * bulkQty) / noOutFlatSheet;
+      const sheetsFromPacks = (this.packs * packQty) / noOutFlatSheet;
+      const sheetsFromBulks = (this.bulks * bulkQty) / noOutFlatSheet;
 
       return Math.ceil(sheetsFromPacks + sheetsFromBulks);
     },
@@ -78,6 +77,12 @@ export default {
   methods: {
     deleteItem(index) {
       this.$store.dispatch('deleteItem', index);
+    },
+    formatDate(str) {
+      const arr = str.split('-');
+
+      const date = `${arr[2]} ${arr[1]}`;
+      return date;
     },
   },
 };

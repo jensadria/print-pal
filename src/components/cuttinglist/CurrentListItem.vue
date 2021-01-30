@@ -17,8 +17,8 @@
           @close="showAddEditOrderModal = false"
           :id="product.id"
         ></add-edit-order-modal>
-        <div v-if="orderAdded">
-          <div v-for="order in orders" :key="order">
+        <div>
+          <div v-for="order in product.orders" :key="order">
             {{ order.petNumber }} {{ order.packs }} {{ order.bulks }}
             {{ order.dueDate }} {{ order.dueTime }}
           </div>
@@ -30,10 +30,7 @@
         </div>
       </div>
       <div class="buttons">
-        <i
-          class="fas fa-minus-circle delete"
-          @click="deleteItem(index - 1)"
-        ></i>
+        <i class="fas fa-minus-circle delete" @click="deleteItem(index)"></i>
       </div>
     </div>
   </li>
@@ -49,13 +46,25 @@ export default {
   data() {
     return {
       showAddEditOrderModal: false,
-      orderAdded: false,
-      orders: [],
+      //   orders: [],
     };
   },
   computed: {
+    orders() {
+      return this.product.orders;
+    },
     flatSheetsRequired() {
-      const { packs, bulks, packQty, bulkQty, noOutFlatSheet } = this.product;
+      const packs = this.product.orders.reduce(
+        (acc, order) => acc + order.packs,
+        0
+      );
+      const bulks = this.product.orders.reduce(
+        (acc, order) => acc + order.bulks,
+        0
+      );
+      console.log(packs, bulks);
+
+      const { packQty, bulkQty, noOutFlatSheet } = this.product;
 
       const sheetsFromPacks = (packs * packQty) / noOutFlatSheet;
       const sheetsFromBulks = (bulks * bulkQty) / noOutFlatSheet;

@@ -6,7 +6,9 @@ export default {
 
     const addedStock = {
       ...selectedStock,
-      orders: ['test'],
+      packs: 0,
+      bulks: 0,
+      orders: [],
     };
 
     context.commit('addToList', addedStock);
@@ -15,7 +17,6 @@ export default {
     const index = context.state.currentCuttingList.findIndex(
       (stock) => stock.id === id
     );
-
     context.commit('addOrder', { index, savedOrder });
   },
   deleteItem(context, payload) {

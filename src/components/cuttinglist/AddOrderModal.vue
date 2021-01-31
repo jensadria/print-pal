@@ -9,7 +9,7 @@
         <section>
           <div class="orders-input">
             <div>
-              <label for="due-date">Due Date </label>
+              <label for="due-date">Due Date</label>
               <input type="date" v-model="dueDate.val" />
             </div>
             <div>
@@ -18,7 +18,12 @@
             </div>
             <div>
               <label for="pet-number">PET Number</label>
-              <input type="text" id="pet-number" v-model="petNumber.val" />
+              <input
+                type="text"
+                id="pet-number"
+                v-model="petNumber.val"
+                @blur="petNumber.isValid"
+              />
             </div>
             <p v-if="!petNumber.isValid">Please assign an order</p>
             <div>
@@ -28,6 +33,7 @@
                 id="packs"
                 v-model.number="packs.val"
                 min="0"
+                @blur="packs.isValid"
               />
             </div>
             <div>
@@ -37,6 +43,7 @@
                 id="bulks"
                 v-model.number="bulks.val"
                 min="0"
+                @blur="packs.isValid"
               />
             </div>
             <p v-if="!packs.isValid">Please assign at least one pack or bulk</p>

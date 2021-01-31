@@ -14,19 +14,32 @@
         <h4>{{ bulks }} Bulks Total</h4>
       </div>
       <div class="orders">
-        <add-edit-order-modal
-          :show="showAddEditOrderModal"
-          @close="showAddEditOrderModal = false"
+        <add-order-modal
+          :show="showAddOrderModal"
+          @close="showAddOrderModal = false"
           :id="product.id"
-        ></add-edit-order-modal>
+        ></add-order-modal>
+        <edit-order-modal
+          :show="showEditOrderModal"
+          @close="showEditOrderModal = false"
+          :product="product"
+        ></edit-order-modal>
         <div>
-          <div v-for="order in product.orders" :key="order">
-            {{ order.petNumber }} {{ order.packs }} {{ order.bulks }}
-            {{ formatDate(order.dueDate) }} {{ order.dueTime }}
+          <div class="order" v-for="order in product.orders" :key="order">
+            <h4>{{ order.petNumber }}</h4>
+            <div>
+              {{ order.dueDate ? 'Due' : '' }} {{ order.dueDate }}
+              {{ order.dueTime }}
+            </div>
+            <div>{{ order.packs }} Packs</div>
+            <div>{{ order.bulks }} Bulks</div>
+            <div>
+              <button @click="showEditOrderModal = true">Edit</button>
+            </div>
           </div>
         </div>
         <div class="add-order">
-          <button @click="showAddEditOrderModal = true">
+          <button @click="showAddOrderModal = true">
             Add Order
           </button>
         </div>
@@ -39,16 +52,17 @@
 </template>
 
 <script>
-import AddEditOrderModal from '../cuttinglist/AddEditOrderModal.vue';
+import AddOrderModal from '../cuttinglist/AddOrderModal.vue';
+import EditOrderModal from '../cuttinglist/EditOrderModal.vue';
 
 export default {
-  components: { AddEditOrderModal },
+  components: { AddOrderModal, EditOrderModal },
 
   props: ['product', 'index'],
   data() {
     return {
-      showAddEditOrderModal: false,
-      //   orders: [],
+      showAddOrderModal: false,
+      showEditOrderModal: false,
     };
   },
   computed: {
@@ -78,17 +92,21 @@ export default {
     deleteItem(index) {
       this.$store.dispatch('deleteItem', index);
     },
-    formatDate(str) {
-      const arr = str.split('-');
 
-      const date = `${arr[2]} ${arr[1]}`;
-      return date;
-    },
+    // formatDate(str) {
+    //   const arr = str.split('-');
+
+    //   const date = `${arr[2]} ${arr[1]}`;
+    //   return date;
+    // },
   },
 };
 </script>
 
 <style scoped>
+/* * {
+  border: 0.1px dotted red;
+} */
 li {
   list-style: none;
   display: flex;
@@ -140,10 +158,21 @@ li:hover {
   text-align: left;
 }
 
+.order {
+  display: grid;
+  grid-template-rows: repeat(2, 1fr);
+  grid-template-columns: 50% 40% 10%;
+  /* grid-template-rows: auto; */
+  grid-auto-flow: column;
+  text-align: left;
+  border-bottom: 1px solid;
+  /* grid-template-areas */
+}
+
 .buttons {
   flex: 1;
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  place-items: center;
 }
 
 .edit {

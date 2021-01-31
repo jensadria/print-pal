@@ -47,6 +47,7 @@ export default {
       searchCode: '',
       searchName: '',
       selectedStock: '',
+      productSelected: true,
     };
   },
   // computed: {

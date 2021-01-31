@@ -4,7 +4,7 @@
     <transition name="dialog">
       <dialog open v-if="show">
         <header>
-          <h2>Add Order</h2>
+          <h2>Edit Order</h2>
         </header>
         <section>
           <div class="orders-input">
@@ -49,7 +49,7 @@
             <p v-if="!packs.isValid">Please assign at least one pack or bulk</p>
           </div>
         </section>
-        <base-button @click="saveOrder">Save</base-button>
+        <base-button @click="editOrder">Save</base-button>
       </dialog>
     </transition>
   </teleport>
@@ -59,11 +59,11 @@
 export default {
   data() {
     return {
-      dueDate: { val: this.product.dueDate, isValid: true },
-      dueTime: { val: this.product.dueTime, isValid: true },
-      petNumber: { val: this.product.petNumber, isValid: true },
-      packs: { val: this.product.packs, isValid: true },
-      bulks: { val: this.product.bulks, isValid: true },
+      dueDate: { val: this.order.dueDate, isValid: true },
+      dueTime: { val: this.order.dueTime, isValid: true },
+      petNumber: { val: this.order.petNumber, isValid: true },
+      packs: { val: this.order.packs, isValid: true },
+      bulks: { val: this.order.bulks, isValid: true },
       formIsValid: true,
     };
   },
@@ -72,19 +72,21 @@ export default {
       type: Boolean,
       required: true,
     },
-    product: Object,
+    order: Object,
+    index: Number,
+    id: String,
   },
   emits: ['close', 'save'],
   methods: {
-    saveOrder() {
+    editOrder() {
       this.validateForm();
 
       if (!this.formIsValid) {
         return;
       }
 
-      const id = this.id;
-      const savedOrder = {
+      const index = this.index;
+      const editedOrder = {
         dueDate: this.dueDate.val,
         dueTime: this.dueTime.val,
         petNumber: this.petNumber.val,
@@ -92,7 +94,7 @@ export default {
         bulks: this.bulks.val,
       };
 
-      this.$store.dispatch('addOrder', { id, savedOrder });
+      this.$store.dispatch('editOrder', { index, editedOrder });
 
       this.$emit('close');
     },

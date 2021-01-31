@@ -19,13 +19,13 @@
           @close="showAddOrderModal = false"
           :id="product.id"
         ></add-order-modal>
-        <edit-order-modal
-          :show="showEditOrderModal"
-          @close="showEditOrderModal = false"
-          :product="product"
-        ></edit-order-modal>
+
         <div>
-          <div class="order" v-for="order in product.orders" :key="order">
+          <div
+            class="order"
+            v-for="(order, index) in product.orders"
+            :key="order"
+          >
             <h4>{{ order.petNumber }}</h4>
             <div>
               {{ order.dueDate ? 'Due' : '' }} {{ order.dueDate }}
@@ -33,9 +33,17 @@
             </div>
             <div>{{ order.packs }} Packs</div>
             <div>{{ order.bulks }} Bulks</div>
-            <div>
-              <button @click="showEditOrderModal = true">Edit</button>
-            </div>
+            <edit-order-modal
+              :show="showEditOrderModal"
+              @close="showEditOrderModal = false"
+              :id="product.id"
+              :order="order"
+              :index="index"
+            ></edit-order-modal>
+            <button @click="showEditOrderModal = true">
+              Edit
+            </button>
+            <div></div>
           </div>
         </div>
         <div class="add-order">

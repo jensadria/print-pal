@@ -5,10 +5,10 @@
 
       <ul>
         <current-list-item
-          v-for="product in currentCuttingList"
+          v-for="(product, productIndex) in currentCuttingList"
           :key="product"
           :product="product"
-          :index="currentCuttingList.indexOf(product)"
+          :productIndex="productIndex"
         >
         </current-list-item>
       </ul>

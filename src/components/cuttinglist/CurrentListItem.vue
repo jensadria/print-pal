@@ -23,7 +23,7 @@
         <div>
           <div
             class="order"
-            v-for="(order, index) in product.orders"
+            v-for="(order, orderIndex) in product.orders"
             :key="order"
           >
             <h4>{{ order.petNumber }}</h4>
@@ -38,7 +38,8 @@
               @close="showEditOrderModal = false"
               :id="product.id"
               :order="order"
-              :index="index"
+              :orderIndex="orderIndex"
+              :productIndex="productIndex"
             ></edit-order-modal>
             <button @click="showEditOrderModal = true">
               Edit
@@ -66,7 +67,7 @@ import EditOrderModal from '../cuttinglist/EditOrderModal.vue';
 export default {
   components: { AddOrderModal, EditOrderModal },
 
-  props: ['product', 'index'],
+  props: ['product', 'productIndex'],
   data() {
     return {
       showAddOrderModal: false,

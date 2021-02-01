@@ -20,7 +20,6 @@
               <label for="pet-number">PET Number</label>
               <input
                 type="text"
-                id="pet-number"
                 v-model="petNumber.val"
                 @blur="petNumber.isValid"
               />
@@ -73,8 +72,9 @@ export default {
       required: true,
     },
     order: Object,
-    index: Number,
+    productIndex: Number,
     id: String,
+    orderIndex: Number,
   },
   emits: ['close', 'save'],
   methods: {
@@ -85,7 +85,10 @@ export default {
         return;
       }
 
-      const index = this.index;
+      const productIndex = this.productIndex;
+
+      const orderIndex = this.orderIndex;
+
       const editedOrder = {
         dueDate: this.dueDate.val,
         dueTime: this.dueTime.val,
@@ -94,7 +97,11 @@ export default {
         bulks: this.bulks.val,
       };
 
-      this.$store.dispatch('editOrder', { index, editedOrder });
+      this.$store.dispatch('editOrder', {
+        productIndex,
+        orderIndex,
+        editedOrder,
+      });
 
       this.$emit('close');
     },

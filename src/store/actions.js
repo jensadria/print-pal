@@ -13,6 +13,13 @@ export default {
 
     context.commit('addToList', addedStock);
   },
+  editOrder(context, { productIndex, orderIndex, editedOrder }) {
+    context.commit('editOrder', {
+      productIndex,
+      orderIndex,
+      editedOrder,
+    });
+  },
   addOrder(context, { id, savedOrder }) {
     const index = context.state.currentCuttingList.findIndex(
       (stock) => stock.id === id

@@ -21,31 +21,14 @@
         ></add-order-modal>
 
         <div>
-          <div
+          <paper-order
             class="order"
-            v-for="(order, orderIndex) in product.orders"
+            v-for="(order, orderIndex) in orders"
             :key="order"
-          >
-            <h4>{{ order.petNumber }}</h4>
-            <div>
-              {{ order.dueDate ? 'Due' : '' }} {{ order.dueDate }}
-              {{ order.dueTime }}
-            </div>
-            <div>{{ order.packs }} Packs</div>
-            <div>{{ order.bulks }} Bulks</div>
-            <edit-order-modal
-              :show="showEditOrderModal"
-              @close="showEditOrderModal = false"
-              :id="product.id"
-              :order="order"
-              :orderIndex="orderIndex"
-              :productIndex="productIndex"
-            ></edit-order-modal>
-            <button @click="showEditOrderModal = true">
-              Edit
-            </button>
-            <div></div>
-          </div>
+            :order="order"
+            :orderIndex="orderIndex"
+            :productIndex="productIndex"
+          ></paper-order>
         </div>
         <div class="add-order">
           <button @click="showAddOrderModal = true">
@@ -62,16 +45,15 @@
 
 <script>
 import AddOrderModal from '../cuttinglist/AddOrderModal.vue';
-import EditOrderModal from '../cuttinglist/EditOrderModal.vue';
+import PaperOrder from '../cuttinglist/PaperOrder.vue';
 
 export default {
-  components: { AddOrderModal, EditOrderModal },
+  components: { AddOrderModal, PaperOrder },
 
   props: ['product', 'productIndex'],
   data() {
     return {
       showAddOrderModal: false,
-      showEditOrderModal: false,
     };
   },
   computed: {
@@ -126,10 +108,6 @@ li:nth-child(odd) {
   background-color: lightgray;
 }
 
-li:hover {
-  background-color: var(--very-light-blue);
-}
-
 .product-item {
   display: flex;
   width: 100%;
@@ -141,11 +119,17 @@ li:hover {
 
 .amount {
   text-align: left;
-  flex: 5;
+  flex: 8;
 }
 
 .orders {
   flex: 3;
+}
+
+.buttons {
+  flex: 1;
+  display: grid;
+  place-items: top;
 }
 
 .orders-input {
@@ -174,14 +158,9 @@ li:hover {
   /* grid-template-rows: auto; */
   grid-auto-flow: column;
   text-align: left;
-  border-bottom: 1px solid;
-  /* grid-template-areas */
-}
-
-.buttons {
-  flex: 1;
-  display: grid;
-  place-items: center;
+  padding: 5px;
+  margin-bottom: 8px;
+  background-color: var(--very-light-blue);
 }
 
 .edit {

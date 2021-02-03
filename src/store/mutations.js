@@ -6,13 +6,13 @@ export default {
   addOrder(state, { index, savedOrder }) {
     state.currentCuttingList[index].orders.push(savedOrder);
   },
-  editOrder(state, { productIndex, orderIndex, editedOrder }) {
-    console.log(productIndex, orderIndex, editedOrder);
+  //   editOrder(state, { productIndex, orderIndex, editedOrder }) {
+  //     console.log(productIndex, orderIndex, editedOrder);
 
-    // state.currentCuttingList[selectedStockIndex].orders[
-    //   orderIndex
-    // ] = editedOrder;
-  },
+  // state.currentCuttingList[selectedStockIndex].orders[
+  //   orderIndex
+  // ] = editedOrder;
+  //   },
 
   deleteItem(state, index) {
     state.currentCuttingList.slice(index, 1);

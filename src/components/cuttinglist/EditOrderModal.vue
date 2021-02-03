@@ -6,6 +6,7 @@
         <header>
           <h2>Edit Order</h2>
         </header>
+        {{ getCurrentOrder }}
         <section>
           <div class="orders-input">
             <div>
@@ -58,11 +59,26 @@
 export default {
   data() {
     return {
-      dueDate: { val: this.order.dueDate, isValid: true },
-      dueTime: { val: this.order.dueTime, isValid: true },
-      petNumber: { val: this.order.petNumber, isValid: true },
-      packs: { val: this.order.packs, isValid: true },
-      bulks: { val: this.order.bulks, isValid: true },
+      dueDate: {
+        val: this.getCurrentOrder?.dueDate,
+        isValid: true,
+      },
+      dueTime: {
+        val: this.getCurrentOrder?.dueTime,
+        isValid: true,
+      },
+      petNumber: {
+        val: this.getCurrentOrder?.petNumber,
+        isValid: true,
+      },
+      packs: {
+        val: this.getCurrentOrder?.packs,
+        isValid: true,
+      },
+      bulks: {
+        val: this.getCurrentOrder?.bulks,
+        isValid: true,
+      },
       formIsValid: true,
     };
   },
@@ -71,14 +87,15 @@ export default {
       type: Boolean,
       required: true,
     },
-    order: Object,
     productIndex: Number,
-    id: String,
     orderIndex: Number,
   },
   emits: ['close', 'save'],
   methods: {
     editOrder() {
+      console.log(this.orderIndex, this.productIndex);
+      console.log(this.getCurrentOrder);
+
       this.validateForm();
 
       if (!this.formIsValid) {
@@ -90,11 +107,11 @@ export default {
       const orderIndex = this.orderIndex;
 
       const editedOrder = {
-        dueDate: this.dueDate.val,
-        dueTime: this.dueTime.val,
-        petNumber: this.petNumber.val,
-        packs: this.packs.val,
-        bulks: this.bulks.val,
+        dueDate: this.dueDate,
+        dueTime: this.dueTime,
+        petNumber: this.petNumber,
+        packs: this.packs,
+        bulks: this.bulks,
       };
 
       this.$store.dispatch('editOrder', {
@@ -118,6 +135,13 @@ export default {
         this.packs.isValid = false;
         this.formIsValid = false;
       }
+    },
+  },
+  computed: {
+    getCurrentOrder() {
+      const currentList = this.$store.getters.getCurrentList;
+
+      return currentList[this.productIndex].orders[this.orderIndex];
     },
   },
 };

@@ -77,6 +77,11 @@ export default {
   emits: ['close', 'save'],
   methods: {
     saveOrder() {
+      //   this.clearValue(this.dueDate, null);
+      //   this.clearValue(this.dueTime, null);
+      //   this.clearValue(this.petNumber, '');
+      //   this.clearValue(this.packs, 0);
+      //   this.clearValue(this.bulks, 0);
       this.validateForm();
 
       if (!this.formIsValid) {
@@ -109,6 +114,9 @@ export default {
         this.packs.isValid = false;
         this.formIsValid = false;
       }
+    },
+    clearValue(property, value) {
+      this[property].val = value;
     },
   },
 };

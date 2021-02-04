@@ -10,8 +10,9 @@
           {{ flatSheetsRequired }} Flat Sheets ( {{ product.noOutFlatSheet }}
           out )
         </h4>
-        <h4>{{ packs }} Packs Total</h4>
-        <h4>{{ bulks }} Bulks Total</h4>
+        <h4>{{ packs }} Packs Total (of {{ product.packQty }})</h4>
+
+        <h4>{{ bulks }} Bulks Total (of {{ product.bulkQty }})</h4>
       </div>
       <div class="orders">
         <add-order-modal

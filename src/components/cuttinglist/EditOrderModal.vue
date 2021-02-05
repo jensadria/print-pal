@@ -31,8 +31,13 @@
       {{ bulkQty }}
       <p v-if="!packs.isValid">Please assign at least one pack or bulk</p>
     </template>
-    <base-button @click="editOrder">Save</base-button>
-    <base-button @click="deleteOrder">Remove Order</base-button>
+    <template #buttons class="buttons">
+      <div class="buttons">
+        <base-button @click="editOrder">Save</base-button>
+        <button class="remove-order" @click="deleteOrder"></button>
+        <i class="far fa-times-circle fa-3x"></i>
+      </div>
+    </template>
   </base-order-modal>
 </template>
 
@@ -124,4 +129,18 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.buttons {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.fa-times-circle {
+  color: rgb(231, 98, 98);
+  margin: 0.5rem;
+}
+.fa-times-circle:hover {
+  margin: 0.5rem;
+}
+</style>

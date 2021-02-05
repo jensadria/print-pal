@@ -33,9 +33,7 @@
           </div>
         </section>
 
-        <section>
-          <slot> </slot>
-        </section>
+        <slot name="buttons"></slot>
       </dialog>
     </transition>
   </teleport>
@@ -71,6 +69,9 @@ export default {
 </script>
 
 <style scoped>
+/* * {
+  border: 0.1px dotted red;
+} */
 .backdrop {
   position: fixed;
   top: 0;
@@ -142,7 +143,7 @@ menu {
   text-align: left;
 }
 
-.orders-input > div > label {
+label {
   width: 500px;
 }
 

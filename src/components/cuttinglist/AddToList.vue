@@ -28,7 +28,13 @@
       </div>
       <div class="stock">
         <div class="selected-stock">
-          <h4>{{ selectedStock.name }}</h4>
+          <h5
+            v-if="!productSelected"
+            :class="{ 'stock-not-chosen': addListError }"
+          >
+            Please Choose A Product From The Search Bar
+          </h5>
+          <h4 v-else>{{ selectedStock.name }}</h4>
         </div>
 
         <base-button mode="blue-bg" @click.prevent="addToList"
@@ -47,7 +53,8 @@ export default {
       searchCode: '',
       searchName: '',
       selectedStock: '',
-      productSelected: true,
+      productSelected: false,
+      addListError: false,
     };
   },
   // computed: {
@@ -63,8 +70,14 @@ export default {
     selectStock(id) {
       this.selectedStock = this.products.find((stock) => stock.id === id);
       this.searchName = '';
+      this.productSelected = true;
     },
     addToList() {
+      if (!this.productSelected) {
+        this.addListError = true;
+        return;
+      }
+
       const listItem = {
         id: this.selectedStock.id,
       };
@@ -77,6 +90,7 @@ export default {
       let currentInput = this.searchName.toLowerCase();
       return currentProduct.includes(currentInput);
     },
+
     // addAssignedJob(job) {
     //   this.assignedJobs.push(job);
     // },
@@ -134,6 +148,7 @@ input {
   font-size: 20px;
   font-weight: medium;
   padding: 0.5px;
+  width: 50%;
 }
 
 input:focus {
@@ -143,6 +158,10 @@ input:focus {
   border-left: none;
   background-color: var(--very-light-blue);
   outline: none;
+}
+
+.stock-not-chosen {
+  color: red;
 }
 
 .selected-stock {
@@ -168,7 +187,6 @@ input:focus {
   background: #ffffff;
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
     0 4px 6px -2px rgba(0, 0, 0, 0.05);
-  border-radius: 8px;
 }
 .dropdown-item {
   display: flex;

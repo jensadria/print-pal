@@ -34,7 +34,9 @@
       />
       <p v-if="!packs.isValid">Please assign at least one pack or bulk</p>
     </template>
-    <base-button @click="saveOrder">Save</base-button>
+    <template #buttons>
+      <base-button @click="saveOrder">Save</base-button>
+    </template>
   </base-order-modal>
 </template>
 

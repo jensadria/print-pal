@@ -1,50 +1,38 @@
 <template>
   <base-order-modal title="Edit Order">
-    <section>
-      <div class="orders-input">
-        <div>
-          <label for="due-date">Due Date</label>
-          <input type="date" v-model="dueDate.val" />
-        </div>
-        <div>
-          <label for="due-time">Due Time </label>
-          <input type="time" v-model="dueTime.val" />
-        </div>
-        <div>
-          <label for="pet-number">PET Number</label>
-          <input
-            type="text"
-            v-model="petNumber.val"
-            @blur="petNumber.isValid"
-          />
-        </div>
-        <p v-if="!petNumber.isValid">Please assign an order</p>
-        <div>
-          <label for="packs">Packs</label>
-          <input
-            type="number"
-            id="packs"
-            v-model.number="packs.val"
-            min="0"
-            @blur="packs.isValid"
-          />
-          {{ packQty }}
-        </div>
-        <div>
-          <label for="bulks">Bulks</label>
-          <input
-            type="number"
-            id="bulks"
-            v-model.number="bulks.val"
-            min="0"
-            @blur="packs.isValid"
-          />
-          {{ bulkQty }}
-        </div>
-        <p v-if="!packs.isValid">Please assign at least one pack or bulk</p>
-      </div>
-    </section>
+    <template #due-date>
+      <input type="date" v-model="dueDate.val" />
+    </template>
+    <template #due-time>
+      <input type="time" v-model="dueDate.val" />
+    </template>
+    <template #pet-number>
+      <input type="text" v-model="petNumber.val" @blur="petNumber.isValid" />
+      <p v-if="!petNumber.isValid">Please assign an order</p>
+    </template>
+    <template #packs>
+      <input
+        type="number"
+        id="packs"
+        v-model.number="packs.val"
+        min="0"
+        @blur="packs.isValid"
+      />
+      {{ packQty }}
+    </template>
+    <template #bulks>
+      <input
+        type="number"
+        id="bulks"
+        v-model.number="bulks.val"
+        min="0"
+        @blur="packs.isValid"
+      />
+      {{ bulkQty }}
+      <p v-if="!packs.isValid">Please assign at least one pack or bulk</p>
+    </template>
     <base-button @click="editOrder">Save</base-button>
+    <base-button @click="deleteOrder">Remove Order</base-button>
   </base-order-modal>
 </template>
 
@@ -69,9 +57,6 @@ export default {
   emits: ['save'],
   methods: {
     editOrder() {
-      console.log(this.orderIndex, this.productIndex);
-      console.log(this.getCurrentOrder);
-
       this.validateForm();
 
       if (!this.formIsValid) {
@@ -112,6 +97,15 @@ export default {
         this.formIsValid = false;
       }
     },
+    loadValues() {
+      this.dueDate.val = this.getCurrentOrder?.dueDate;
+      this.dueTime.val = this.getCurrentOrder?.dueTime;
+      this.petNumber.val = this.getCurrentOrder?.petNumber;
+      this.packs.val = this.getCurrentOrder?.packs;
+      this.bulks.val = this.getCurrentOrder?.bulks;
+      this.packQty = this.getCurrentProduct?.packQty;
+      this.bulkQty = this.getCurrentProduct?.bulkQty;
+    },
   },
   computed: {
     getCurrentProduct() {
@@ -125,13 +119,7 @@ export default {
     },
   },
   mounted() {
-    this.dueDate.val = this.getCurrentOrder?.dueDate;
-    this.dueTime.val = this.getCurrentOrder?.dueTime;
-    this.petNumber.val = this.getCurrentOrder?.petNumber;
-    this.packs.val = this.getCurrentOrder?.packs;
-    this.bulks.val = this.getCurrentOrder?.bulks;
-    this.packQty = this.getCurrentProduct?.packQty;
-    this.bulkQty = this.getCurrentProduct?.bulkQty;
+    this.loadValues();
   },
 };
 </script>

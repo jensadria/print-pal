@@ -1,48 +1,39 @@
 <template>
   <base-order-modal title="Add Order">
-    <section>
-      <div class="orders-input">
-        <div>
-          <label for="due-date">Due Date</label>
-          <input type="date" v-model="dueDate.val" />
-        </div>
-        <div>
-          <label for="due-time">Due Time </label>
-          <input type="time" v-model="dueTime.val" />
-        </div>
-        <div>
-          <label for="pet-number">PET Number</label>
-          <input
-            type="text"
-            id="pet-number"
-            v-model="petNumber.val"
-            @blur="petNumber.isValid"
-          />
-        </div>
-        <p v-if="!petNumber.isValid">Please assign an order</p>
-        <div>
-          <label for="packs">Packs</label>
-          <input
-            type="number"
-            id="packs"
-            v-model.number="packs.val"
-            min="0"
-            @blur="packs.isValid"
-          />
-        </div>
-        <div>
-          <label for="bulks">Bulks</label>
-          <input
-            type="number"
-            id="bulks"
-            v-model.number="bulks.val"
-            min="0"
-            @blur="packs.isValid"
-          />
-        </div>
-        <p v-if="!packs.isValid">Please assign at least one pack or bulk</p>
-      </div>
-    </section>
+    <template #due-date>
+      <input type="date" v-model="dueDate.val" />
+    </template>
+    <template #due-time>
+      <input type="time" v-model="dueDate.val" />
+    </template>
+    <template #pet-number>
+      <input
+        type="text"
+        id="pet-number"
+        v-model="petNumber.val"
+        @blur="petNumber.isValid"
+      />
+      <p v-if="!petNumber.isValid">Please assign an order</p>
+    </template>
+    <template #packs>
+      <input
+        type="number"
+        id="packs"
+        v-model.number="packs.val"
+        min="0"
+        @blur="packs.isValid"
+      />
+    </template>
+    <template #bulks>
+      <input
+        type="number"
+        id="bulks"
+        v-model.number="bulks.val"
+        min="0"
+        @blur="packs.isValid"
+      />
+      <p v-if="!packs.isValid">Please assign at least one pack or bulk</p>
+    </template>
     <base-button @click="saveOrder">Save</base-button>
   </base-order-modal>
 </template>

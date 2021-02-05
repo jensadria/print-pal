@@ -9,7 +9,32 @@
           </slot>
         </header>
         <section>
-          <slot></slot>
+          <div class="orders-input">
+            <div>
+              <label for="due-date">Due Date</label>
+              <slot name="due-date"></slot>
+            </div>
+            <div>
+              <label for="due-time">Due Time</label>
+              <slot name="due-time"></slot>
+            </div>
+            <div>
+              <label for="pet-number">PET Number</label>
+              <slot name="pet-number"></slot>
+            </div>
+            <div>
+              <label for="packs">Packs</label>
+              <slot name="packs"></slot>
+            </div>
+            <div>
+              <label for="bulks">Bulks</label>
+              <slot name="bulks"></slot>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <slot> </slot>
         </section>
       </dialog>
     </transition>
@@ -111,6 +136,14 @@ menu {
 .dialog-leave-from {
   opacity: 1;
   transform: scale(1);
+}
+
+.orders-input > div {
+  text-align: left;
+}
+
+.orders-input > div > label {
+  width: 500px;
 }
 
 @media (min-width: 768px) {

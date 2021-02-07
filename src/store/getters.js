@@ -3,11 +3,15 @@ export default {
     return state.products;
   },
   getCurrentOrders(state) {
-    return state.currentOrders;
+    return state.currentOrders.filter((order) => order.completed === false);
   },
   getCurrentProducts(state) {
     const productIds = [
-      ...new Set(state.currentOrders.map((order) => order.productId)),
+      ...new Set(
+        state.currentOrders
+          .filter((order) => order.completed === false)
+          .map((order) => order.productId)
+      ),
     ];
 
     const productOrders = state.products.filter((product) =>
@@ -15,5 +19,8 @@ export default {
     );
 
     return productOrders;
+  },
+  getSelectedStock(state) {
+    return state.selectedStock;
   },
 };

@@ -1,20 +1,24 @@
-export default {
-  addToList(state, payload) {
-    state.currentCuttingList.push(payload);
-  },
-  selectedStockId(state, payload) {
-    state.selectedStockId = payload;
-  },
-  addOrder(state, { index, savedOrder }) {
-    state.currentCuttingList[index].orders.push(savedOrder);
-  },
-  //   editOrder(state, { productIndex, orderIndex, editedOrder }) {
-  //     console.log(productIndex, orderIndex, editedOrder);
+import Vue from 'vue';
 
-  // state.currentCuttingList[selectedStockIndex].orders[
-  //   orderIndex
-  // ] = editedOrder;
-  //   },
+export default {
+  loadProducts(state, payload) {
+    state.products = payload;
+  },
+  selectedStock(state, payload) {
+    state.selectedStock = payload;
+  },
+  addOrder(state, savedOrder) {
+    state.currentOrders.push(savedOrder);
+  },
+  editOrder(state, payload) {
+    const indexOfOrder = state.currentOrders.indexOf(
+      (order) =>
+        order.productId === payload.productId &&
+        order.petNumber === payload.petNumber
+    );
+
+    Vue.set(state.currentOrders, indexOfOrder, payload);
+  },
 
   deleteItem(state, index) {
     state.currentCuttingList.slice(index, 1);

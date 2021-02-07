@@ -1,35 +1,22 @@
 export default {
-  addToList(context, payload) {
-    const selectedStock = context.state.products.find(
-      (stock) => stock.id === payload.id
-    );
-
-    const addedStock = {
-      ...selectedStock,
-      packs: 0,
-      bulks: 0,
-      orders: [],
-    };
-
-    context.commit('addToList', addedStock);
+  loadProducts(context) {
+    fetch('http://localhost.com/3000/api/products/')
+      .then((response) => response.json())
+      .then((data) => context.commit('loadProducts', data));
   },
-  selectedStockId(context, payload) {
-    const selectedStockId = payload.id;
-
-    context.commit('selectedStockId', selectedStockId);
+  loadOrders(context) {
+    fetch('http://localhost.com/3000/api/orders/')
+      .then((response) => response.json())
+      .then((data) => context.commit('loadProducts', data));
   },
-  editOrder(context, { productIndex, orderIndex, editedOrder }) {
-    context.commit('editOrder', {
-      productIndex,
-      orderIndex,
-      editedOrder,
-    });
+  selectedStock(context, payload) {
+    context.commit('selectedStock', payload);
   },
-  addOrder(context, { id, savedOrder }) {
-    const index = context.state.currentCuttingList.findIndex(
-      (stock) => stock.id === id
-    );
-    context.commit('addOrder', { index, savedOrder });
+  editOrder(context, payload) {
+    context.commit('editOrder', payload);
+  },
+  addOrder(context, payload) {
+    context.commit('addOrder', payload);
   },
   deleteItem(context, payload) {
     context.commit('deleteItem', payload);

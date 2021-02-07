@@ -25,6 +25,10 @@ export default {
     CurrentList,
     AddNewOrderModal,
   },
+  created() {
+    this.$store.dispatch('loadProducts');
+    this.$store.dispatch('loadOrders');
+  },
 };
 </script>
 

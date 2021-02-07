@@ -10,9 +10,6 @@
           :product="product"
         >
         </current-list-item>
-        <!-- {{
-          JSON.stringify(currentCuttingList[0].orders)
-        }} -->
       </ul>
     </base-card>
   </div>

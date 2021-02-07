@@ -65,7 +65,6 @@ export default {
         return;
       }
 
-      const id = this.id;
       const savedOrder = {
         productId: this.id,
         dueDate: this.dueDate.val,
@@ -73,9 +72,12 @@ export default {
         petNumber: this.petNumber.val,
         packs: this.packs.val,
         bulks: this.bulks.val,
+        cut: false,
+        packed: false,
+        completed: false,
       };
 
-      this.$store.dispatch('addOrder', { id, savedOrder });
+      this.$store.dispatch('addOrder', savedOrder);
 
       this.$emit('close');
 

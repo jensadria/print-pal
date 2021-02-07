@@ -51,12 +51,15 @@ export default {
       products: null,
       searchCode: '',
       searchName: '',
-      selectedStock: '',
       productSelected: false,
       addListError: false,
     };
   },
-  // computed: {
+  computed: {
+    selectedStock() {
+      return this.$store.getters.getSelectedStock;
+    },
+  },
   //   filteredProducts() {
   //     return this.products.filter((product) => {
   //       return product.name
@@ -67,11 +70,12 @@ export default {
   // },
   methods: {
     selectStock(id) {
-      this.selectedStock = this.products.find((stock) => stock.id === id);
+      const selectedStock = this.products.find((stock) => stock.id === id);
       this.searchName = '';
       this.productSelected = true;
+
+      this.$store.dispatch('selectedStock', selectedStock);
     },
-    selectStockId() {},
     addToList() {
       if (!this.productSelected) {
         this.addListError = true;

@@ -56,9 +56,6 @@ export default {
       formIsValid: true,
     };
   },
-  props: {
-    id: String,
-  },
   emits: ['save'],
 
   methods: {
@@ -69,17 +66,19 @@ export default {
         return;
       }
 
-      const id = this.id;
       const savedOrder = {
-        productId: this.id,
+        productId: this.getSelectedStockId,
         dueDate: this.dueDate.val,
         dueTime: this.dueTime.val,
         petNumber: this.petNumber.val,
         packs: this.packs.val,
         bulks: this.bulks.val,
+        cut: false,
+        packed: false,
+        completed: false,
       };
 
-      this.$store.dispatch('addOrder', { id, savedOrder });
+      this.$store.dispatch('addOrder', savedOrder);
 
       this.$emit('close');
 
@@ -102,6 +101,11 @@ export default {
         this.packs.isValid = false;
         this.formIsValid = false;
       }
+    },
+  },
+  computed: {
+    getSelectedStockId() {
+      return this.$store.getters.getSelectedStock.id;
     },
   },
 };

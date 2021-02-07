@@ -60,32 +60,14 @@ const store = createStore({
           millPackSize: 125,
         },
       ],
-      currentCuttingList: [
+      currentOrders: [
         {
           id: 'BLO004BLU',
-          name: 'Bloom A4 Card 270gsm Blush',
-          brand: 'Bloom',
-          colour: 'Blush',
-          gsm: 270,
-          noOutFlatSheet: 9,
-          packType: 'Pack',
-          packQty: 10,
-          bulkQty: 50,
-          stock: 999999,
-          discontinued: false,
-          flatSheetCode: 'BLO000BLU00',
-          flatSheetStock: 606,
-          parentCode: null,
-          millPackSize: 100,
-          orders: [
-            {
-              dueDate: null,
-              dueTime: null,
-              petNumber: 'PET12345',
-              packs: 3,
-              bulks: 2,
-            },
-          ],
+          dueDate: null,
+          dueTime: null,
+          petNumber: 'PET12345',
+          packs: 3,
+          bulks: 2,
         },
       ],
     };

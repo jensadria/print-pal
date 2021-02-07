@@ -67,6 +67,7 @@ export default {
 
       const id = this.id;
       const savedOrder = {
+        productId: this.id,
         dueDate: this.dueDate.val,
         dueTime: this.dueTime.val,
         petNumber: this.petNumber.val,

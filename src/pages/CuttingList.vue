@@ -1,18 +1,29 @@
 <template>
   <div class="container">
-    <add-to-list></add-to-list>
+    <base-button @click="showAddNewOrderModal = true">
+      Add New Order
+    </base-button>
+    <add-new-order-modal
+      :show="showAddNewOrderModal"
+      @close="showAddNewOrderModal = false"
+    ></add-new-order-modal>
     <current-list></current-list>
   </div>
 </template>
 
 <script>
-import AddToList from '../components/cuttinglist/AddToList.vue';
+import AddNewOrderModal from '../components/cuttinglist/AddNewOrderModal.vue';
 import CurrentList from '../components/cuttinglist/CurrentList.vue';
 
 export default {
+  data() {
+    return {
+      showAddNewOrderModal: false,
+    };
+  },
   components: {
-    AddToList,
     CurrentList,
+    AddNewOrderModal,
   },
 };
 </script>

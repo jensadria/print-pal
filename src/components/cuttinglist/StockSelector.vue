@@ -1,10 +1,9 @@
 <template>
   <div class="container">
-    <h2>Add Stock</h2>
     <form>
       <div class="search-container">
         <div class="search-input">
-          <label for="name-search">Search By Name or Code</label>
+          <label for="name-search">Search A Product By Name or Code</label>
           <input
             type="input"
             name="name-search"
@@ -37,9 +36,9 @@
           <h4 v-else>{{ selectedStock.name }}</h4>
         </div>
 
-        <base-button mode="blue-bg" @click.prevent="addToList"
+        <!-- <base-button mode="blue-bg" @click.prevent="addToList"
           >Add To List</base-button
-        >
+        > -->
       </div>
     </form>
   </div>
@@ -72,6 +71,7 @@ export default {
       this.searchName = '';
       this.productSelected = true;
     },
+    selectStockId() {},
     addToList() {
       if (!this.productSelected) {
         this.addListError = true;
@@ -81,7 +81,7 @@ export default {
       const listItem = {
         id: this.selectedStock.id,
       };
-      this.$store.dispatch('addToList', listItem);
+      this.$store.dispatch('selectStock', listItem);
 
       this.selectedStock = '';
     },
@@ -108,6 +108,7 @@ export default {
 .container {
   background-color: var(--very-light-gray);
   display: flex;
+  flex-direction: column;
   width: auto;
   padding: 1rem;
   margin: 1rem;

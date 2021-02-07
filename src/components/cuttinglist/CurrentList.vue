@@ -5,10 +5,9 @@
 
       <ul>
         <current-list-item
-          v-for="(product, productIndex) in currentCuttingList"
+          v-for="product in currentProducts"
           :key="product"
           :product="product"
-          :productIndex="productIndex"
         >
         </current-list-item>
         <!-- {{
@@ -27,8 +26,11 @@ export default {
     CurrentListItem,
   },
   computed: {
-    currentCuttingList() {
-      return this.$store.getters.getCurrentList;
+    currentOrders() {
+      return this.$store.getters.getCurrentOrders;
+    },
+    currentProducts() {
+      return this.$store.getters.getCurrentProducts;
     },
   },
 };

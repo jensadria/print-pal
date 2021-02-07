@@ -13,6 +13,11 @@ export default {
 
     context.commit('addToList', addedStock);
   },
+  selectedStockId(context, payload) {
+    const selectedStockId = payload.id;
+
+    context.commit('selectedStockId', selectedStockId);
+  },
   editOrder(context, { productIndex, orderIndex, editedOrder }) {
     context.commit('editOrder', {
       productIndex,

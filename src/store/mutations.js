@@ -2,7 +2,9 @@ export default {
   addToList(state, payload) {
     state.currentCuttingList.push(payload);
   },
-
+  selectedStockId(state, payload) {
+    state.selectedStockId = payload;
+  },
   addOrder(state, { index, savedOrder }) {
     state.currentCuttingList[index].orders.push(savedOrder);
   },

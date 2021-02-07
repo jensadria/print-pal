@@ -10,8 +10,7 @@
     <edit-order-modal
       :show="showEditOrderModal"
       @close="showEditOrderModal = false"
-      :orderIndex="orderIndex"
-      :productIndex="productIndex"
+      :order="order"
     ></edit-order-modal>
     <button @click="showEditOrderModal = true">
       Edit
@@ -25,7 +24,7 @@ import EditOrderModal from '../cuttinglist/EditOrderModal.vue';
 
 export default {
   components: { EditOrderModal },
-  props: ['order', 'orderIndex', 'productIndex'],
+  props: ['order'],
   data() {
     return {
       showEditOrderModal: false,

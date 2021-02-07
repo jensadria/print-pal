@@ -56,8 +56,7 @@ export default {
     };
   },
   props: {
-    productIndex: Number,
-    orderIndex: Number,
+    order: Object,
   },
   emits: ['save'],
   methods: {
@@ -103,28 +102,36 @@ export default {
       }
     },
     loadValues() {
-      this.dueDate.val = this.getCurrentOrder?.dueDate;
-      this.dueTime.val = this.getCurrentOrder?.dueTime;
-      this.petNumber.val = this.getCurrentOrder?.petNumber;
-      this.packs.val = this.getCurrentOrder?.packs;
-      this.bulks.val = this.getCurrentOrder?.bulks;
-      this.packQty = this.getCurrentProduct?.packQty;
-      this.bulkQty = this.getCurrentProduct?.bulkQty;
+      this.dueDate.val = this.currentOrder?.dueDate;
+      this.dueTime.val = this.currentOrder?.dueTime;
+      this.petNumber.val = this.currentOrder?.petNumber;
+      this.packs.val = this.currentOrder?.packs;
+      this.bulks.val = this.currentOrder?.bulks;
+      this.packQty = this.currentProduct?.packQty;
+      this.bulkQty = this.currentProduct?.bulkQty;
     },
   },
   computed: {
-    getCurrentProduct() {
-      return this.$store.getters.getCurrentList[this.productIndex];
+    currentOrder() {
+      return this.currentOrders.filter(
+        (el) =>
+          el.petNumber === this.order.petNumber &&
+          el.productId === this.order.productId
+      );
     },
 
-    getCurrentOrder() {
-      const currentList = this.$store.getters.getCurrentList;
-
-      return currentList[this.productIndex].orders[this.orderIndex];
+    currentOrders() {
+      return this.$store.getters.getCurrentOrders;
+    },
+    currentProduct() {
+      return this.$store.getters.getCurrentProducts.filter(
+        (el) => el.id === this.order.productId
+      );
     },
   },
   mounted() {
     this.loadValues();
+    console.log(this.currentOrder);
   },
 };
 </script>

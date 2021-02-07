@@ -8,6 +8,7 @@
             <h2>{{ title }}</h2>
           </slot>
         </header>
+        <slot name="stock-selector"> </slot>
         <section>
           <div class="orders-input">
             <div>

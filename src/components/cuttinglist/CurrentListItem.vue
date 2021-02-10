@@ -84,13 +84,6 @@ export default {
     deleteItem(index) {
       this.$store.dispatch('deleteItem', index);
     },
-
-    // formatDate(str) {
-    //   const arr = str.split('-');
-
-    //   const date = `${arr[2]} ${arr[1]}`;
-    //   return date;
-    // },
   },
 };
 </script>

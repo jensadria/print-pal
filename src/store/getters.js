@@ -3,18 +3,14 @@ export default {
     return state.products;
   },
   getCurrentOrders(state) {
+    console.log(state.currentOrders);
     return state.currentOrders.filter((order) => order.completed === false);
   },
-  getCurrentProducts(state) {
+  getCurrentProducts(_, { getProducts, getCurrentOrders }) {
     const productIds = [
-      ...new Set(
-        state.currentOrders
-          .filter((order) => order.completed === false)
-          .map((order) => order.productId)
-      ),
+      ...new Set(getCurrentOrders.map((order) => order.productId)),
     ];
-
-    const productOrders = state.products.filter((product) =>
+    const productOrders = getProducts.filter((product) =>
       productIds.includes(product.id)
     );
 

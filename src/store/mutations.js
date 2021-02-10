@@ -1,8 +1,9 @@
-import Vue from 'vue';
-
 export default {
-  loadProducts(state, payload) {
+  LOAD_PRODUCTS(state, payload) {
     state.products = payload;
+  },
+  LOAD_ORDERS(state, payload) {
+    state.currentOrders = payload;
   },
   selectedStock(state, payload) {
     state.selectedStock = payload;
@@ -17,7 +18,7 @@ export default {
         order.petNumber === payload.petNumber
     );
 
-    Vue.set(state.currentOrders, indexOfOrder, payload);
+    console.log(state.currentOrders, indexOfOrder, payload);
   },
 
   deleteItem(state, index) {

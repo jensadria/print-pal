@@ -25,9 +25,9 @@ export default {
     CurrentList,
     AddNewOrderModal,
   },
-  created() {
-    this.$store.dispatch('loadProducts');
-    this.$store.dispatch('loadOrders');
+  async created() {
+    await this.$store.dispatch('LOAD_PRODUCTS');
+    await this.$store.dispatch('LOAD_ORDERS');
   },
 };
 </script>

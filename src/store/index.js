@@ -1,7 +1,7 @@
 import { createStore } from 'vuex';
 
-import mutations from './mutations.js';
 import actions from './actions.js';
+import mutations from './mutations.js';
 import getters from './getters.js';
 
 const store = createStore({
@@ -98,9 +98,9 @@ const store = createStore({
       selectedStock: '',
     };
   },
-  getters,
   actions,
   mutations,
+  getters,
 });
 
 export default store;

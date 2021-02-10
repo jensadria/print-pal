@@ -16,6 +16,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 import CurrentListItem from '../cuttinglist/CurrentListItem.vue';
 
 export default {
@@ -23,12 +24,11 @@ export default {
     CurrentListItem,
   },
   computed: {
-    currentOrders() {
-      return this.$store.getters.getCurrentOrders;
-    },
-    currentProducts() {
-      return this.$store.getters.getCurrentProducts;
-    },
+    ...mapGetters[
+      {
+        currentProducts: 'getCurrentProducts',
+      }
+    ],
   },
 };
 </script>

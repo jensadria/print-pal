@@ -4,14 +4,14 @@ export default {
       'http://localhost:3000/api/products/'
     ).then((response) => response.json());
 
-    context.commit('LOAD_PRODUCTS', await data);
+    context.commit('LOAD_PRODUCTS', data);
   },
   async LOAD_ORDERS(context) {
-    const data = fetch('http://localhost:3000/api/orders/').then((response) =>
-      response.json()
-    );
+    const data = await fetch(
+      'http://localhost:3000/api/orders/'
+    ).then((response) => response.json());
 
-    context.commit('LOAD_ORDERS', await data);
+    context.commit('LOAD_ORDERS', data);
   },
   selectedStock(context, payload) {
     context.commit('selectedStock', payload);
@@ -22,7 +22,9 @@ export default {
   addOrder(context, payload) {
     context.commit('addOrder', payload);
   },
-  deleteItem(context, payload) {
-    context.commit('deleteItem', payload);
-  },
+  //   markAllComplete(context, payload) {
+  //     const data await fetch('put')
+
+  //     context.commit('markAllComplete', payload);
+  //   },
 };

@@ -7,23 +7,23 @@ import getters from './getters.js';
 const store = createStore({
   state() {
     return {
-      products: null,
+      products: [],
       //     [{
-      //       id: 'BLO004BLU',
-      //       name: 'Bloom A4 Card 270gsm Blush',
-      //       brand: 'Bloom',
-      //       colour: 'Blush',
-      //       gsm: 270,
-      //       noOutFlatSheet: 9,
-      //       packType: 'Pack',
-      //       packQty: 10,
-      //       bulkQty: 50,
-      //       stock: 999999,
-      //       discontinued: false,
-      //       flatSheetCode: 'BLO000BLU00',
-      //       flatSheetStock: 606,
-      //       parentCode: null,
-      //       millPackSize: 100,
+      // id: 'BLO004BLU',
+      // name: 'Bloom A4 Card 270gsm Blush',
+      // brand: 'Bloom',
+      // colour: 'Blush',
+      // gsm: 270,
+      // noOutFlatSheet: 9,
+      // packType: 'Pack',
+      // packQty: 10,
+      // bulkQty: 50,
+      // stock: 999999,
+      // discontinued: false,
+      // flatSheetCode: 'BLO000BLU00',
+      // flatSheetStock: 606,
+      // parentCode: null,
+      // millPackSize: 100,
       //     },
       //     {
       //       id: 'BLO004CHI',
@@ -60,7 +60,7 @@ const store = createStore({
       //       millPackSize: 125,
       //     },
       //   ],
-      currentOrders: null,
+      currentOrders: [],
       // [
       //   {
       //     productId: 'BLO004BLU',

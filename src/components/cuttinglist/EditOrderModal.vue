@@ -109,7 +109,7 @@ export default {
   },
   computed: {
     orderToEdit() {
-      const currentOrders = this.$store.getters.getCurrentOrders;
+      const currentOrders = this.$store.getters.getActiveOrders;
 
       return currentOrders.find(
         (el) =>
@@ -123,9 +123,8 @@ export default {
       );
     },
   },
-  created() {
+  mounted() {
     this.loadValues();
-    console.log(this.orderToEdit);
   },
 };
 </script>

@@ -36,7 +36,7 @@
         </div>
       </div>
       <div class="buttons">
-        <i class="fas fa-minus-circle delete" @click="deleteItem(index)"></i>
+        <i class="fas fa-minus-circle delete" @click="markComplete"></i>
       </div>
     </div>
   </li>
@@ -57,7 +57,7 @@ export default {
   },
   computed: {
     orders() {
-      return this.$store.getters.getCurrentOrders.filter(
+      return this.$store.getters.getActiveOrders.filter(
         (order) => order.productId === this.product.id
       );
     },
@@ -81,8 +81,8 @@ export default {
     },
   },
   methods: {
-    deleteItem(index) {
-      this.$store.dispatch('deleteItem', index);
+    markAllComplete() {
+      this.$store.dispatch('deleteItem', this.product);
     },
   },
 };

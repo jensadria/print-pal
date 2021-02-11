@@ -2,14 +2,17 @@ export default {
   getProducts(state) {
     return state.products;
   },
-  getCurrentOrders(state) {
-    console.log(state.currentOrders);
-    return state.currentOrders.filter((order) => order.completed === false);
+  getOrders(state) {
+    return state.currentOrders;
   },
-  getCurrentProducts(_, { getProducts, getCurrentOrders }) {
+  getActiveOrders(_, { getOrders }) {
+    return getOrders.filter((order) => order.completed === false);
+  },
+  getCurrentProducts(_, { getProducts, getActiveOrders }) {
     const productIds = [
-      ...new Set(getCurrentOrders.map((order) => order.productId)),
+      ...new Set(getActiveOrders.map((order) => order.productId)),
     ];
+
     const productOrders = getProducts.filter((product) =>
       productIds.includes(product.id)
     );

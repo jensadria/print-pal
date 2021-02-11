@@ -1,21 +1,26 @@
 export default {
-  addToList(state, payload) {
-    state.currentCuttingList.push(payload);
+  LOAD_PRODUCTS(state, payload) {
+    state.products = [...payload];
   },
-
-  addOrder(state, { index, savedOrder }) {
-    state.currentCuttingList[index].orders.push(savedOrder);
+  LOAD_ORDERS(state, payload) {
+    state.currentOrders = [...payload];
   },
-  //   editOrder(state, { productIndex, orderIndex, editedOrder }) {
-  //     console.log(productIndex, orderIndex, editedOrder);
-
-  // state.currentCuttingList[selectedStockIndex].orders[
-  //   orderIndex
-  // ] = editedOrder;
+  selectedStock(state, payload) {
+    state.selectedStock = payload;
+  },
+  addOrder(state, savedOrder) {
+    state.currentOrders.push(savedOrder);
+  },
+  //   editOrder(state, payload) {
+  //     const indexOfOrder = state.currentOrders.indexOf(
+  //       (order) =>
+  //         order.productId === payload.productId &&
+  //         order.petNumber === payload.petNumber
+  //     );
   //   },
 
-  deleteItem(state, index) {
-    state.currentCuttingList.slice(index, 1);
-    console.log(state.currentCuttingList);
-  },
+  //   markAllComplete(state, payload) {
+  //     state.currentCuttingList.slice(index, 1);
+  //     console.log(state.currentCuttingList);
+  //   },
 };

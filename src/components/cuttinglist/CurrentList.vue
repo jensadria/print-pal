@@ -5,15 +5,11 @@
 
       <ul>
         <current-list-item
-          v-for="(product, productIndex) in currentCuttingList"
+          v-for="product in currentProducts"
           :key="product"
           :product="product"
-          :productIndex="productIndex"
         >
         </current-list-item>
-        <!-- {{
-          JSON.stringify(currentCuttingList[0].orders)
-        }} -->
       </ul>
     </base-card>
   </div>
@@ -27,9 +23,13 @@ export default {
     CurrentListItem,
   },
   computed: {
-    currentCuttingList() {
-      return this.$store.getters.getCurrentList;
+    currentProducts() {
+      return this.$store.getters.getCurrentProducts;
     },
+  },
+  async mounted() {
+    await this.$store.dispatch('LOAD_PRODUCTS');
+    await this.$store.dispatch('LOAD_ORDERS');
   },
 };
 </script>

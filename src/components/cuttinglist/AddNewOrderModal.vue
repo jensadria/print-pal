@@ -1,5 +1,6 @@
 <template>
   <base-order-modal title="Add Order">
+    <template #stock-selector><stock-selector></stock-selector></template>
     <template #due-date>
       <input type="date" v-model="dueDate.val" />
     </template>
@@ -41,7 +42,10 @@
 </template>
 
 <script>
+import StockSelector from '../cuttinglist/StockSelector.vue';
+
 export default {
+  components: { StockSelector },
   data() {
     return {
       dueDate: { val: null, isValid: true },
@@ -51,9 +55,6 @@ export default {
       bulks: { val: 0, isValid: true },
       formIsValid: true,
     };
-  },
-  props: {
-    id: String,
   },
   emits: ['save'],
 
@@ -66,7 +67,7 @@ export default {
       }
 
       const savedOrder = {
-        productId: this.id,
+        productId: this.getSelectedStockId,
         dueDate: this.dueDate.val,
         dueTime: this.dueTime.val,
         petNumber: this.petNumber.val,
@@ -100,6 +101,11 @@ export default {
         this.packs.isValid = false;
         this.formIsValid = false;
       }
+    },
+  },
+  computed: {
+    getSelectedStockId() {
+      return this.$store.getters.getSelectedStock.id;
     },
   },
 };

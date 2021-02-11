@@ -9,7 +9,6 @@ import BaseButton from './components/ui/BaseButton.vue';
 import BaseOrderModal from './components/ui/BaseOrderModal.vue';
 
 const app = createApp(App);
-
 app.use(router);
 app.use(store);
 

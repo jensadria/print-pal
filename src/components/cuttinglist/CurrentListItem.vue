@@ -24,11 +24,9 @@
         <div>
           <paper-order
             class="order"
-            v-for="(order, orderIndex) in orders"
+            v-for="order in orders"
             :key="order"
             :order="order"
-            :orderIndex="orderIndex"
-            :productIndex="productIndex"
           ></paper-order>
         </div>
         <div class="add-order">
@@ -38,7 +36,7 @@
         </div>
       </div>
       <div class="buttons">
-        <i class="fas fa-minus-circle delete" @click="deleteItem(index)"></i>
+        <i class="fas fa-minus-circle delete" @click="markComplete"></i>
       </div>
     </div>
   </li>
@@ -51,7 +49,7 @@ import PaperOrder from '../cuttinglist/PaperOrder.vue';
 export default {
   components: { AddOrderModal, PaperOrder },
 
-  props: ['product', 'productIndex'],
+  props: ['product'],
   data() {
     return {
       showAddOrderModal: false,
@@ -59,13 +57,15 @@ export default {
   },
   computed: {
     orders() {
-      return this.product.orders;
+      return this.$store.getters.getActiveOrders.filter(
+        (order) => order.productId === this.product.id
+      );
     },
     packs() {
-      return this.product.orders.reduce((acc, order) => acc + order.packs, 0);
+      return this.orders.reduce((acc, order) => acc + order.packs, 0);
     },
     bulks() {
-      return this.product.orders.reduce((acc, order) => acc + order.bulks, 0);
+      return this.orders.reduce((acc, order) => acc + order.bulks, 0);
     },
 
     flatSheetsRequired() {
@@ -81,16 +81,9 @@ export default {
     },
   },
   methods: {
-    deleteItem(index) {
-      this.$store.dispatch('deleteItem', index);
+    markAllComplete() {
+      this.$store.dispatch('deleteItem', this.product);
     },
-
-    // formatDate(str) {
-    //   const arr = str.split('-');
-
-    //   const date = `${arr[2]} ${arr[1]}`;
-    //   return date;
-    // },
   },
 };
 </script>

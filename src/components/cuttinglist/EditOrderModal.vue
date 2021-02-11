@@ -16,7 +16,7 @@
         id="packs"
         v-model.number="packs.val"
         min="0"
-        @blur="packs.isValid"
+        @blur="clearValidity('packs')"
       />
       {{ packQty }}
     </template>
@@ -26,7 +26,7 @@
         id="bulks"
         v-model.number="bulks.val"
         min="0"
-        @blur="packs.isValid"
+        @blur="clearValidity('bulks')"
       />
       {{ bulkQty }}
       <p v-if="!packs.isValid">Please assign at least one pack or bulk</p>
@@ -43,6 +43,9 @@
 
 <script>
 export default {
+  props: {
+    order: Object,
+  },
   data() {
     return {
       dueDate: { val: null, isValid: true },
@@ -55,12 +58,11 @@ export default {
       formIsValid: true,
     };
   },
-  props: {
-    productIndex: Number,
-    orderIndex: Number,
-  },
   emits: ['save'],
   methods: {
+    clearValidity(input) {
+      this[input].isValid = true;
+    },
     editOrder() {
       this.validateForm();
 
@@ -68,11 +70,8 @@ export default {
         return;
       }
 
-      const productIndex = this.productIndex;
-
-      const orderIndex = this.orderIndex;
-
       const editedOrder = {
+        id: this.orderToEdit.productId,
         dueDate: this.dueDate,
         dueTime: this.dueTime,
         petNumber: this.petNumber,
@@ -80,11 +79,7 @@ export default {
         bulks: this.bulks,
       };
 
-      this.$store.dispatch('editOrder', {
-        productIndex,
-        orderIndex,
-        editedOrder,
-      });
+      this.$store.dispatch('editOrder', editedOrder);
 
       this.$emit('close');
     },
@@ -103,24 +98,29 @@ export default {
       }
     },
     loadValues() {
-      this.dueDate.val = this.getCurrentOrder?.dueDate;
-      this.dueTime.val = this.getCurrentOrder?.dueTime;
-      this.petNumber.val = this.getCurrentOrder?.petNumber;
-      this.packs.val = this.getCurrentOrder?.packs;
-      this.bulks.val = this.getCurrentOrder?.bulks;
-      this.packQty = this.getCurrentProduct?.packQty;
-      this.bulkQty = this.getCurrentProduct?.bulkQty;
+      this.dueDate.val = this.orderToEdit?.dueDate;
+      this.dueTime.val = this.orderToEdit?.dueTime;
+      this.petNumber.val = this.orderToEdit?.petNumber;
+      this.packs.val = this.orderToEdit?.packs;
+      this.bulks.val = this.orderToEdit?.bulks;
+      this.packQty = this.currentProduct?.packQty;
+      this.bulkQty = this.currentProduct?.bulkQty;
     },
   },
   computed: {
-    getCurrentProduct() {
-      return this.$store.getters.getCurrentList[this.productIndex];
+    orderToEdit() {
+      const currentOrders = this.$store.getters.getActiveOrders;
+
+      return currentOrders.find(
+        (el) =>
+          el.petNumber === this.order.petNumber &&
+          el.productId === this.order.productId
+      );
     },
-
-    getCurrentOrder() {
-      const currentList = this.$store.getters.getCurrentList;
-
-      return currentList[this.productIndex].orders[this.orderIndex];
+    currentProduct() {
+      return this.$store.getters.getCurrentProducts.find(
+        (el) => el.id === this.order.productId
+      );
     },
   },
   mounted() {

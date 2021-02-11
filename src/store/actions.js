@@ -1,32 +1,30 @@
 export default {
-  addToList(context, payload) {
-    const selectedStock = context.state.products.find(
-      (stock) => stock.id === payload.id
-    );
+  async LOAD_PRODUCTS(context) {
+    const data = await fetch(
+      'http://localhost:3000/api/products/'
+    ).then((response) => response.json());
 
-    const addedStock = {
-      ...selectedStock,
-      packs: 0,
-      bulks: 0,
-      orders: [],
-    };
+    context.commit('LOAD_PRODUCTS', data);
+  },
+  async LOAD_ORDERS(context) {
+    const data = await fetch(
+      'http://localhost:3000/api/orders/'
+    ).then((response) => response.json());
 
-    context.commit('addToList', addedStock);
+    context.commit('LOAD_ORDERS', data);
   },
-  editOrder(context, { productIndex, orderIndex, editedOrder }) {
-    context.commit('editOrder', {
-      productIndex,
-      orderIndex,
-      editedOrder,
-    });
+  selectedStock(context, payload) {
+    context.commit('selectedStock', payload);
   },
-  addOrder(context, { id, savedOrder }) {
-    const index = context.state.currentCuttingList.findIndex(
-      (stock) => stock.id === id
-    );
-    context.commit('addOrder', { index, savedOrder });
+  editOrder(context, payload) {
+    context.commit('editOrder', payload);
   },
-  deleteItem(context, payload) {
-    context.commit('deleteItem', payload);
+  addOrder(context, payload) {
+    context.commit('addOrder', payload);
   },
+  //   markAllComplete(context, payload) {
+  //     const data await fetch('put')
+
+  //     context.commit('markAllComplete', payload);
+  //   },
 };

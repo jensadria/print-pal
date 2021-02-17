@@ -118,10 +118,10 @@ export default {
         qty: 10,
         width: 105,
         height: 148,
-        sheetWidth: 435,
-        sheetHeight: 301,
+        sheetWidth: 450,
+        sheetHeight: 320,
         gutters: 5,
-        margins: 0,
+        margins: 5,
       },
       nUpResult: {
         nUp1: 0,

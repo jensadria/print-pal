@@ -2,7 +2,7 @@
   <header>
     <nav>
       <ul>
-        <li><router-link to="/price">Price Calculator</router-link></li>
+        <!-- <li><router-link to="/price">Price Calculator</router-link></li> -->
         <li><router-link to="/nup">N-Up Calculator</router-link></li>
         <li><router-link to="/cuttinglist">Cutting List</router-link></li>
       </ul>

@@ -242,6 +242,8 @@ export default {
       for (let key in this.nUpInput) {
         this.nUpInput[key] = 0;
       }
+      this.nUpInput.sheetWidth = 450;
+      this.nUpInput.sheetHeight = 320;
     },
   },
 

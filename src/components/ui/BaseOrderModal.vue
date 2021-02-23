@@ -144,8 +144,19 @@ menu {
   text-align: left;
 }
 
-label {
-  width: 500px;
+section > div > div {
+  width: 60%;
+  display: flex;
+}
+
+section > div > div > label {
+  flex: 1 0 50%;
+}
+
+section > div > div > slot {
+  width: auto;
+  flex: 1 0 50%;
+  justify-content: left;
 }
 
 @media (min-width: 768px) {

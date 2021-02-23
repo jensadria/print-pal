@@ -153,7 +153,7 @@ input {
   font-size: 20px;
   font-weight: medium;
   padding: 0.5px;
-  width: 50%;
+  width: 100%;
 }
 
 input:focus {
@@ -170,13 +170,12 @@ input:focus {
 }
 
 .selected-stock {
-  flex-basis: 75%;
+  width: 100%;
   text-align: left;
   background-color: var(--very-light-blue);
   padding: 1rem;
   margin-top: 1rem;
   margin-bottom: 1rem;
-  margin-right: 1rem;
   height: 1rem;
 }
 

@@ -150,12 +150,12 @@ section > div > div {
 }
 
 section > div > div > label {
-  flex: 1 0 50%;
+  flex: 2 0 50%;
 }
 
 section > div > div > slot {
   width: auto;
-  flex: 1 0 50%;
+  flex: 1;
   justify-content: left;
 }
 

@@ -4,7 +4,7 @@
       <input type="date" v-model="dueDate.val" />
     </template>
     <template #due-time>
-      <input type="time" v-model="dueDate.val" />
+      <input type="time" v-model="dueTime.val" />
     </template>
     <template #pet-number>
       <input type="text" v-model="petNumber.val" @blur="petNumber.isValid" />
@@ -28,9 +28,10 @@
         min="0"
         @blur="clearValidity('bulks')"
       />
-      {{ bulkQty }}
+
       <p v-if="!packs.isValid">Please assign at least one pack or bulk</p>
     </template>
+
     <template #buttons class="buttons">
       <div class="buttons">
         <base-button @click="editOrder">Save</base-button>
@@ -130,6 +131,9 @@ export default {
 </script>
 
 <style scoped>
+input {
+  width: 100%;
+}
 .buttons {
   display: flex;
   align-items: center;

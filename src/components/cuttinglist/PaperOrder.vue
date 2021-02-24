@@ -2,8 +2,8 @@
   <div>
     <h4>{{ order.petNumber }}</h4>
     <div>
-      {{ order.dueDate ? 'Due' : '' }} {{ order.dueDate }}
-      {{ order.dueTime }}
+      {{ order.dueDate === 'null' ? 'No Due Date' : 'Due ' + order.dueDate }}
+      {{ order.dueTime === 'null' ? '' : order.dueTime }}
     </div>
     <div>{{ order.packs }} Packs</div>
     <div>{{ order.bulks }} Bulks</div>

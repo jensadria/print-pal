@@ -82,6 +82,7 @@
                 >Reset</base-button
               >
             </div>
+            <p v-if="!allAreasFilled">Please fill out all areas</p>
           </form>
         </div>
         <div class="results">
@@ -128,7 +129,7 @@ export default {
         nUp2: 0,
         sheetsAmount: 0,
       },
-      // mostOut: true,
+      allAreasFilled: true,
       calculatedButtonPressed: false,
       vueCanvas: null,
     };
@@ -149,6 +150,11 @@ export default {
   //   LINE BREAK
   methods: {
     imposeOnSheet() {
+      this.checkFields();
+      if (!this.allAreasFilled) {
+        return;
+      }
+
       this.calculatedButtonPressed = true;
       const {
         width,
@@ -232,6 +238,11 @@ export default {
       }
     },
     switchOrientation() {
+      this.checkFields();
+      if (!this.allAreasFilled) {
+        return;
+      }
+
       let tmp = this.nUpInput.width;
       this.nUpInput.width = this.nUpInput.height;
       this.nUpInput.height = tmp;
@@ -244,6 +255,19 @@ export default {
       }
       this.nUpInput.sheetWidth = 450;
       this.nUpInput.sheetHeight = 320;
+    },
+    checkFields() {
+      if (
+        this.nUpInput.qty === 0 ||
+        this.nUpInput.width === 0 ||
+        this.nUpInput.height === 0 ||
+        this.nUpInput.sheetWidth === 0 ||
+        this.nUpInput.sheetHeight === 0
+      ) {
+        this.allAreasFilled = false;
+      } else {
+        this.allAreasFilled = true;
+      }
     },
   },
 

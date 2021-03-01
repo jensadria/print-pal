@@ -4,7 +4,7 @@
       <input type="date" v-model="dueDate.val" />
     </template>
     <template #due-time>
-      <input type="time" v-model="dueDate.val" />
+      <input type="time" v-model="dueTime.val" />
     </template>
     <template #pet-number>
       <input

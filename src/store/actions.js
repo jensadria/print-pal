@@ -1,15 +1,15 @@
 export default {
   async LOAD_PRODUCTS(context) {
-    const data = await fetch(
-      'http://localhost:3000/api/products/'
-    ).then((response) => response.json());
+    const data = await fetch('/api/products/').then((response) =>
+      response.json()
+    );
 
     context.commit('LOAD_PRODUCTS', data);
   },
   async LOAD_ORDERS(context) {
-    const data = await fetch(
-      'http://localhost:3000/api/orders/'
-    ).then((response) => response.json());
+    const data = await fetch('/api/orders/').then((response) =>
+      response.json()
+    );
 
     context.commit('LOAD_ORDERS', data);
   },

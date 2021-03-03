@@ -1,6 +1,4 @@
-<template>
-  Price Calculator
-</template>
+<template>Price Calculator</template>
 
 <script>
 export default {};

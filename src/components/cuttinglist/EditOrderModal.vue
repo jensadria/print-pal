@@ -89,6 +89,7 @@ export default {
     },
     validateForm() {
       this.formIsValid = true;
+
       if (this.petNumber.val === '') {
         this.petNumber.isValid = false;
         this.formIsValid = false;

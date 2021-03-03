@@ -141,7 +141,7 @@ label {
   display: flex;
   text-align: left;
   padding: 0.5px;
-  align-items: start;
+  align-items: center;
 }
 
 input {

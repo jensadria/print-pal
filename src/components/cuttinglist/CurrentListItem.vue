@@ -2,7 +2,7 @@
   <li>
     <div class="product-item">
       <div class="due">
-        <h3>24 / 2 {{ earliestDueDate }}</h3>
+        <h3>24 / 2 {{ earliestDueDate === 'null' ? '' : earliestDueDate }}</h3>
       </div>
       <div class="amount">
         <h3>{{ sheetsTotal }} x {{ product.name }}</h3>

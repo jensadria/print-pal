@@ -42,7 +42,7 @@ export default {
   flex-direction: column;
 }
 
-.container > * {
+/* .container > * {
   flex: 1 1 100%;
-}
+} */
 </style>

@@ -33,6 +33,7 @@ export default {
   margin: 0px;
   padding: 0px;
   font-family: 'Nunito', sans-serif;
+  /* font-size: 1rem; */
 }
 
 #app {

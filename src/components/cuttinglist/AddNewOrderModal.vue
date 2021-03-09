@@ -79,6 +79,7 @@ export default {
       };
 
       this.$store.dispatch('addOrder', savedOrder);
+      this.$store.dispatch('LOAD_ORDERS');
 
       this.$emit('close');
 

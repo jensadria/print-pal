@@ -42,6 +42,7 @@
 </template>
 
 <script>
+const axios = require('axios');
 import StockSelector from '../cuttinglist/StockSelector.vue';
 
 export default {
@@ -77,8 +78,9 @@ export default {
         packed: false,
         completed: false,
       };
+      console.log(savedOrder);
 
-      this.$store.dispatch('addOrder', savedOrder);
+      this.pushOrderToDb(savedOrder);
       this.$store.dispatch('LOAD_ORDERS');
 
       this.$emit('close');
@@ -88,6 +90,25 @@ export default {
       this.petNumber.val = '';
       this.packs.val = 0;
       this.bulks.val = 0;
+    },
+    async pushOrderToDb(newOrder) {
+      //   const data = JSON.stringify(newOrder);
+      //   console.log(data);
+
+      //   await fetch('https://print-pal.herokuapp.com/api/orders/', {
+      //     method: 'POST',
+      //     body: data,
+      //   })
+      //     .then((response) => response.json())
+      //     .then((data) => {
+      //       console.log(data);
+      //     })
+      //     .catch((error) => console.error(error));
+
+      axios
+        .post('https://print-pal.herokuapp.com/api/orders/', newOrder)
+        .then((response) => console.log(response))
+        .catch((error) => console.error(error));
     },
     exitOrder() {
       this.$emit('close');

@@ -19,19 +19,19 @@ export default {
   editOrder(context, payload) {
     context.commit('editOrder', payload);
   },
-  async addOrder(_, payload) {
-    const data = JSON.stringify(payload);
+  //   async addOrder(_, payload) {
+  //     const data = JSON.stringify(payload);
 
-    await fetch('https://print-pal.herokuapp.com/api/orders/', {
-      method: 'POST',
-      body: data,
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
-      })
-      .catch((error) => console.error(error));
-  },
+  //     await fetch('https://print-pal.herokuapp.com/api/orders/', {
+  //       method: 'POST',
+  //       body: data,
+  //     })
+  //       .then((response) => response.json())
+  //       .then((data) => {
+  //         console.log(data);
+  //       })
+  //       .catch((error) => console.error(error));
+  //   },
   //   markAllComplete(context, payload) {
   //     const data await fetch('put')
 

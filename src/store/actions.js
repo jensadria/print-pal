@@ -20,17 +20,17 @@ export default {
     context.commit('editOrder', payload);
   },
   async addOrder(_, payload) {
+    const data = JSON.stringify(payload);
+
     await fetch('https://print-pal.herokuapp.com/api/orders/', {
       method: 'POST',
-      body: JSON.stringify(payload),
+      body: data,
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log('Success', data);
+        console.log(data);
       })
-      .catch((error) => console.error('Error', error));
-
-    console.log(JSON.stringify(payload));
+      .catch((error) => console.error(error));
   },
   //   markAllComplete(context, payload) {
   //     const data await fetch('put')

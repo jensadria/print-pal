@@ -64,26 +64,6 @@ export default {
     clearValidity(input) {
       this[input].isValid = true;
     },
-    editOrder() {
-      this.validateForm();
-
-      if (!this.formIsValid) {
-        return;
-      }
-
-      const editedOrder = {
-        id: this.orderToEdit.productId,
-        dueDate: this.dueDate,
-        dueTime: this.dueTime,
-        petNumber: this.petNumber,
-        packs: this.packs,
-        bulks: this.bulks,
-      };
-
-      this.$store.dispatch('editOrder', editedOrder);
-
-      this.$emit('close');
-    },
     exitOrder() {
       this.$emit('close');
     },

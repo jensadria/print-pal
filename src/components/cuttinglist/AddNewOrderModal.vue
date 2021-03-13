@@ -92,19 +92,6 @@ export default {
       this.bulks.val = 0;
     },
     async pushOrderToDb(newOrder) {
-      //   const data = JSON.stringify(newOrder);
-      //   console.log(data);
-
-      //   await fetch('https://print-pal.herokuapp.com/api/orders/', {
-      //     method: 'POST',
-      //     body: data,
-      //   })
-      //     .then((response) => response.json())
-      //     .then((data) => {
-      //       console.log(data);
-      //     })
-      //     .catch((error) => console.error(error));
-
       axios
         .post('https://print-pal.herokuapp.com/api/orders/', newOrder)
         .then((response) => console.log(response))

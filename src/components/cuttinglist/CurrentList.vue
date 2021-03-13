@@ -27,10 +27,6 @@ export default {
       return this.$store.getters.getCurrentProducts;
     },
   },
-  async mounted() {
-    await this.$store.dispatch('LOAD_PRODUCTS');
-    await this.$store.dispatch('LOAD_ORDERS');
-  },
 };
 </script>
 

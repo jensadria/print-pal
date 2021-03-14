@@ -1,5 +1,6 @@
 <template>
   <base-order-modal title="Add Order">
+    <template #heading> {{ name }} </template>
     <template #due-date>
       <input type="date" v-model="dueDate.val" />
     </template>
@@ -54,6 +55,7 @@ export default {
   },
   props: {
     id: String,
+    name: String,
   },
   emits: ['save'],
 
@@ -76,8 +78,10 @@ export default {
         packed: false,
         completed: false,
       };
+      console.log(savedOrder);
 
-      this.$store.dispatch('addOrder', savedOrder);
+      this.$store.dispatch('addOrderToDb', savedOrder);
+      this.$store.dispatch('LOAD_ORDERS');
 
       this.$emit('close');
 

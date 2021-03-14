@@ -8,9 +8,16 @@
             <h2>{{ title }}</h2>
           </slot>
         </header>
-        <slot name="stock-selector"> </slot>
+        <slot name="stock-selector"></slot>
         <section>
+          <div class="heading">
+            <h3><slot name="heading"></slot></h3>
+          </div>
           <div class="orders-input">
+            <div>
+              <label for="pet-number">PET Number</label>
+              <slot name="pet-number"></slot>
+            </div>
             <div>
               <label for="due-date">Due Date</label>
               <slot name="due-date"></slot>
@@ -19,10 +26,7 @@
               <label for="due-time">Due Time</label>
               <slot name="due-time"></slot>
             </div>
-            <div>
-              <label for="pet-number">PET Number</label>
-              <slot name="pet-number"></slot>
-            </div>
+
             <div>
               <label for="packs">Packs</label>
               <slot name="packs"></slot>
@@ -140,6 +144,10 @@ menu {
   transform: scale(1);
 }
 
+.heading {
+  margin-bottom: 1rem;
+}
+
 .orders-input > div {
   text-align: left;
 }
@@ -157,6 +165,10 @@ section > div > div > slot {
   width: auto;
   flex: 1;
   justify-content: left;
+}
+
+input {
+  width: 100%;
 }
 
 @media (min-width: 768px) {

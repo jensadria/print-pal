@@ -19,6 +19,7 @@
           :show="showAddOrderModal"
           @close="showAddOrderModal = false"
           :id="product.id"
+          :name="product.name"
         ></add-order-modal>
 
         <div>

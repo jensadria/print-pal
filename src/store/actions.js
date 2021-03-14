@@ -13,6 +13,12 @@ export default {
       .then((response) => context.commit('LOAD_ORDERS', response.data))
       .catch((error) => console.error(error));
   },
+  async addOrderToDb(_, payload) {
+    axios
+      .post('https://print-pal.herokuapp.com/api/orders/', payload)
+      .then((response) => console.log(response))
+      .catch((error) => console.error(error));
+  },
   selectedStock(context, payload) {
     context.commit('selectedStock', payload);
   },

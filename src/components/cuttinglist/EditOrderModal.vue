@@ -1,15 +1,16 @@
 <template>
   <base-order-modal title="Edit Order">
+    <template #pet-number>
+      <div>{{ petNumber.val }}</div>
+      <p v-if="!petNumber.isValid">Please assign an order</p>
+    </template>
     <template #due-date>
       <input type="date" v-model="dueDate.val" />
     </template>
     <template #due-time>
       <input type="time" v-model="dueTime.val" />
     </template>
-    <template #pet-number>
-      <input type="text" v-model="petNumber.val" @blur="petNumber.isValid" />
-      <p v-if="!petNumber.isValid">Please assign an order</p>
-    </template>
+
     <template #packs>
       <input
         type="number"

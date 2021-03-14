@@ -14,7 +14,6 @@
         v-model="petNumber.val"
         @blur="petNumber.isValid"
       />
-      <p v-if="!petNumber.isValid">Please assign an order</p>
     </template>
     <template #packs>
       <input
@@ -33,7 +32,13 @@
         min="0"
         @blur="packs.isValid"
       />
-      <p v-if="!packs.isValid">Please assign at least one pack or bulk</p>
+    </template>
+    <template #error-message>
+      <p v-if="!petNumber.isValid">Please assign an order</p>
+      <br />
+      <p v-if="noOrdersEntered">
+        Please assign at least one pack or bulk
+      </p>
     </template>
     <template #buttons>
       <base-button @click="saveOrder">Save</base-button>
@@ -51,8 +56,9 @@ export default {
       dueDate: { val: null, isValid: true },
       dueTime: { val: null, isValid: true },
       petNumber: { val: '', isValid: true },
-      packs: { val: 0, isValid: true },
-      bulks: { val: 0, isValid: true },
+      packs: { val: 0 },
+      bulks: { val: 0 },
+      noOrdersEntered: false,
       formIsValid: true,
     };
   },
@@ -89,19 +95,22 @@ export default {
       this.petNumber.val = '';
       this.packs.val = 0;
       this.bulks.val = 0;
+
+      this.formIsValid = true;
+      this.noOrdersEntered = false;
     },
     exitOrder() {
       this.$emit('close');
     },
     validateForm() {
       this.formIsValid = true;
+
       if (this.petNumber.val === '') {
         this.petNumber.isValid = false;
         this.formIsValid = false;
       }
-      if (this.packs.val === 0 && this.packs.val === 0) {
-        this.packs.isValid = false;
-        this.formIsValid = false;
+      if (this.packs.val === 0 && this.bulks.val === 0) {
+        this.noOrdersEntered = true;
       }
     },
   },

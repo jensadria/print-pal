@@ -2,7 +2,6 @@
   <base-order-modal title="Edit Order">
     <template #pet-number>
       <div>{{ petNumber.val }}</div>
-      <p v-if="!petNumber.isValid">Please assign an order</p>
     </template>
     <template #due-date>
       <input type="date" v-model="dueDate.val" />
@@ -29,8 +28,6 @@
         min="0"
         @blur="clearValidity('bulks')"
       />
-
-      <p v-if="!packs.isValid">Please assign at least one pack or bulk</p>
     </template>
 
     <template #buttons class="buttons">
@@ -54,10 +51,11 @@ export default {
       dueTime: { val: null, isValid: true },
       petNumber: { val: '', isValid: true },
       packs: { val: 0, isValid: true },
+      bulks: { val: 0, isValid: true },
       packQty: 0,
       bulkQty: 0,
-      bulks: { val: 0, isValid: true },
       formIsValid: true,
+      noOrdersEntered: false,
     };
   },
   emits: ['save'],
@@ -75,9 +73,8 @@ export default {
         this.petNumber.isValid = false;
         this.formIsValid = false;
       }
-      if (this.packs.val === 0 && this.packs.val === 0) {
-        this.packs.isValid = false;
-        this.formIsValid = false;
+      if (this.packs.val === 0 && this.bulks.val === 0) {
+        this.noOrdersEntered = true;
       }
     },
     loadValues() {
@@ -88,6 +85,28 @@ export default {
       this.bulks.val = this.orderToEdit?.bulks;
       this.packQty = this.currentProduct?.packQty;
       this.bulkQty = this.currentProduct?.bulkQty;
+    },
+    editOrder() {
+      this.validateForm();
+
+      if (!this.formIsValid) {
+        return;
+      }
+
+      const orderId = this.orderToEdit._id;
+      const savedOrder = {
+        dueDate: this.dueDate.val,
+        dueTime: this.dueTime.val,
+        packs: this.packs.val,
+        bulks: this.bulks.val,
+        cut: false,
+        packed: false,
+        completed: false,
+      };
+
+      this.$store.dispatch('editOrder', { orderId, savedOrder });
+
+      this.$emit('close');
     },
   },
   computed: {

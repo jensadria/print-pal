@@ -35,6 +35,9 @@
               <label for="bulks">Bulks</label>
               <slot name="bulks"></slot>
             </div>
+            <div>
+              <slot name="error-message"></slot>
+            </div>
           </div>
         </section>
 

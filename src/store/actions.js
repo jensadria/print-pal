@@ -14,15 +14,18 @@ export default {
       .catch((error) => console.error(error));
   },
   async addOrderToDb(_, payload) {
-    axios
+    await axios
       .post('https://print-pal.herokuapp.com/api/orders/', payload)
-      .then((response) => console.log(response))
+      .then((response) => console.log(response.data))
+      .catch((error) => console.error(error));
+  },
+  async editOrder(_, { orderId, savedOrder }) {
+    await axios
+      .put(`https://print-pal.herokuapp.com/api/orders/${orderId}`, savedOrder)
+      .then((response) => console.log(response.data))
       .catch((error) => console.error(error));
   },
   selectedStock(context, payload) {
     context.commit('selectedStock', payload);
-  },
-  editOrder(context, payload) {
-    context.commit('editOrder', payload);
   },
 };

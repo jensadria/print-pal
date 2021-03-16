@@ -33,8 +33,9 @@
     <template #buttons class="buttons">
       <div class="buttons">
         <base-button @click="editOrder">Save</base-button>
-        <button class="remove-order" @click="deleteOrder"></button>
-        <i class="far fa-times-circle fa-3x"></i>
+        <button class="remove-order" @click="deleteOrder">
+          <i class="far fa-times-circle fa-3x delete"></i>
+        </button>
       </div>
     </template>
   </base-order-modal>
@@ -108,6 +109,11 @@ export default {
 
       this.$emit('close');
     },
+    deleteOrder() {
+      const orderId = this.orderToEdit._id;
+      this.$store.dispatch('deleteOrder', orderId);
+      this.$emit('close');
+    },
   },
   computed: {
     orderToEdit() {
@@ -147,5 +153,8 @@ input {
 }
 .fa-times-circle:hover {
   margin: 0.5rem;
+}
+.delete {
+  cursor: pointer;
 }
 </style>

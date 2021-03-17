@@ -26,10 +26,16 @@ export default {
       .catch((error) => console.error(error));
   },
   async deleteOrder(_, orderId) {
-    await axios
-      .delete(`https://print-pal.herokuapp.com/api/orders/${orderId}`)
-      .then((response) => console.log(response.data))
-      .catch((error) => console.error(error));
+    // await axios
+    //   .delete(`http://localhost:3000/api/orders/${orderId}`)
+    //   .then((response) => console.log(response.data))
+    //   .catch((error) => console.error(error));
+    await fetch(`http://localhost:3000/api/orders/${orderId}`, {
+      method: 'DELETE',
+    })
+      .then((response) => response.json())
+      .then((data) => console.log(data))
+      .catch((err) => console.log(err));
   },
   selectedStock(context, payload) {
     context.commit('selectedStock', payload);

@@ -65,7 +65,7 @@ export default {
   emits: ['save'],
 
   methods: {
-    saveOrder() {
+    async saveOrder() {
       this.validateForm();
 
       if (!this.formIsValid) {
@@ -85,10 +85,11 @@ export default {
       };
       console.log(savedOrder);
 
-      this.$store.dispatch('addOrderToDb', savedOrder);
-      this.$store.dispatch('LOAD_ORDERS');
+      await this.$store.dispatch('addOrderToDb', savedOrder);
 
       this.$emit('close');
+
+      await this.$store.dispatch('LOAD_ORDERS');
 
       this.dueDate.val = null;
       this.dueTime.val = null;

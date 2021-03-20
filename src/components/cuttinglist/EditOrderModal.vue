@@ -87,7 +87,7 @@ export default {
       this.packQty = this.currentProduct?.packQty;
       this.bulkQty = this.currentProduct?.bulkQty;
     },
-    editOrder() {
+    async editOrder() {
       this.validateForm();
 
       if (!this.formIsValid) {
@@ -105,9 +105,11 @@ export default {
         completed: false,
       };
 
-      this.$store.dispatch('editOrder', { orderId, savedOrder });
+      await this.$store.dispatch('editOrder', { orderId, savedOrder });
 
       this.$emit('close');
+
+      await this.$store.dispatch('LOAD_ORDERS');
     },
     deleteOrder() {
       const orderId = this.orderToEdit._id;

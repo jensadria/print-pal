@@ -21,21 +21,18 @@ export default {
   },
   async editOrder(_, { orderId, savedOrder }) {
     await axios
-      .put(`https://print-pal.herokuapp.com/api/orders/${orderId}`, savedOrder)
+      .patch(
+        `https://print-pal.herokuapp.com/api/orders/${orderId}`,
+        savedOrder
+      )
       .then((response) => console.log(response.data))
       .catch((error) => console.error(error));
   },
-  async deleteOrder(_, orderId) {
-    // await axios
-    //   .delete(`http://localhost:3000/api/orders/${orderId}`)
-    //   .then((response) => console.log(response.data))
-    //   .catch((error) => console.error(error));
-    await fetch(`http://localhost:3000/api/orders/${orderId}`, {
-      method: 'DELETE',
-    })
-      .then((response) => response.json())
-      .then((data) => console.log(data))
-      .catch((err) => console.log(err));
+  deleteOrder(_, orderId) {
+    return axios
+      .delete(`https://print-pal.herokuapp.com/api/orders/${orderId}`)
+      .then((response) => console.log(response.data))
+      .catch((error) => console.error(error));
   },
   selectedStock(context, payload) {
     context.commit('selectedStock', payload);

@@ -25,16 +25,23 @@ export default {
         `${process.env.VUE_APP_SERVER_URI}/api/orders/${orderId}`,
         savedOrder
       )
-      .then((response) => console.log(response.data))
       .catch((error) => console.error(error));
   },
-  deleteOrder(_, orderId) {
-    return axios
+  async deleteOrder(_, orderId) {
+    await axios
       .delete(`${process.env.VUE_APP_SERVER_URI}/api/orders/${orderId}`)
-      .then((response) => console.log(response.data))
       .catch((error) => console.error(error));
   },
   selectedStock(context, payload) {
     context.commit('selectedStock', payload);
+  },
+  async toggleOrderStatus(_, { orderStage, orderId }) {
+    console.log(orderStage);
+    await axios
+      .patch(
+        `${process.env.VUE_APP_SERVER_URI}/api/orders/${orderStage}/${orderId}`
+      )
+      .then((response) => console.log(response.data))
+      .catch((error) => console.error(error));
   },
 };

@@ -36,6 +36,9 @@
         <button class="remove-order" @click="deleteOrder">
           <i class="far fa-times-circle fa-3x delete"></i>
         </button>
+        <button @click="toggleOrderStatus('cut')">Cut</button>
+        <button @click="toggleOrderStatus('packed')">Packed</button>
+        <button @click="toggleOrderStatus('completed')">Completed</button>
       </div>
     </template>
   </base-order-modal>
@@ -111,10 +114,15 @@ export default {
 
       await this.$store.dispatch('LOAD_ORDERS');
     },
-    deleteOrder() {
+    async deleteOrder() {
       const orderId = this.orderToEdit._id;
-      this.$store.dispatch('deleteOrder', orderId);
+      await this.$store.dispatch('deleteOrder', orderId);
       this.$emit('close');
+      await this.$store.dispatch('LOAD_ORDERS');
+    },
+    async toggleOrderStatus(orderStage) {
+      const orderId = this.orderToEdit._id;
+      await this.$store.dispatch('toggleOrderStatus', { orderStage, orderId });
     },
   },
   computed: {

@@ -3,26 +3,26 @@ const axios = require('axios');
 export default {
   async LOAD_PRODUCTS(context) {
     await axios
-      .get('https://print-pal.herokuapp.com/api/products/')
+      .get(`${process.env.VUE_APP_SERVER_URI}/api/products/`)
       .then((response) => context.commit('LOAD_PRODUCTS', response.data))
       .catch((error) => console.error(error));
   },
   async LOAD_ORDERS(context) {
     await axios
-      .get('https://print-pal.herokuapp.com/api/orders/')
+      .get(`${process.env.VUE_APP_SERVER_URI}/api/orders/`)
       .then((response) => context.commit('LOAD_ORDERS', response.data))
       .catch((error) => console.error(error));
   },
   async addOrderToDb(_, payload) {
     await axios
-      .post('https://print-pal.herokuapp.com/api/orders/', payload)
+      .post(`${process.env.VUE_APP_SERVER_URI}/api/orders/`, payload)
       .then((response) => console.log(response.data))
       .catch((error) => console.error(error));
   },
   async editOrder(_, { orderId, savedOrder }) {
     await axios
       .patch(
-        `https://print-pal.herokuapp.com/api/orders/${orderId}`,
+        `${process.env.VUE_APP_SERVER_URI}/api/orders/${orderId}`,
         savedOrder
       )
       .then((response) => console.log(response.data))
@@ -30,7 +30,7 @@ export default {
   },
   deleteOrder(_, orderId) {
     return axios
-      .delete(`https://print-pal.herokuapp.com/api/orders/${orderId}`)
+      .delete(`${process.env.VUE_APP_SERVER_URI}/api/orders/${orderId}`)
       .then((response) => console.log(response.data))
       .catch((error) => console.error(error));
   },

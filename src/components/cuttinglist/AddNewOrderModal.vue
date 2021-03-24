@@ -23,6 +23,7 @@
         min="0"
         @blur="packs.isValid"
       />
+      {{ selectedStockPackQty }}
     </template>
     <template #bulks>
       <input
@@ -118,6 +119,9 @@ export default {
   computed: {
     getSelectedStockId() {
       return this.$store.getters.getSelectedStock.id;
+    },
+    selectedStockPackQty() {
+      return this.$store.getters.getSelectedStock.packQty;
     },
   },
 };

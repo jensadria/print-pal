@@ -7,7 +7,10 @@
       :show="showAddNewOrderModal"
       @close="showAddNewOrderModal = false"
     ></add-new-order-modal>
-    <current-list></current-list>
+    <div v-if="isLoading">
+      <base-spinner></base-spinner>
+    </div>
+    <current-list v-else></current-list>
   </div>
 </template>
 
@@ -18,6 +21,7 @@ import CurrentList from '../components/cuttinglist/CurrentList.vue';
 export default {
   data() {
     return {
+      isLoading: false,
       showAddNewOrderModal: false,
     };
   },
@@ -25,9 +29,16 @@ export default {
     CurrentList,
     AddNewOrderModal,
   },
-  async created() {
-    await this.$store.dispatch('LOAD_PRODUCTS');
-    await this.$store.dispatch('LOAD_ORDERS');
+  methods: {
+    async loadProductsAndOrders() {
+      this.isLoading = true;
+      await this.$store.dispatch('LOAD_PRODUCTS');
+      await this.$store.dispatch('LOAD_ORDERS');
+      this.isLoading = false;
+    },
+  },
+  created() {
+    this.loadProductsAndOrders();
   },
 };
 </script>

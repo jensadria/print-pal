@@ -36,9 +36,6 @@
           </button>
         </div>
       </div>
-      <div class="buttons">
-        <i class="fas fa-minus-circle delete" @click="markComplete"></i>
-      </div>
     </div>
   </li>
 </template>
@@ -76,7 +73,6 @@ export default {
     bulks() {
       return this.orders.reduce((acc, order) => acc + order.bulks, 0);
     },
-
     flatSheetsRequired() {
       const { packQty, bulkQty, noOutFlatSheet } = this.product;
 

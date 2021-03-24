@@ -33,12 +33,23 @@
     <template #buttons class="buttons">
       <div class="buttons">
         <base-button @click="editOrder">Save</base-button>
-        <button class="remove-order" @click="deleteOrder">
-          <i class="far fa-times-circle fa-3x delete"></i>
+        <div>
+          <button
+            class="complete-order complete"
+            @click="toggleOrderStatus('completed')"
+          >
+            <i class="fas fa-check-circle fa-3x"></i>
+          </button>
+          <button class="remove-order delete" @click="deleteOrder">
+            <i class="far fa-times-circle fa-3x "></i>
+          </button>
+          <!-- <button @click="toggleOrderStatus('cut')">
+          Cut {{ orderToEdit.cut }}
         </button>
-        <button @click="toggleOrderStatus('cut')">Cut</button>
-        <button @click="toggleOrderStatus('packed')">Packed</button>
-        <button @click="toggleOrderStatus('completed')">Completed</button>
+        <button @click="toggleOrderStatus('packed')">
+          Packed {{ packed }}
+        </button> -->
+        </div>
       </div>
     </template>
   </base-order-modal>
@@ -56,6 +67,9 @@ export default {
       petNumber: { val: '', isValid: true },
       packs: { val: 0, isValid: true },
       bulks: { val: 0, isValid: true },
+      cut: null,
+      packed: null,
+      completed: null,
       packQty: 0,
       bulkQty: 0,
       formIsValid: true,
@@ -87,6 +101,9 @@ export default {
       this.petNumber.val = this.orderToEdit?.petNumber;
       this.packs.val = this.orderToEdit?.packs;
       this.bulks.val = this.orderToEdit?.bulks;
+      this.cut = this.orderToEdit?.cut;
+      this.packed = this.orderToEdit?.packed;
+      this.completed = this.orderToEdit?.completed;
       this.packQty = this.currentProduct?.packQty;
       this.bulkQty = this.currentProduct?.bulkQty;
     },
@@ -123,6 +140,9 @@ export default {
     async toggleOrderStatus(orderStage) {
       const orderId = this.orderToEdit._id;
       await this.$store.dispatch('toggleOrderStatus', { orderStage, orderId });
+      this.$emit('close');
+
+      await this.$store.dispatch('LOAD_ORDERS');
     },
   },
   computed: {
@@ -161,10 +181,20 @@ input {
   color: rgb(231, 98, 98);
   margin: 0.5rem;
 }
+
+.fa-check-circle {
+  color: rgb(0, 184, 31);
+  margin: 0.5rem;
+}
+.fa-check-circle:hover,
 .fa-times-circle:hover {
   margin: 0.5rem;
 }
-.delete {
+
+.delete,
+.complete {
   cursor: pointer;
+  border: none;
+  background-color: #fff;
 }
 </style>

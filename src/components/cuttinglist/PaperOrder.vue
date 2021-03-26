@@ -12,8 +12,8 @@
       @close="showEditOrderModal = false"
       :order="order"
     ></edit-order-modal>
-    <button @click="showEditOrderModal = true">
-      Edit
+    <button @click="showEditOrderModal = true" class="edit-button">
+      <i class="fas fa-edit edit"></i>
     </button>
     <div></div>
   </div>
@@ -44,5 +44,24 @@ export default {
   padding: 5px;
   margin-bottom: 8px;
   background-color: var(--very-light-blue);
+  border-radius: 0.5rem;
+}
+
+.edit-button {
+  border: none;
+  background: transparent;
+}
+
+.edit {
+  width: 1rem;
+  color: var(--dark-blue);
+}
+
+.edit:hover {
+  color: rgb(0, 184, 31);
+}
+
+edit:focus {
+  outline: none;
 }
 </style>

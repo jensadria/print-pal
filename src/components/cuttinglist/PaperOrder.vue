@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="order">
     <h4>{{ order.petNumber }}</h4>
     <div>
       {{ order.dueDate === 'null' ? 'No Due Date' : 'Due ' + order.dueDate }}
@@ -33,4 +33,16 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+.order {
+  display: grid;
+  grid-template-rows: repeat(2, 1fr);
+  grid-template-columns: 50% 40% 10%;
+  /* grid-template-rows: auto; */
+  grid-auto-flow: column;
+  text-align: left;
+  padding: 5px;
+  margin-bottom: 8px;
+  background-color: var(--very-light-blue);
+}
+</style>

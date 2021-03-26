@@ -2,7 +2,7 @@
   <li>
     <div class="product-item">
       <div class="due">
-        <h3>24 / 2 {{ earliestDueDate === 'null' ? '' : earliestDueDate }}</h3>
+        <h3>{{ earliestDueDate === 'null' ? '' : earliestDueDate }}</h3>
       </div>
       <div class="amount">
         <h3>{{ sheetsTotal }} x {{ product.name }}</h3>
@@ -24,7 +24,6 @@
 
         <div>
           <paper-order
-            class="order"
             v-for="order in orders"
             :key="order"
             :order="order"
@@ -148,18 +147,6 @@ li:nth-child(odd) {
 
 .add-order {
   text-align: left;
-}
-
-.order {
-  display: grid;
-  grid-template-rows: repeat(2, 1fr);
-  grid-template-columns: 50% 40% 10%;
-  /* grid-template-rows: auto; */
-  grid-auto-flow: column;
-  text-align: left;
-  padding: 5px;
-  margin-bottom: 8px;
-  background-color: var(--very-light-blue);
 }
 
 .edit {

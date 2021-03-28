@@ -8,36 +8,10 @@
             <h2>{{ title }}</h2>
           </slot>
         </header>
-        <slot name="stock-selector"></slot>
         <section>
-          <div class="heading">
-            <h3><slot name="heading"></slot></h3>
-          </div>
-          <div class="orders-input">
-            <div>
-              <label for="pet-number">PET Number</label>
-              <slot name="pet-number"></slot>
-            </div>
-            <div>
-              <label for="due-date">Due Date</label>
-              <slot name="due-date"></slot>
-            </div>
-            <div>
-              <label for="due-time">Due Time</label>
-              <slot name="due-time"></slot>
-            </div>
-
-            <div>
-              <label for="packs">Packs</label>
-              <slot name="packs"></slot>
-            </div>
-            <div>
-              <label for="bulks">Bulks</label>
-              <slot name="bulks"></slot>
-            </div>
-            <div>
-              <slot name="error-message"></slot>
-            </div>
+          <slot></slot>
+          <div>
+            <slot name="error-message"></slot>
           </div>
         </section>
 

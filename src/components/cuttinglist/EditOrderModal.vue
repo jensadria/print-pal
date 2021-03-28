@@ -1,34 +1,38 @@
 <template>
   <base-order-modal title="Edit Order">
-    <template #pet-number>
-      <div>{{ petNumber.val }}</div>
-    </template>
-    <template #due-date>
-      <input type="date" v-model="dueDate.val" />
-    </template>
-    <template #due-time>
-      <input type="time" v-model="dueTime.val" />
-    </template>
-
-    <template #packs>
-      <input
-        type="number"
-        id="packs"
-        v-model.number="packs.val"
-        min="0"
-        @blur="clearValidity('packs')"
-      />
-      {{ packQty }}
-    </template>
-    <template #bulks>
-      <input
-        type="number"
-        id="bulks"
-        v-model.number="bulks.val"
-        min="0"
-        @blur="clearValidity('bulks')"
-      />
-    </template>
+    <div>
+      <div>
+        <div>{{ petNumber.val }}</div>
+      </div>
+      <div>
+        <label for="due-date">Due Date</label>
+        <input type="date" v-model="dueDate.val" />
+      </div>
+      <div>
+        <label for="due-time">Due Time</label>
+        <input type="time" v-model="dueTime.val" />
+      </div>
+      <div>
+        <label for="packs">Packs (of {{ packQty }})</label>
+        <input
+          type="number"
+          id="packs"
+          v-model.number="packs.val"
+          min="0"
+          @blur="clearValidity('packs')"
+        />
+      </div>
+      <div>
+        <label for="bulks">Bulks</label>
+        <input
+          type="number"
+          id="bulks"
+          v-model.number="bulks.val"
+          min="0"
+          @blur="clearValidity('bulks')"
+        />
+      </div>
+    </div>
 
     <template #buttons class="buttons">
       <div class="buttons">

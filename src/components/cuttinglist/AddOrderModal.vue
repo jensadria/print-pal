@@ -1,38 +1,47 @@
 <template>
   <base-order-modal title="Add Order">
-    <template #heading> {{ name }} </template>
-    <template #due-date>
-      <input type="date" v-model="dueDate.val" />
-    </template>
-    <template #due-time>
-      <input type="time" v-model="dueTime.val" />
-    </template>
-    <template #pet-number>
-      <input
-        type="text"
-        id="pet-number"
-        v-model="petNumber.val"
-        @blur="petNumber.isValid"
-      />
-    </template>
-    <template #packs>
-      <input
-        type="number"
-        id="packs"
-        v-model.number="packs.val"
-        min="0"
-        @blur="packs.isValid"
-      />
-    </template>
-    <template #bulks>
-      <input
-        type="number"
-        id="bulks"
-        v-model.number="bulks.val"
-        min="0"
-        @blur="packs.isValid"
-      />
-    </template>
+    <div>{{ name }}</div>
+    <div>
+      <div>
+        <label for="pet-number">PET Number</label>
+        <input
+          type="text"
+          id="pet-number"
+          v-model="petNumber.val"
+          @blur="petNumber.isValid"
+        />
+      </div>
+      <div>
+        <label for="due-date">Due Date</label>
+        <input type="date" v-model="dueDate.val" />
+      </div>
+      <div>
+        <label for="due-time">Due Time</label>
+        <input type="time" v-model="dueTime.val" />
+      </div>
+
+      <div>
+        <label for="packs">Packs</label>
+        <input
+          type="number"
+          id="packs"
+          v-model.number="packs.val"
+          min="0"
+          @blur="packs.isValid"
+        />
+        {{ selectedStockPackQty }}
+      </div>
+      <div>
+        <label for="bulks">Bulks</label>
+        <input
+          type="number"
+          id="bulks"
+          v-model.number="bulks.val"
+          min="0"
+          @blur="packs.isValid"
+        />
+      </div>
+    </div>
     <template #error-message>
       <p v-if="!petNumber.isValid">Please assign an order</p>
       <br />
@@ -113,4 +122,23 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+section > div > div {
+  width: 60%;
+  display: flex;
+}
+
+section > div > div > label {
+  flex: 2 0 50%;
+}
+
+section > div > div > slot {
+  width: auto;
+  flex: 1;
+  justify-content: left;
+}
+
+input {
+  width: 100%;
+}
+</style>

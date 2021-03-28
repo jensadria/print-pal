@@ -1,8 +1,8 @@
 <template>
   <base-order-modal title="Add Order">
-    <div>
-      <stock-selector></stock-selector>
-      <div>
+    <stock-selector></stock-selector>
+    <div class="orders-input">
+      <div class="pet-number-area">
         <label for="pet-number">PET Number</label>
         <input
           type="text"
@@ -11,17 +11,17 @@
           @blur="petNumber.isValid"
         />
       </div>
-      <div>
+      <div class="due-date-area">
         <label for="due-date">Due Date</label>
         <input type="date" v-model="dueDate.val" />
       </div>
-      <div>
+      <div class="due-time-area">
         <label for="due-time">Due Time</label>
         <input type="time" v-model="dueTime.val" />
       </div>
 
-      <div>
-        <label for="packs">Packs</label>
+      <div class="packs-area">
+        <label for="packs">Packs (of {{ selectedStockPackQty }})</label>
         <input
           type="number"
           id="packs"
@@ -29,9 +29,8 @@
           min="0"
           @blur="packs.isValid"
         />
-        {{ selectedStockPackQty }}
       </div>
-      <div>
+      <div class="bulks-area">
         <label for="bulks">Bulks</label>
         <input
           type="number"
@@ -136,22 +135,64 @@ export default {
 </script>
 
 <style scoped>
-section > div > div {
-  width: 60%;
-  display: flex;
-}
-
-section > div > div > label {
-  flex: 2 0 50%;
-}
-
-section > div > div > slot {
-  width: auto;
-  flex: 1;
-  justify-content: left;
-}
-
-input {
+.orders-input {
   width: 100%;
+  column-gap: 3rem;
+  row-gap: 1rem;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-areas:
+    'pet-number .'
+    'due-date due-time'
+    'packs bulks';
+  grid-template-rows: auto;
+}
+
+.pet-number-area {
+  grid-area: pet-number;
+  width: 100%;
+}
+
+.due-date-area {
+  grid-area: due-date;
+  width: 100%;
+}
+
+.due-time-area {
+  grid-area: due-time;
+}
+
+.packs-area {
+  grid-area: packs;
+}
+
+.bulks-area {
+  grid-area: bulks;
+}
+
+input,
+label {
+  display: block;
+  text-align: left;
+  padding: 0.5px;
+}
+input {
+  display: block;
+  width: 100%;
+  border: 2px solid gray;
+  border-top: none;
+  border-right: none;
+  border-left: none;
+  font-size: 30px;
+  font-weight: medium;
+}
+
+input:focus {
+  border: 2px solid var(--mid-blue);
+  border-top: none;
+  border-right: none;
+  border-left: none;
+  background-color: var(--very-light-blue);
+  outline: none;
 }
 </style>

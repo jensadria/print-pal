@@ -67,8 +67,8 @@ export default {
 dialog {
   position: fixed;
   top: 20vh;
-  left: 10%;
-  width: 80%;
+  left: calc(50% - 25rem);
+  width: 50rem;
   z-index: 100;
   border-radius: 12px;
   border: none;
@@ -91,14 +91,7 @@ header h2 {
 }
 
 section {
-  padding: 1rem;
-}
-
-menu {
-  padding: 1rem;
-  display: flex;
-  justify-content: flex-end;
-  margin: 0;
+  padding: 3rem;
 }
 
 .dialog-enter-from,
@@ -120,38 +113,10 @@ menu {
   opacity: 1;
   transform: scale(1);
 }
-
-.heading {
-  margin-bottom: 1rem;
-}
-
-.orders-input > div {
-  text-align: left;
-}
-
-section > div > div {
-  width: 60%;
-  display: flex;
-}
-
-section > div > div > label {
-  flex: 2 0 50%;
-}
-
-section > div > div > slot {
-  width: auto;
-  flex: 1;
-  justify-content: left;
-}
-
-input {
-  width: 100%;
-}
-
-@media (min-width: 768px) {
+/* @media (min-width: 768px) {
   dialog {
     left: calc(50% - 20rem);
     width: 40rem;
   }
-}
+} */
 </style>

@@ -2,7 +2,7 @@
   <base-order-modal title="Edit Order">
     <div>
       <div>
-        <div>{{ petNumber.val }}</div>
+        <div class="heading">{{ petNumber.val }}</div>
       </div>
       <div>
         <label for="due-date">Due Date</label>
@@ -172,6 +172,25 @@ export default {
 </script>
 
 <style scoped>
+.heading {
+  margin-bottom: 1rem;
+}
+
+section > div > div {
+  width: 60%;
+  display: flex;
+}
+
+section > div > div > label {
+  flex: 2 0 50%;
+}
+
+section > div > div > slot {
+  width: auto;
+  flex: 1;
+  justify-content: left;
+}
+
 input {
   width: 100%;
 }

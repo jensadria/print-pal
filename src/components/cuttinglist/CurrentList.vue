@@ -1,4 +1,11 @@
 <template>
+  <base-button @click="showAddNewOrderModal = true">
+    Add New Order
+  </base-button>
+  <add-new-order-modal
+    :show="showAddNewOrderModal"
+    @close="showAddNewOrderModal = false"
+  ></add-new-order-modal>
   <div class="container">
     <base-card>
       <h2>Cutting List</h2>
@@ -17,10 +24,17 @@
 
 <script>
 import CurrentListItem from '../cuttinglist/CurrentListItem.vue';
+import AddNewOrderModal from '../cuttinglist/AddNewOrderModal.vue';
 
 export default {
   components: {
+    AddNewOrderModal,
     CurrentListItem,
+  },
+  data() {
+    return {
+      showAddNewOrderModal: false,
+    };
   },
   computed: {
     currentProducts() {

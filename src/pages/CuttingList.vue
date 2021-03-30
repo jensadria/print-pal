@@ -1,33 +1,28 @@
 <template>
   <div class="container">
-    <base-button @click="showAddNewOrderModal = true">
-      Add New Order
-    </base-button>
-    <add-new-order-modal
-      :show="showAddNewOrderModal"
-      @close="showAddNewOrderModal = false"
-    ></add-new-order-modal>
+    <cutting-list-header></cutting-list-header>
     <div v-if="isLoading">
       <base-spinner></base-spinner>
     </div>
-    <current-list v-else></current-list>
+    <!-- <current-list></current-list> -->
+    <router-view v-else></router-view>
   </div>
 </template>
 
 <script>
-import AddNewOrderModal from '../components/cuttinglist/AddNewOrderModal.vue';
-import CurrentList from '../components/cuttinglist/CurrentList.vue';
+import CuttingListHeader from '../components/cuttinglist/CuttingListHeader.vue';
+// import CurrentList from '../components/cuttinglist/CurrentList.vue';
 
 export default {
   data() {
     return {
       isLoading: false,
-      showAddNewOrderModal: false,
     };
   },
   components: {
-    CurrentList,
-    AddNewOrderModal,
+    CuttingListHeader,
+    // CurrentList,
+    // AddNewOrderModal,
   },
   methods: {
     async loadProductsAndOrders() {

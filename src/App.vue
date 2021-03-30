@@ -27,6 +27,7 @@ export default {
   --very-light-blue: #adc5d8;
   --cool-gray: #b9bdcd;
   --very-light-gray: #ededed;
+  --success-green: rgb(0, 184, 31);
 }
 
 * {

@@ -248,7 +248,7 @@ input:focus {
 }
 
 .fa-check-circle {
-  color: rgb(0, 184, 31);
+  color: var(--success-green);
   margin: 0.5rem;
 }
 .fa-check-circle:hover,

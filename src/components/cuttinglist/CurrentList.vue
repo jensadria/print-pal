@@ -1,7 +1,7 @@
 <template>
-  <base-button @click="showAddNewOrderModal = true">
-    Add New Order
-  </base-button>
+  <button class="add-order" @click="showAddNewOrderModal = true">
+    <i class="fas fa-plus fa-2x"></i>
+  </button>
   <add-new-order-modal
     :show="showAddNewOrderModal"
     @close="showAddNewOrderModal = false"
@@ -48,5 +48,19 @@ export default {
 h2 {
   text-align: left;
   margin-bottom: 1rem;
+}
+
+.add-order {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 4px solid var(--light-blue);
+  background-color: #fff;
+  margin: 1rem;
+  cursor: pointer;
+}
+
+.add-order i {
+  color: var(--light-blue);
 }
 </style>

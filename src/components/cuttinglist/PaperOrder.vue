@@ -58,7 +58,7 @@ export default {
 }
 
 .edit:hover {
-  color: rgb(0, 184, 31);
+  color: var(--success-green);
 }
 
 edit:focus {

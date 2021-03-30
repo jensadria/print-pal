@@ -1,6 +1,8 @@
 <template>
   <base-order-modal title="Add Order">
-    <div class="heading">{{ name }}</div>
+    <div class="heading">
+      <h1>{{ name }}</h1>
+    </div>
     <div class="orders-input">
       <div class="pet-number-area">
         <label for="pet-number">PET Number</label>
@@ -122,6 +124,9 @@ export default {
 </script>
 
 <style scoped>
+.heading {
+  margin-bottom: 1rem;
+}
 .orders-input {
   width: 100%;
   column-gap: 3rem;
@@ -170,7 +175,7 @@ input {
   border-top: none;
   border-right: none;
   border-left: none;
-  font-size: 30px;
+  font-size: 1.5rem;
   font-weight: medium;
 }
 

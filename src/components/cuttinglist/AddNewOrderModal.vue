@@ -183,7 +183,7 @@ input {
   border-top: none;
   border-right: none;
   border-left: none;
-  font-size: 30px;
+  font-size: 1.5rem;
   font-weight: medium;
 }
 

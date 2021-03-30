@@ -1,36 +1,38 @@
 <template>
   <base-order-modal title="Edit Order">
     <div>
-      <div>
-        <div class="heading">{{ petNumber.val }}</div>
+      <div class="heading">
+        <h1>{{ petNumber.val }}</h1>
       </div>
-      <div>
-        <label for="due-date">Due Date</label>
-        <input type="date" v-model="dueDate.val" />
-      </div>
-      <div>
-        <label for="due-time">Due Time</label>
-        <input type="time" v-model="dueTime.val" />
-      </div>
-      <div>
-        <label for="packs">Packs (of {{ packQty }})</label>
-        <input
-          type="number"
-          id="packs"
-          v-model.number="packs.val"
-          min="0"
-          @blur="clearValidity('packs')"
-        />
-      </div>
-      <div>
-        <label for="bulks">Bulks</label>
-        <input
-          type="number"
-          id="bulks"
-          v-model.number="bulks.val"
-          min="0"
-          @blur="clearValidity('bulks')"
-        />
+      <div class="orders-input">
+        <div class="due-date-area">
+          <label for="due-date">Due Date</label>
+          <input type="date" v-model="dueDate.val" />
+        </div>
+        <div class="due-time-area">
+          <label for="due-time">Due Time</label>
+          <input type="time" v-model="dueTime.val" />
+        </div>
+        <div class="packs-area">
+          <label for="packs">Packs (of {{ packQty }})</label>
+          <input
+            type="number"
+            id="packs"
+            v-model.number="packs.val"
+            min="0"
+            @blur="clearValidity('packs')"
+          />
+        </div>
+        <div class="bulks-area">
+          <label for="bulks">Bulks</label>
+          <input
+            type="number"
+            id="bulks"
+            v-model.number="bulks.val"
+            min="0"
+            @blur="clearValidity('bulks')"
+          />
+        </div>
       </div>
     </div>
 
@@ -175,24 +177,64 @@ export default {
 .heading {
   margin-bottom: 1rem;
 }
-
-section > div > div {
-  width: 60%;
-  display: flex;
-}
-
-section > div > div > label {
-  flex: 2 0 50%;
-}
-
-section > div > div > slot {
-  width: auto;
-  flex: 1;
-  justify-content: left;
-}
-
-input {
+.orders-input {
   width: 100%;
+  column-gap: 3rem;
+  row-gap: 1rem;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-areas:
+    'due-date due-time'
+    'packs bulks';
+  grid-template-rows: auto;
+}
+
+.pet-number-area {
+  grid-area: pet-number;
+  width: 100%;
+}
+
+.due-date-area {
+  grid-area: due-date;
+  width: 100%;
+}
+
+.due-time-area {
+  grid-area: due-time;
+}
+
+.packs-area {
+  grid-area: packs;
+}
+
+.bulks-area {
+  grid-area: bulks;
+}
+
+input,
+label {
+  display: block;
+  text-align: left;
+  padding: 0.5px;
+}
+input {
+  display: block;
+  width: 100%;
+  border: 2px solid gray;
+  border-top: none;
+  border-right: none;
+  border-left: none;
+  font-size: 1.5rem;
+  font-weight: medium;
+}
+
+input:focus {
+  border: 2px solid var(--mid-blue);
+  border-top: none;
+  border-right: none;
+  border-left: none;
+  background-color: var(--very-light-blue);
+  outline: none;
 }
 .buttons {
   display: flex;

@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import EditOrderModal from '../cuttinglist/EditOrderModal.vue';
+import EditOrderModal from './EditOrderModal.vue';
 
 export default {
   components: { EditOrderModal },
@@ -59,6 +59,7 @@ export default {
 
 .edit:hover {
   color: var(--success-green);
+  cursor: pointer;
 }
 
 edit:focus {

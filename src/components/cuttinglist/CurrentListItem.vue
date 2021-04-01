@@ -5,14 +5,14 @@
         <h3>{{ earliestDueDate === 'null' ? '' : earliestDueDate }}</h3>
       </div>
       <div class="amount">
-        <h3>{{ sheetsTotal }} x {{ product.name }}</h3>
-        <h4>
+        <h2>{{ sheetsTotal }} x {{ product.name }}</h2>
+        <h3>
           {{ flatSheetsRequired }} Flat Sheets ( {{ product.noOutFlatSheet }}
           out )
-        </h4>
-        <h4>{{ packs }} Packs Total (of {{ product.packQty }})</h4>
+        </h3>
+        <h4>{{ packs }} Packs (of {{ product.packQty }})</h4>
 
-        <h4>{{ bulks }} Bulks Total (of {{ product.bulkQty }})</h4>
+        <h4>{{ bulks }} Bulks (of {{ product.bulkQty }})</h4>
       </div>
       <div class="orders">
         <add-order-modal
@@ -23,15 +23,16 @@
         ></add-order-modal>
 
         <div>
-          <paper-order
+          <current-list-item-order
             v-for="order in orders"
             :key="order"
             :order="order"
-          ></paper-order>
+          ></current-list-item-order>
         </div>
-        <div class="add-order">
-          <button @click="showAddOrderModal = true">
-            Add Order
+
+        <div>
+          <button class="add-order" @click="showAddOrderModal = true">
+            <i class="fas fa-plus"></i>
           </button>
         </div>
       </div>
@@ -41,10 +42,10 @@
 
 <script>
 import AddOrderModal from '../cuttinglist/AddOrderModal.vue';
-import PaperOrder from '../cuttinglist/PaperOrder.vue';
+import CurrentListItemOrder from '../cuttinglist/CurrentListItemOrder.vue';
 
 export default {
-  components: { AddOrderModal, PaperOrder },
+  components: { AddOrderModal, CurrentListItemOrder },
 
   props: ['product'],
   data() {
@@ -122,6 +123,7 @@ li:nth-child(odd) {
 
 .orders {
   flex: 3;
+  text-align: left;
 }
 
 .buttons {
@@ -144,17 +146,17 @@ li:nth-child(odd) {
 .orders-input input:not(:first-child) {
   width: 50px;
 }
-
 .add-order {
-  text-align: left;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  border: 2px solid var(--light-blue);
+  background-color: #fff;
+  margin: 0.25rem;
+  cursor: pointer;
 }
 
-.edit {
-  color: green;
-  margin-bottom: 1rem;
-}
-
-.delete {
-  color: maroon;
+.add-order i {
+  color: var(--light-blue);
 }
 </style>

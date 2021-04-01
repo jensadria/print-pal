@@ -56,7 +56,7 @@ h2 {
   border-radius: 50%;
   border: 4px solid var(--light-blue);
   background-color: #fff;
-  margin: 1rem;
+  margin: 1.25rem 0.5rem 0.5rem 1rem;
   cursor: pointer;
 }
 

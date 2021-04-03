@@ -2,11 +2,15 @@ export default {
   getProducts(state) {
     return state.products;
   },
+
   getOrders(state) {
     return state.currentOrders;
   },
   getActiveOrders(_, { getOrders }) {
     return getOrders.filter((order) => order.completed === false);
+  },
+  getCompletedOrders(_, { getOrders }) {
+    return getOrders.filter((order) => order.completed === true);
   },
   getCurrentProducts(_, { getProducts, getActiveOrders }) {
     const productIds = [

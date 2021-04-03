@@ -18,6 +18,11 @@ export default {};
 </script>
 
 <style scoped>
+a {
+  text-decoration: none;
+  padding: 0.75rem 1.5rem;
+}
+
 ul {
   list-style: none;
   margin: 0;
@@ -25,6 +30,7 @@ ul {
   display: flex;
   justify-content: left;
   align-items: center;
+  background: var(--light-blue);
 }
 
 li {

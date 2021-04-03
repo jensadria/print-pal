@@ -1,6 +1,7 @@
 <template>
   <button class="add-order" @click="showAddNewOrderModal = true">
     <i class="fas fa-plus fa-2x"></i>
+    <p>ADD NEW ORDER</p>
   </button>
   <add-new-order-modal
     :show="showAddNewOrderModal"
@@ -51,16 +52,25 @@ h2 {
 }
 
 .add-order {
-  width: 50px;
+  width: fit-content;
   height: 50px;
-  border-radius: 50%;
-  border: 4px solid var(--light-blue);
+  border-radius: 1.5rem;
+  border: 3px solid var(--light-blue);
   background-color: #fff;
   margin: 1.25rem 0.5rem 0.5rem 1rem;
   cursor: pointer;
+  display: flex;
+  align-items: center;
 }
 
 .add-order i {
   color: var(--light-blue);
+  margin-left: 0.75rem;
+}
+
+.add-order p {
+  margin-left: 1rem;
+  margin-right: 1rem;
+  font-weight: 700;
 }
 </style>

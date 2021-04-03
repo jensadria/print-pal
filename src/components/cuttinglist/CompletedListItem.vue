@@ -1,8 +1,7 @@
 <template>
   <li>
     {{ product.petNumber }} - {{ product.productId }} - {{ productName }} -
-    {{ product.bulks }} -
-    {{ product.packs }}
+    {{ product.bulks }} Bulks - {{ product.packs }} Packs
   </li>
 </template>
 

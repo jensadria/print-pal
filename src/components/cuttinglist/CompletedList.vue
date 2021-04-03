@@ -1,12 +1,14 @@
 <template>
-  <ul>
-    <completed-list-item
-      v-for="product in completedOrders"
-      :key="product"
-      :product="product"
-    >
-    </completed-list-item>
-  </ul>
+  <div class="completed-list">
+    <ul>
+      <completed-list-item
+        v-for="product in completedOrders"
+        :key="product"
+        :product="product"
+      >
+      </completed-list-item>
+    </ul>
+  </div>
 </template>
 
 <script>
@@ -22,4 +24,8 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+.completed-list {
+  margin: 1rem;
+}
+</style>

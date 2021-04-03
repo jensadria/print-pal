@@ -15,9 +15,10 @@ const router = createRouter({
     {
       path: '/cuttinglist',
       component: CuttingList,
+      redirect: '/cuttinglist/currentlist',
       children: [
         {
-          path: '',
+          path: 'currentlist',
           component: CurrentList,
         },
         {

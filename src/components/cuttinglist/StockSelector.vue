@@ -27,12 +27,12 @@
       </div>
       <div class="stock">
         <div class="selected-stock">
-          <h5
+          <h3
             v-if="!productSelected"
             :class="{ 'stock-not-chosen': addListError }"
           >
             Please Choose A Product From The Search Bar
-          </h5>
+          </h3>
           <h4 v-else>{{ selectedStock.name }}</h4>
         </div>
 

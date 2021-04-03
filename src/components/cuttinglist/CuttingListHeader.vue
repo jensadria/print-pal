@@ -1,7 +1,7 @@
 <template>
   <ul>
     <li>
-      <router-link to="/cuttinglist/">
+      <router-link to="/cuttinglist/currentlist">
         Current Jobs
       </router-link>
     </li>
@@ -21,6 +21,15 @@ export default {};
 a {
   text-decoration: none;
   padding: 0.75rem 1.5rem;
+  color: #fff;
+}
+
+a.router-link-active {
+  background: var(--mid-blue);
+}
+
+a:not(.router-link-active):hover {
+  background: var(--dark-blue);
 }
 
 ul {
@@ -31,9 +40,5 @@ ul {
   justify-content: left;
   align-items: center;
   background: var(--light-blue);
-}
-
-li {
-  margin: 0 0.5rem;
 }
 </style>

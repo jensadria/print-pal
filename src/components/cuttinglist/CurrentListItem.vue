@@ -156,6 +156,10 @@ li:nth-child(odd) {
   cursor: pointer;
 }
 
+.add-order:active {
+  transform: scale(0.9);
+}
+
 .add-order i {
   color: var(--light-blue);
 }

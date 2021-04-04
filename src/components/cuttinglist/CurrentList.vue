@@ -52,7 +52,7 @@ h2 {
 }
 
 .add-order {
-  width: fit-content;
+  width: 188px;
   height: 50px;
   border-radius: 1.5rem;
   border: 3px solid var(--light-blue);
@@ -61,6 +61,10 @@ h2 {
   cursor: pointer;
   display: flex;
   align-items: center;
+}
+
+.add-order:active {
+  transform: scale(0.98);
 }
 
 .add-order i {

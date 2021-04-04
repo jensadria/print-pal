@@ -5,14 +5,12 @@
       <div class="calculations">
         <div id="form">
           <form @submit.prevent="imposeOnSheet">
-            <div class="form-control">
-              <div>
+            <div class="form-input">
+              <div class="form-quantity">
                 <label for="qty">Quantity</label>
                 <input type="number" id="qty" v-model.number="nUpInput.qty" />
               </div>
-            </div>
-            <div class="form-control">
-              <div>
+              <div class="form-width">
                 <label for="width">Width in mm</label>
                 <input
                   type="number"
@@ -20,8 +18,7 @@
                   v-model.number="nUpInput.width"
                 />
               </div>
-              <div class="x">X</div>
-              <div>
+              <div class="form-height">
                 <label for="height">Height in mm</label>
                 <input
                   type="number"
@@ -29,11 +26,9 @@
                   v-model.number="nUpInput.height"
                 />
               </div>
-            </div>
 
-            <!-- Margins & Gutters -->
-            <div class="form-control">
-              <div>
+              <!-- Margins & Gutters -->
+              <div class="form-margins">
                 <label for="margins">Outside Margin</label>
                 <input
                   type="number"
@@ -41,9 +36,7 @@
                   v-model.number="nUpInput.margins"
                 />
               </div>
-            </div>
-            <div class="form-control">
-              <div>
+              <div class="form-gutters">
                 <label for="gutters">Gutters</label>
                 <input
                   type="number"
@@ -51,11 +44,9 @@
                   v-model.number="nUpInput.gutters"
                 />
               </div>
-            </div>
 
-            <!-- Sheet Size -->
-            <div class="form-control">
-              <div>
+              <!-- Sheet Size -->
+              <div class="form-sheet-width">
                 <label for="sheet-width">Sheet Width in mm</label>
                 <input
                   type="number"
@@ -63,8 +54,7 @@
                   v-model.number="nUpInput.sheetWidth"
                 />
               </div>
-              <div class="x">X</div>
-              <div>
+              <div class="form-sheet-height">
                 <label for="sheet-height">Sheet Height in mm</label>
                 <input
                   type="number"
@@ -222,7 +212,20 @@ export default {
 
       for (let i = 0; startingPointY < sheetHeight - height + gutters; i++) {
         for (let j = 0; startingPointX < sheetWidth - width + gutters; j++) {
-          this.vueCanvas.fillStyle = 'gray';
+          //   this.vueCanvas.fillStyle = 'gray';
+          //   let grd = this.vueCanvas.createLinearGradient(0, 0, 1, 1);
+          //   grd.addColorStop(0, 'black');
+          //   grd.addColorStop(1, 'white');
+
+          this.vueCanvas.fillStyle = `rgb(150, 150, 150)`;
+          this.vueCanvas.strokeStyle = `rgb(50, 50, 50)`;
+          this.vueCanvas.lineWidth = 0.5;
+          this.vueCanvas.strokeRect(
+            startingPointX,
+            startingPointY,
+            width,
+            height
+          );
           this.vueCanvas.fillRect(
             startingPointX,
             startingPointY,
@@ -284,19 +287,55 @@ export default {
   /* flex-wrap: wrap; */
 }
 
-.container > div {
-  flex: 1 1 100%;
+.container > div:first-child {
+  flex: 1;
 }
 
-.form-control {
-  display: flex;
-  margin: 0.8rem;
+.container > div:nth-child(2) {
+  flex: 2;
 }
+
 .calculations {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+.form-input {
+  width: auto;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 2rem;
+  grid-template-rows: auto;
+  grid-template-areas:
+    'qty . '
+    'width height '
+    'margins .'
+    'gutters .'
+    'sheet-width sheet-height';
+}
+
+.form-quantity {
+  grid-area: qty;
+}
+.form-width {
+  grid-area: width;
+}
+.form-height {
+  grid-area: height;
+}
+.form-margins {
+  grid-area: margins;
+}
+.form-gutters {
+  grid-area: gutters;
+}
+.form-sheet-width {
+  grid-area: sheet-width;
+}
+.form-sheet-height {
+  grid-area: sheet-height;
 }
 
 input,
@@ -325,31 +364,22 @@ input:focus {
   outline: none;
 }
 
+#sheet-width,
+#sheet-height,
+#margins,
+#gutters,
+#qty,
+#width,
+#height {
+  width: 100%;
+  text-align: left;
+}
+
 #qty,
 #width,
 #height {
   font-size: 50px;
-  width: 200px;
   height: 70px;
-
-  /* margin-left: 1rem; */
-}
-
-.x {
-  content: 'x';
-  font-size: 1.5rem;
-  display: flex;
-  margin: 5px;
-  align-items: flex-end;
-  width: 60px;
-}
-
-#sheet-width,
-#sheet-height,
-#margins,
-#gutters {
-  width: 140px;
-  text-align: left;
 }
 
 #margins,
@@ -358,20 +388,21 @@ input:focus {
 }
 
 .results {
-  width: 70%;
+  width: 100%;
   height: 12rem;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: 50px;
+  font-size: 40px;
   background: var(--very-light-blue);
   margin: 20px;
+  border-radius: 1rem;
 }
 
 .buttons {
   display: flex;
-  /* flex-direction: column; */
+  flex-wrap: wrap;
   align-items: center;
   justify-content: left;
   margin-top: 30px;

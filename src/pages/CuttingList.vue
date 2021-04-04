@@ -4,14 +4,12 @@
     <div v-if="isLoading">
       <base-spinner></base-spinner>
     </div>
-    <!-- <current-list></current-list> -->
     <router-view v-else></router-view>
   </div>
 </template>
 
 <script>
 import CuttingListHeader from '../components/cuttinglist/CuttingListHeader.vue';
-// import CurrentList from '../components/cuttinglist/CurrentList.vue';
 
 export default {
   data() {
@@ -21,8 +19,6 @@ export default {
   },
   components: {
     CuttingListHeader,
-    // CurrentList,
-    // AddNewOrderModal,
   },
   methods: {
     async loadProductsAndOrders() {

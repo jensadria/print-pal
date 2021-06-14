@@ -82,12 +82,26 @@
       </div>
     </base-card>
     <base-card>
-      <div class="canvas-container">
-        <canvas
+      <div
+        class="canvas-container"
+        :width="nUpInput.sheetWidth"
+        :height="nUpInput.sheetHeight"
+      >
+        <!-- <canvas
           id="nup-canvas"
           :width="nUpInput.sheetWidth"
           :height="nUpInput.sheetHeight"
-        ></canvas>
+        ></canvas> -->
+        <svg
+          viewBox="0 0 100 100"
+          width="100%"
+          height="100%"
+          fill="grey"
+          preserveAspectRatio="xMinYMin"
+        >
+          <rect x="0" y="0" width="50" height="50" fill="orange" />
+          <circle cx="50%" cy="50%" r="4" fill="grey" />
+        </svg>
       </div>
     </base-card>
   </div>

@@ -82,27 +82,20 @@
       </div>
     </base-card>
     <base-card>
-      <div
-        class="canvas-container"
-        :width="nUpInput.sheetWidth"
-        :height="nUpInput.sheetHeight"
-      >
-        <!-- <canvas
-          id="nup-canvas"
-          :width="nUpInput.sheetWidth"
-          :height="nUpInput.sheetHeight"
-        ></canvas> -->
-        <svg
-          viewBox="0 0 100 100"
-          width="100%"
-          height="100%"
-          fill="grey"
+      <div id="svgContainer"></div>
+      <!-- <svg
+          xmlns="http://www.w3.org/2000/svg"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          width="450"
+          height="320"
           preserveAspectRatio="xMinYMin"
+          class="canvas"
         >
-          <rect x="0" y="0" width="50" height="50" fill="orange" />
-          <circle cx="50%" cy="50%" r="4" fill="grey" />
-        </svg>
-      </div>
+          <rect width="100%" height="100%" fill="red" />
+
+          <rect x="5" y="5" width="105" height="148" fill="orange" />
+          <rect x="115" y="5" width="105" height="148" fill="orange" />
+        </svg> -->
     </base-card>
   </div>
 </template>
@@ -135,7 +128,6 @@ export default {
       },
       allAreasFilled: true,
       calculatedButtonPressed: false,
-      vueCanvas: null,
     };
   },
   //   LINE BREAK
@@ -207,6 +199,9 @@ export default {
       this.drawOnSheet();
     },
     drawOnSheet() {
+      const svgContainer = document.getElementById('svgContainer');
+      svgContainer.textContent = '';
+
       const {
         width,
         height,
@@ -216,13 +211,18 @@ export default {
         sheetHeight,
       } = this.nUpInput;
 
+      const xmlns = 'http://www.w3.org/2000/svg';
+
+      let svgEl = document.createElementNS(xmlns, 'svg');
+      svgEl.setAttributeNS(null, 'viewBox', `0 0 ${sheetWidth} ${sheetHeight}`);
+      svgEl.setAttributeNS(null, 'width', sheetWidth);
+      svgEl.setAttributeNS(null, 'height', sheetHeight);
+
       //   const activeWidth = sheetWidth - 2 * margins;
       //   const activeHeight = sheetHeight - 2 * margins;
 
       let startingPointX = margins;
       let startingPointY = margins;
-
-      this.vueCanvas.clearRect(0, 0, sheetWidth, sheetHeight);
 
       for (let i = 0; startingPointY < sheetHeight - height + gutters; i++) {
         for (let j = 0; startingPointX < sheetWidth - width + gutters; j++) {
@@ -231,21 +231,21 @@ export default {
           //   grd.addColorStop(0, 'black');
           //   grd.addColorStop(1, 'white');
 
-          this.vueCanvas.fillStyle = `rgb(150, 150, 150)`;
-          this.vueCanvas.strokeStyle = `rgb(50, 50, 50)`;
-          this.vueCanvas.lineWidth = 0.5;
-          this.vueCanvas.strokeRect(
-            startingPointX,
-            startingPointY,
-            width,
-            height
-          );
-          this.vueCanvas.fillRect(
-            startingPointX,
-            startingPointY,
-            width,
-            height
-          );
+          //   this.vueCanvas.fillStyle = `rgb(150, 150, 150)`;
+          //   this.vueCanvas.strokeStyle = `rgb(50, 50, 50)`;
+          //   this.vueCanvas.lineWidth = 0.5;
+          //   this.vueCanvas.strokeRect(
+          //     startingPointX,
+          //     startingPointY,
+          //     width,
+          //     height
+          //   );
+          //   this.vueCanvas.fillRect(
+          //     startingPointX,
+          //     startingPointY,
+          //     width,
+          //     height
+          //   );
 
           startingPointX = startingPointX + width + gutters;
         }
@@ -253,6 +253,8 @@ export default {
         startingPointX = margins;
         startingPointY = startingPointY + height + gutters;
       }
+
+      svgContainer.appendChild(svgEl);
     },
     switchOrientation() {
       this.checkFields();

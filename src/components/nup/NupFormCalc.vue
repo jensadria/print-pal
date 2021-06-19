@@ -4,7 +4,7 @@
     <base-card>
       <div class="calculations">
         <div id="form">
-          <form @submit.prevent="imposeOnSheet">
+          <form v-on:submit.prevent="imposeOnSheet">
             <div class="form-input">
               <div class="form-quantity">
                 <label for="qty">Quantity</label>
@@ -82,33 +82,46 @@
       </div>
     </base-card>
     <base-card>
-      <div id="svgContainer"></div>
+      <!-- <div id="svgContainer"></div> -->
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        xmlns:xlink="http://www.w3.org/1999/xlink"
+        :width="nUpInput.sheetWidth"
+        :height="nUpInput.sheetHeight"
+        preserveAspectRatio="xMinYMin"
+      >
+        <rect width="100%" height="100%" fill="grey" id="sheetSizeSvg" />
+        <rect
+          :width="nUpInput.width"
+          :height="nUpInput.height"
+          fill="blue"
+        ></rect>
+        <!-- 
+        <rect x="5" y="5" width="105" height="148" fill="orange" />
+        <rect x="115" y="5" width="105" height="148" fill="orange" /> -->
+      </svg>
       <!-- <svg
-          xmlns="http://www.w3.org/2000/svg"
-          xmlns:xlink="http://www.w3.org/1999/xlink"
-          width="450"
-          height="320"
-          preserveAspectRatio="xMinYMin"
-          class="canvas"
-        >
-          <rect width="100%" height="100%" fill="red" />
-
-          <rect x="5" y="5" width="105" height="148" fill="orange" />
-          <rect x="115" y="5" width="105" height="148" fill="orange" />
-        </svg> -->
+        viewBox="0 0 450 320"
+        preserveAspectRatio="xMinYMin"
+        width="450"
+        height="320"
+      >
+        <rect width="100%" height="100%" fill="red"></rect>
+        <rect width="105" height="148" fill="blue"></rect>
+      </svg> -->
     </base-card>
   </div>
 </template>
 
-<script>
+<script type="x/template">
 export default {
-  mounted() {
-    const c = document.getElementById('nup-canvas');
-    const ctx = c.getContext('2d');
-    this.vueCanvas = ctx;
+  //   mounted() {
+  //     const c = document.getElementById('nup-canvas');
+  //     const ctx = c.getContext('2d');
+  //     this.vueCanvas = ctx;
 
-    // this.drawOnSheet();
-  },
+  //     // this.drawOnSheet();
+  //   },
   //   LINE BREAK
   data() {
     return {
@@ -132,6 +145,7 @@ export default {
   },
   //   LINE BREAK
   computed: {
+
     calculateSheets() {
       if (!this.calculatedButtonPressed) {
         return 0;
@@ -199,8 +213,12 @@ export default {
       this.drawOnSheet();
     },
     drawOnSheet() {
-      const svgContainer = document.getElementById('svgContainer');
-      svgContainer.textContent = '';
+        //   let svgEl = document.createElementNS(xmlns, 'svg');
+      //   svgEl.setAttributeNS(null, 'viewBox', `0 0 ${sheetWidth} ${sheetHeight}`);
+      //   svgEl.setAttributeNS(null, 'preserveAspectRatio', 'xMinYMin');
+      //   svgEl.setAttributeNS(null, 'width', sheetWidth);
+      //   svgEl.setAttributeNS(null, 'height', sheetHeight);
+        // const xmlns = 'http://www.w3.org/2000/svg';
 
       const {
         width,
@@ -211,12 +229,14 @@ export default {
         sheetHeight,
       } = this.nUpInput;
 
-      const xmlns = 'http://www.w3.org/2000/svg';
+      const svgEl = document.getElementById('sheetSizeSvg');
+    //   svgEl.textContent = '';
 
-      let svgEl = document.createElementNS(xmlns, 'svg');
-      svgEl.setAttributeNS(null, 'viewBox', `0 0 ${sheetWidth} ${sheetHeight}`);
-      svgEl.setAttributeNS(null, 'width', sheetWidth);
-      svgEl.setAttributeNS(null, 'height', sheetHeight);
+      const print = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+      print.setAttributeNS(null, 'width', width);
+      print.setAttributeNS(null, 'height', height);
+      print.setAttributeNS(null, 'fill', 'blue');
+      svgEl.appendChild(print);
 
       //   const activeWidth = sheetWidth - 2 * margins;
       //   const activeHeight = sheetHeight - 2 * margins;
@@ -254,7 +274,7 @@ export default {
         startingPointY = startingPointY + height + gutters;
       }
 
-      svgContainer.appendChild(svgEl);
+      //   sheetSize.appendChild(svgEl);
     },
     switchOrientation() {
       this.checkFields();

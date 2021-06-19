@@ -84,21 +84,15 @@
     <base-card>
       <!-- <div id="svgContainer"></div> -->
       <svg
+        id="svgContainer"
         xmlns="http://www.w3.org/2000/svg"
         xmlns:xlink="http://www.w3.org/1999/xlink"
-        :width="nUpInput.sheetWidth"
-        :height="nUpInput.sheetHeight"
+        :width="auto"
+        :height="auto"
         preserveAspectRatio="xMinYMin"
+        :viewBox="'0 0 ' + nUpInput.sheetWidth + ' ' + nUpInput.sheetHeight"
       >
-        <rect width="100%" height="100%" fill="grey" id="sheetSizeSvg" />
-        <rect
-          :width="nUpInput.width"
-          :height="nUpInput.height"
-          fill="blue"
-        ></rect>
-        <!-- 
-        <rect x="5" y="5" width="105" height="148" fill="orange" />
-        <rect x="115" y="5" width="105" height="148" fill="orange" /> -->
+        <rect width="100%" height="100%" fill="lightgray" id="sheetSizeSvg" />
       </svg>
       <!-- <svg
         viewBox="0 0 450 320"
@@ -213,14 +207,9 @@ export default {
       this.drawOnSheet();
     },
     drawOnSheet() {
-        //   let svgEl = document.createElementNS(xmlns, 'svg');
-      //   svgEl.setAttributeNS(null, 'viewBox', `0 0 ${sheetWidth} ${sheetHeight}`);
-      //   svgEl.setAttributeNS(null, 'preserveAspectRatio', 'xMinYMin');
-      //   svgEl.setAttributeNS(null, 'width', sheetWidth);
-      //   svgEl.setAttributeNS(null, 'height', sheetHeight);
-        // const xmlns = 'http://www.w3.org/2000/svg';
+    const xmlns = 'http://www.w3.org/2000/svg';
 
-      const {
+    const {
         width,
         height,
         margins,
@@ -229,52 +218,34 @@ export default {
         sheetHeight,
       } = this.nUpInput;
 
-      const svgEl = document.getElementById('sheetSizeSvg');
-    //   svgEl.textContent = '';
+      const svgContainer = document.getElementById('svgContainer')
+      svgContainer.textContent = '';
 
-      const print = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
-      print.setAttributeNS(null, 'width', width);
-      print.setAttributeNS(null, 'height', height);
-      print.setAttributeNS(null, 'fill', 'blue');
-      svgEl.appendChild(print);
-
-      //   const activeWidth = sheetWidth - 2 * margins;
-      //   const activeHeight = sheetHeight - 2 * margins;
+      const sheetSize = document.createElementNS(xmlns, 'rect');
+      sheetSize.setAttributeNS(null, 'width', '100%');
+      sheetSize.setAttributeNS(null, 'height', '100%');
+      sheetSize.setAttributeNS(null, 'fill', 'lightgrey');
+      svgContainer.appendChild(sheetSize);
 
       let startingPointX = margins;
       let startingPointY = margins;
 
       for (let i = 0; startingPointY < sheetHeight - height + gutters; i++) {
         for (let j = 0; startingPointX < sheetWidth - width + gutters; j++) {
-          //   this.vueCanvas.fillStyle = 'gray';
-          //   let grd = this.vueCanvas.createLinearGradient(0, 0, 1, 1);
-          //   grd.addColorStop(0, 'black');
-          //   grd.addColorStop(1, 'white');
+            const print = document.createElementNS(xmlns, 'rect');
+            print.setAttributeNS(null, 'width', width);
+            print.setAttributeNS(null, 'height', height);
+            print.setAttributeNS(null, 'x', startingPointX);
+            print.setAttributeNS(null, 'y', startingPointY);
+            print.setAttributeNS(null, 'fill', '#3674a7');
+            svgContainer.appendChild(print);
 
-          //   this.vueCanvas.fillStyle = `rgb(150, 150, 150)`;
-          //   this.vueCanvas.strokeStyle = `rgb(50, 50, 50)`;
-          //   this.vueCanvas.lineWidth = 0.5;
-          //   this.vueCanvas.strokeRect(
-          //     startingPointX,
-          //     startingPointY,
-          //     width,
-          //     height
-          //   );
-          //   this.vueCanvas.fillRect(
-          //     startingPointX,
-          //     startingPointY,
-          //     width,
-          //     height
-          //   );
-
-          startingPointX = startingPointX + width + gutters;
+            startingPointX = startingPointX + width + gutters;
         }
-
         startingPointX = margins;
         startingPointY = startingPointY + height + gutters;
       }
 
-      //   sheetSize.appendChild(svgEl);
     },
     switchOrientation() {
       this.checkFields();

@@ -139,7 +139,8 @@ export default {
   },
   //   LINE BREAK
   computed: {
-
+    activeWidth(){ return this.nUpInput.sheetWidth - 2 * this.nUpInput.margins },
+    activeHeight(){ return this.nUpInput.sheetHeight - 2 * this.nUpInput.margins },
     calculateSheets() {
       if (!this.calculatedButtonPressed) {
         return 0;
@@ -153,6 +154,14 @@ export default {
   },
   //   LINE BREAK
   methods: {
+      imposer(length, sheetLength, gutter){
+        let startingPoint = 0;
+        let i = 0;
+        for (i; startingPoint + length <= sheetLength + gutter; i++) {
+        startingPoint = startingPoint + length + gutter;
+      }
+      return i;
+      },
     imposeOnSheet() {
       this.checkFields();
       if (!this.allAreasFilled) {
@@ -163,42 +172,16 @@ export default {
       const {
         width,
         height,
-        margins,
         gutters,
-        sheetWidth,
-        sheetHeight,
       } = this.nUpInput;
 
-      const activeWidth = sheetWidth - 2 * margins;
-      const activeHeight = sheetHeight - 2 * margins;
-
-      let startingPointX = 0;
-      let startingPointY = 0;
-
       // FIRST ORIENTATION
-      let i = 0;
-      let j = 0;
-
-      for (i; startingPointY + height <= activeHeight + gutters; i++) {
-        startingPointY = startingPointY + height + gutters;
-      }
-      for (j; startingPointX + width <= activeWidth + gutters; j++) {
-        startingPointX = startingPointX + width + gutters;
-      }
+      const i = this.imposer(width, this.activeWidth, gutters)
+      const j = this.imposer(height, this.activeHeight, gutters)
 
       // SECOND ORIENTATION
-      startingPointX = 0;
-      startingPointY = 0;
-
-      let m = 0;
-      let n = 0;
-
-      for (m; startingPointY + height <= activeWidth + gutters; m++) {
-        startingPointY = startingPointY + height + gutters;
-      }
-      for (n; startingPointX + width <= activeHeight + gutters; n++) {
-        startingPointX = startingPointX + width + gutters;
-      }
+      const m = this.imposer(height, this.activeWidth, gutters)
+      const n = this.imposer(width, this.activeHeight, gutters)
 
       //   Calculate nUps
       this.nUpResult.nUp1 = i * j;
@@ -227,11 +210,27 @@ export default {
       sheetSize.setAttributeNS(null, 'fill', 'lightgrey');
       svgContainer.appendChild(sheetSize);
 
+      const activeSheetSize = document.createElementNS(xmlns, 'rect');
+      activeSheetSize.setAttributeNS(null, 'width', this.activeWidth);
+      activeSheetSize.setAttributeNS(null, 'height', this.activeHeight);
+      activeSheetSize.setAttributeNS(null, 'fill', 'grey');
+      activeSheetSize.setAttributeNS(null, 'x', margins);
+      activeSheetSize.setAttributeNS(null, 'y', margins);
+      svgContainer.appendChild(activeSheetSize);
+
+    // Calculate margin for centering
+    const i = this.imposer(width, this.activeWidth, gutters)
+    const j = this.imposer(height, this.activeHeight, gutters)
+    const centredMarginAlongWidth = (sheetWidth - (i*width) - ((i-1)*gutters))/2;
+    const centredMarginAlongHeight = (sheetHeight - (j*height) - ((j-1)*gutters))/2;
+
+    console.log(centredMarginAlongHeight,centredMarginAlongWidth)
+
       let startingPointX = margins;
       let startingPointY = margins;
 
-      for (let i = 0; startingPointY < sheetHeight - height + gutters; i++) {
-        for (let j = 0; startingPointX < sheetWidth - width + gutters; j++) {
+      for (let i = 0; startingPointY < this.activeHeight - height + gutters; i++) {
+        for (let j = 0; startingPointX < this.activeWidth - width + gutters; j++) {
             const print = document.createElementNS(xmlns, 'rect');
             print.setAttributeNS(null, 'width', width);
             print.setAttributeNS(null, 'height', height);

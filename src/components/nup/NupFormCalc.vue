@@ -8,13 +8,19 @@
             <div class="form-input">
               <div class="form-quantity">
                 <label for="qty">Quantity</label>
-                <input type="number" id="qty" v-model.number="nUpInput.qty" />
+                <input
+                  type="number"
+                  id="qty"
+                  min="0"
+                  v-model.number="nUpInput.qty"
+                />
               </div>
               <div class="form-width">
                 <label for="width">Width in mm</label>
                 <input
                   type="number"
                   id="width"
+                  min="0"
                   v-model.number="nUpInput.width"
                 />
               </div>
@@ -23,6 +29,7 @@
                 <input
                   type="number"
                   id="height"
+                  min="0"
                   v-model.number="nUpInput.height"
                 />
               </div>
@@ -33,6 +40,7 @@
                 <input
                   type="number"
                   id="margins"
+                  min="0"
                   v-model.number="nUpInput.margins"
                 />
               </div>
@@ -41,6 +49,7 @@
                 <input
                   type="number"
                   id="gutters"
+                  min="0"
                   v-model.number="nUpInput.gutters"
                 />
               </div>
@@ -51,6 +60,7 @@
                 <input
                   type="number"
                   id="sheet-width"
+                  min="0"
                   v-model.number="nUpInput.sheetWidth"
                 />
               </div>
@@ -59,6 +69,7 @@
                 <input
                   type="number"
                   id="sheet-height"
+                  min="0"
                   v-model.number="nUpInput.sheetHeight"
                 />
               </div>
@@ -87,22 +98,13 @@
         id="svgContainer"
         xmlns="http://www.w3.org/2000/svg"
         xmlns:xlink="http://www.w3.org/1999/xlink"
-        :width="auto"
-        :height="auto"
+        width="auto"
+        height="auto"
         preserveAspectRatio="xMinYMin"
         :viewBox="'0 0 ' + nUpInput.sheetWidth + ' ' + nUpInput.sheetHeight"
       >
         <rect width="100%" height="100%" fill="lightgray" id="sheetSizeSvg" />
       </svg>
-      <!-- <svg
-        viewBox="0 0 450 320"
-        preserveAspectRatio="xMinYMin"
-        width="450"
-        height="320"
-      >
-        <rect width="100%" height="100%" fill="red"></rect>
-        <rect width="105" height="148" fill="blue"></rect>
-      </svg> -->
     </base-card>
   </div>
 </template>
@@ -151,7 +153,6 @@ export default {
       return this.nUpResult.nUp1;
     },
   },
-  //   LINE BREAK
   methods: {
     imposer(length, sheetLength, gutter) {
       let startingPoint = 0;
@@ -205,14 +206,7 @@ export default {
       svgContainer.appendChild(activeSheetSize);
     },
     drawOnSheet() {
-      const {
-        width,
-        height,
-        // margins,
-        gutters,
-        sheetWidth,
-        sheetHeight,
-      } = this.nUpInput;
+      const { width, height, gutters, sheetWidth, sheetHeight } = this.nUpInput;
 
       this.drawSheetOnSvg();
       const svgContainer = document.getElementById('svgContainer');
@@ -232,7 +226,7 @@ export default {
 
       let stopBottom = document.createElementNS(this.xmlns, 'stop');
       stopBottom.setAttributeNS(null, 'offset', '100%');
-      stopBottom.setAttributeNS(null, 'stop-color', '#fff');
+      stopBottom.setAttributeNS(null, 'stop-color', '#b3d7f5');
 
       grad.appendChild(stopTop);
       grad.appendChild(stopBottom);
@@ -281,6 +275,9 @@ export default {
       this.drawOnSheet();
     },
     resetNumbers() {
+      const svgContainer = document.getElementById('svgContainer');
+      svgContainer.textContent = '';
+
       for (let key in this.nUpInput) {
         this.nUpInput[key] = 0;
       }

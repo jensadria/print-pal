@@ -217,6 +217,28 @@ export default {
       this.drawSheetOnSvg();
       const svgContainer = document.getElementById('svgContainer');
 
+      // Add gradient defs
+      let defs = document.createElementNS(this.xmlns, 'defs');
+      let grad = document.createElementNS(this.xmlns, 'linearGradient');
+      grad.setAttributeNS(null, 'id', 'gradient');
+      grad.setAttributeNS(null, 'x1', '0%');
+      grad.setAttributeNS(null, 'x2', '50%');
+      grad.setAttributeNS(null, 'y1', '100%');
+      grad.setAttributeNS(null, 'y2', '0%');
+
+      let stopTop = document.createElementNS(this.xmlns, 'stop');
+      stopTop.setAttributeNS(null, 'offset', '0%');
+      stopTop.setAttributeNS(null, 'stop-color', '#3674a7');
+
+      let stopBottom = document.createElementNS(this.xmlns, 'stop');
+      stopBottom.setAttributeNS(null, 'offset', '100%');
+      stopBottom.setAttributeNS(null, 'stop-color', '#fff');
+
+      grad.appendChild(stopTop);
+      grad.appendChild(stopBottom);
+      defs.appendChild(grad);
+      svgContainer.prepend(defs);
+
       // Calculate margin for centering
       const i = this.imposer(width, this.activeWidth, gutters);
       const j = this.imposer(height, this.activeHeight, gutters);
@@ -228,8 +250,7 @@ export default {
       let startingPointX = centredMarginAlongWidth;
       let startingPointY = centredMarginAlongHeight;
 
-      console.log(i, j);
-
+      // Draw Prints on SVG
       for (let x = 0; x < j; x++) {
         for (let y = 0; y < i; y++) {
           const print = document.createElementNS(this.xmlns, 'rect');
@@ -237,7 +258,8 @@ export default {
           print.setAttributeNS(null, 'height', height);
           print.setAttributeNS(null, 'x', startingPointX);
           print.setAttributeNS(null, 'y', startingPointY);
-          print.setAttributeNS(null, 'fill', '#3674a7');
+          print.setAttributeNS(null, 'fill', 'url(#gradient');
+          //   print.setAttributeNS(null, 'id', '#print-rect');
           svgContainer.appendChild(print);
 
           startingPointX = startingPointX + width + gutters;
@@ -245,30 +267,6 @@ export default {
         startingPointX = centredMarginAlongWidth;
         startingPointY = startingPointY + height + gutters;
       }
-
-      //   for (
-      //     let x = 0;
-      //     startingPointY < this.activeHeight - height + gutters;
-      //     x++
-      //   ) {
-      //     for (
-      //       let y = 0;
-      //       startingPointX < this.activeWidth - width + gutters;
-      //       y++
-      //     ) {
-      //       const print = document.createElementNS(this.xmlns, 'rect');
-      //       print.setAttributeNS(null, 'width', width);
-      //       print.setAttributeNS(null, 'height', height);
-      //       print.setAttributeNS(null, 'x', startingPointX);
-      //       print.setAttributeNS(null, 'y', startingPointY);
-      //       print.setAttributeNS(null, 'fill', '#3674a7');
-      //       svgContainer.appendChild(print);
-
-      //       startingPointX = startingPointX + width + gutters;
-      //     }
-      //     startingPointX = centredMarginAlongWidth;
-      //     startingPointY = startingPointY + height + gutters;
-      //   }
     },
     switchOrientation() {
       this.checkFields();

@@ -107,16 +107,8 @@
   </div>
 </template>
 
-<script type="x/template">
+<script>
 export default {
-  //   mounted() {
-  //     const c = document.getElementById('nup-canvas');
-  //     const ctx = c.getContext('2d');
-  //     this.vueCanvas = ctx;
-
-  //     // this.drawOnSheet();
-  //   },
-  //   LINE BREAK
   data() {
     return {
       nUpInput: {
@@ -129,18 +121,25 @@ export default {
         margins: 5,
       },
       nUpResult: {
+        timesAcrossWidth: 0,
+        timesAcrossLength: 0,
         nUp1: 0,
         nUp2: 0,
         sheetsAmount: 0,
       },
       allAreasFilled: true,
       calculatedButtonPressed: false,
+      xmlns: 'http://www.w3.org/2000/svg',
     };
   },
   //   LINE BREAK
   computed: {
-    activeWidth(){ return this.nUpInput.sheetWidth - 2 * this.nUpInput.margins },
-    activeHeight(){ return this.nUpInput.sheetHeight - 2 * this.nUpInput.margins },
+    activeWidth() {
+      return this.nUpInput.sheetWidth - 2 * this.nUpInput.margins;
+    },
+    activeHeight() {
+      return this.nUpInput.sheetHeight - 2 * this.nUpInput.margins;
+    },
     calculateSheets() {
       if (!this.calculatedButtonPressed) {
         return 0;
@@ -154,14 +153,14 @@ export default {
   },
   //   LINE BREAK
   methods: {
-      imposer(length, sheetLength, gutter){
-        let startingPoint = 0;
-        let i = 0;
-        for (i; startingPoint + length <= sheetLength + gutter; i++) {
-        startingPoint = startingPoint + length + gutter;
+    imposer(length, sheetLength, gutter) {
+      let startingPoint = 0;
+      let i = 0;
+      for (i; startingPoint + length <= sheetLength; i++) {
+        startingPoint = startingPoint + gutter + length;
       }
       return i;
-      },
+    },
     imposeOnSheet() {
       this.checkFields();
       if (!this.allAreasFilled) {
@@ -169,19 +168,17 @@ export default {
       }
 
       this.calculatedButtonPressed = true;
-      const {
-        width,
-        height,
-        gutters,
-      } = this.nUpInput;
+      const { width, height, gutters } = this.nUpInput;
 
       // FIRST ORIENTATION
-      const i = this.imposer(width, this.activeWidth, gutters)
-      const j = this.imposer(height, this.activeHeight, gutters)
+      const i = this.imposer(width, this.activeWidth, gutters);
+      const j = this.imposer(height, this.activeHeight, gutters);
+      this.nUpResult.timesAcrossWidth = i;
+      this.nUpResult.timesAcrossLength = j;
 
       // SECOND ORIENTATION
-      const m = this.imposer(height, this.activeWidth, gutters)
-      const n = this.imposer(width, this.activeHeight, gutters)
+      const m = this.imposer(height, this.activeWidth, gutters);
+      const n = this.imposer(width, this.activeHeight, gutters);
 
       //   Calculate nUps
       this.nUpResult.nUp1 = i * j;
@@ -189,62 +186,89 @@ export default {
 
       this.drawOnSheet();
     },
-    drawOnSheet() {
-    const xmlns = 'http://www.w3.org/2000/svg';
-
-    const {
-        width,
-        height,
-        margins,
-        gutters,
-        sheetWidth,
-        sheetHeight,
-      } = this.nUpInput;
-
-      const svgContainer = document.getElementById('svgContainer')
+    drawSheetOnSvg() {
+      const svgContainer = document.getElementById('svgContainer');
       svgContainer.textContent = '';
 
-      const sheetSize = document.createElementNS(xmlns, 'rect');
+      const sheetSize = document.createElementNS(this.xmlns, 'rect');
       sheetSize.setAttributeNS(null, 'width', '100%');
       sheetSize.setAttributeNS(null, 'height', '100%');
       sheetSize.setAttributeNS(null, 'fill', 'lightgrey');
       svgContainer.appendChild(sheetSize);
 
-      const activeSheetSize = document.createElementNS(xmlns, 'rect');
+      const activeSheetSize = document.createElementNS(this.xmlns, 'rect');
       activeSheetSize.setAttributeNS(null, 'width', this.activeWidth);
       activeSheetSize.setAttributeNS(null, 'height', this.activeHeight);
       activeSheetSize.setAttributeNS(null, 'fill', 'grey');
-      activeSheetSize.setAttributeNS(null, 'x', margins);
-      activeSheetSize.setAttributeNS(null, 'y', margins);
+      activeSheetSize.setAttributeNS(null, 'x', this.nUpInput.margins);
+      activeSheetSize.setAttributeNS(null, 'y', this.nUpInput.margins);
       svgContainer.appendChild(activeSheetSize);
+    },
+    drawOnSheet() {
+      const {
+        width,
+        height,
+        // margins,
+        gutters,
+        sheetWidth,
+        sheetHeight,
+      } = this.nUpInput;
 
-    // Calculate margin for centering
-    const i = this.imposer(width, this.activeWidth, gutters)
-    const j = this.imposer(height, this.activeHeight, gutters)
-    const centredMarginAlongWidth = (sheetWidth - (i*width) - ((i-1)*gutters))/2;
-    const centredMarginAlongHeight = (sheetHeight - (j*height) - ((j-1)*gutters))/2;
+      this.drawSheetOnSvg();
+      const svgContainer = document.getElementById('svgContainer');
 
-    console.log(centredMarginAlongHeight,centredMarginAlongWidth)
+      // Calculate margin for centering
+      const i = this.imposer(width, this.activeWidth, gutters);
+      const j = this.imposer(height, this.activeHeight, gutters);
+      const centredMarginAlongWidth =
+        (sheetWidth - i * width - (i - 1) * gutters) / 2;
+      const centredMarginAlongHeight =
+        (sheetHeight - j * height - (j - 1) * gutters) / 2;
 
-      let startingPointX = margins;
-      let startingPointY = margins;
+      let startingPointX = centredMarginAlongWidth;
+      let startingPointY = centredMarginAlongHeight;
 
-      for (let i = 0; startingPointY < this.activeHeight - height + gutters; i++) {
-        for (let j = 0; startingPointX < this.activeWidth - width + gutters; j++) {
-            const print = document.createElementNS(xmlns, 'rect');
-            print.setAttributeNS(null, 'width', width);
-            print.setAttributeNS(null, 'height', height);
-            print.setAttributeNS(null, 'x', startingPointX);
-            print.setAttributeNS(null, 'y', startingPointY);
-            print.setAttributeNS(null, 'fill', '#3674a7');
-            svgContainer.appendChild(print);
+      console.log(i, j);
 
-            startingPointX = startingPointX + width + gutters;
+      for (let x = 0; x < j; x++) {
+        for (let y = 0; y < i; y++) {
+          const print = document.createElementNS(this.xmlns, 'rect');
+          print.setAttributeNS(null, 'width', width);
+          print.setAttributeNS(null, 'height', height);
+          print.setAttributeNS(null, 'x', startingPointX);
+          print.setAttributeNS(null, 'y', startingPointY);
+          print.setAttributeNS(null, 'fill', '#3674a7');
+          svgContainer.appendChild(print);
+
+          startingPointX = startingPointX + width + gutters;
         }
-        startingPointX = margins;
+        startingPointX = centredMarginAlongWidth;
         startingPointY = startingPointY + height + gutters;
       }
 
+      //   for (
+      //     let x = 0;
+      //     startingPointY < this.activeHeight - height + gutters;
+      //     x++
+      //   ) {
+      //     for (
+      //       let y = 0;
+      //       startingPointX < this.activeWidth - width + gutters;
+      //       y++
+      //     ) {
+      //       const print = document.createElementNS(this.xmlns, 'rect');
+      //       print.setAttributeNS(null, 'width', width);
+      //       print.setAttributeNS(null, 'height', height);
+      //       print.setAttributeNS(null, 'x', startingPointX);
+      //       print.setAttributeNS(null, 'y', startingPointY);
+      //       print.setAttributeNS(null, 'fill', '#3674a7');
+      //       svgContainer.appendChild(print);
+
+      //       startingPointX = startingPointX + width + gutters;
+      //     }
+      //     startingPointX = centredMarginAlongWidth;
+      //     startingPointY = startingPointY + height + gutters;
+      //   }
     },
     switchOrientation() {
       this.checkFields();

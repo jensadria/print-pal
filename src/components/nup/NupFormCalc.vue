@@ -75,15 +75,19 @@
               </div>
             </div>
             <div class="buttons">
-              <base-button mode="blue-bg">Impose</base-button>
-              <base-button type="button" @click="switchOrientation">
+              <!-- <base-button mode="blue-bg">Impose</base-button> -->
+              <base-button
+                type="button"
+                mode="blue-bg"
+                @click="switchOrientation"
+              >
                 Switch Orientation
               </base-button>
-              <base-button type="button" @click="resetNumbers"
-                >Reset</base-button
-              >
             </div>
-            <p v-if="!allAreasFilled">Please fill out all areas</p>
+            <p v-if="!allAreasFilled">
+              The areas "Width", "Height", "Sheet Width" and "Sheet Height"
+              cannot be 0
+            </p>
           </form>
         </div>
         <div class="results">
@@ -130,11 +134,17 @@ export default {
         sheetsAmount: 0,
       },
       allAreasFilled: true,
-      calculatedButtonPressed: false,
       xmlns: 'http://www.w3.org/2000/svg',
     };
   },
-  //   LINE BREAK
+  watch: {
+    nUpInput: {
+      handler: function() {
+        this.imposeOnSheet();
+      },
+      deep: true,
+    },
+  },
   computed: {
     activeWidth() {
       return this.nUpInput.sheetWidth - 2 * this.nUpInput.margins;
@@ -143,11 +153,7 @@ export default {
       return this.nUpInput.sheetHeight - 2 * this.nUpInput.margins;
     },
     calculateSheets() {
-      if (!this.calculatedButtonPressed) {
-        return 0;
-      } else {
-        return Math.ceil(this.nUpInput.qty / this.result);
-      }
+      return Math.ceil(this.nUpInput.qty / this.result);
     },
     result() {
       return this.nUpResult.nUp1;
@@ -163,12 +169,11 @@ export default {
       return i;
     },
     imposeOnSheet() {
-      this.checkFields();
+      this.validateFields();
       if (!this.allAreasFilled) {
         return;
       }
 
-      this.calculatedButtonPressed = true;
       const { width, height, gutters } = this.nUpInput;
 
       // FIRST ORIENTATION
@@ -263,7 +268,7 @@ export default {
       }
     },
     switchOrientation() {
-      this.checkFields();
+      this.validateFields();
       if (!this.allAreasFilled) {
         return;
       }
@@ -274,19 +279,18 @@ export default {
       this.imposeOnSheet();
       this.drawOnSheet();
     },
-    resetNumbers() {
-      const svgContainer = document.getElementById('svgContainer');
-      svgContainer.textContent = '';
+    // resetNumbers() {
+    //   const svgContainer = document.getElementById('svgContainer');
+    //   svgContainer.textContent = '';
 
-      for (let key in this.nUpInput) {
-        this.nUpInput[key] = 0;
-      }
-      this.nUpInput.sheetWidth = 450;
-      this.nUpInput.sheetHeight = 320;
-    },
-    checkFields() {
+    //   for (let key in this.nUpInput) {
+    //     this.nUpInput[key] = 0;
+    //   }
+    //   this.nUpInput.sheetWidth = 450;
+    //   this.nUpInput.sheetHeight = 320;
+    // },
+    validateFields() {
       if (
-        this.nUpInput.qty === 0 ||
         this.nUpInput.width === 0 ||
         this.nUpInput.height === 0 ||
         this.nUpInput.sheetWidth === 0 ||
@@ -297,6 +301,9 @@ export default {
         this.allAreasFilled = true;
       }
     },
+  },
+  mounted() {
+    this.imposeOnSheet();
   },
 
   //   END OF EXPORT DEFAULT

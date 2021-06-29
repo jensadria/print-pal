@@ -88,6 +88,9 @@
               The areas "Width", "Height", "Sheet Width" and "Sheet Height"
               cannot be 0
             </p>
+            <p v-if="tooBigForSheet">
+              The width or height is too big for the sheet
+            </p>
           </form>
         </div>
         <div class="results">
@@ -98,17 +101,20 @@
     </base-card>
     <base-card>
       <!-- <div id="svgContainer"></div> -->
-      <svg
-        id="svgContainer"
-        xmlns="http://www.w3.org/2000/svg"
-        xmlns:xlink="http://www.w3.org/1999/xlink"
-        width="auto"
-        height="auto"
-        preserveAspectRatio="xMinYMin"
-        :viewBox="'0 0 ' + nUpInput.sheetWidth + ' ' + nUpInput.sheetHeight"
-      >
-        <rect width="100%" height="100%" fill="lightgray" id="sheetSizeSvg" />
-      </svg>
+      <div class="svg-wrapper">
+        <svg
+          id="svgContainer"
+          xmlns="http://www.w3.org/2000/svg"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          width="100%"
+          height="100%"
+          style="max-height: 80vh"
+          preserveAspectRatio="xMinYMin"
+          :viewBox="'0 0 ' + nUpInput.sheetWidth + ' ' + nUpInput.sheetHeight"
+        >
+          <rect width="100%" height="100%" fill="lightgray" id="sheetSizeSvg" />
+        </svg>
+      </div>
     </base-card>
   </div>
 </template>
@@ -130,10 +136,11 @@ export default {
         timesAcrossWidth: 0,
         timesAcrossLength: 0,
         nUp1: 0,
-        nUp2: 0,
+        // nUp2: 0,
         sheetsAmount: 0,
       },
       allAreasFilled: true,
+      tooBigForSheet: false,
       xmlns: 'http://www.w3.org/2000/svg',
     };
   },
@@ -170,7 +177,7 @@ export default {
     },
     imposeOnSheet() {
       this.validateFields();
-      if (!this.allAreasFilled) {
+      if (!this.allAreasFilled || this.tooBigForSheet) {
         return;
       }
 
@@ -183,12 +190,12 @@ export default {
       this.nUpResult.timesAcrossLength = j;
 
       // SECOND ORIENTATION
-      const m = this.imposer(height, this.activeWidth, gutters);
-      const n = this.imposer(width, this.activeHeight, gutters);
+      //   const m = this.imposer(height, this.activeWidth, gutters);
+      //   const n = this.imposer(width, this.activeHeight, gutters);
 
       //   Calculate nUps
       this.nUpResult.nUp1 = i * j;
-      this.nUpResult.nUp2 = m * n;
+      //   this.nUpResult.nUp2 = m * n;
 
       this.drawOnSheet();
     },
@@ -258,7 +265,6 @@ export default {
           print.setAttributeNS(null, 'x', startingPointX);
           print.setAttributeNS(null, 'y', startingPointY);
           print.setAttributeNS(null, 'fill', 'url(#gradient');
-          //   print.setAttributeNS(null, 'id', '#print-rect');
           svgContainer.appendChild(print);
 
           startingPointX = startingPointX + width + gutters;
@@ -290,15 +296,26 @@ export default {
     //   this.nUpInput.sheetHeight = 320;
     // },
     validateFields() {
+      const { width, height, sheetWidth, sheetHeight, margins } = this.nUpInput;
+
       if (
-        this.nUpInput.width === 0 ||
-        this.nUpInput.height === 0 ||
-        this.nUpInput.sheetWidth === 0 ||
-        this.nUpInput.sheetHeight === 0
+        width === 0 ||
+        height === 0 ||
+        sheetWidth === 0 ||
+        sheetHeight === 0
       ) {
         this.allAreasFilled = false;
       } else {
         this.allAreasFilled = true;
+      }
+
+      if (
+        width > sheetWidth - 2 * margins ||
+        height > sheetHeight - 2 * margins
+      ) {
+        this.tooBigForSheet = true;
+      } else {
+        this.tooBigForSheet = false;
       }
     },
   },
@@ -438,22 +455,5 @@ input:focus {
   align-items: center;
   justify-content: left;
   margin-top: 30px;
-}
-
-.canvas-container {
-  max-height: 100%;
-  display: flex;
-  min-width: 500px;
-  max-height: 700px;
-  max-width: auto;
-}
-
-#nup-canvas {
-  /* border: 1px solid red; */
-  background-color: var(--cool-gray);
-  /* position: relative; */
-  width: 100%;
-
-  height: auto;
 }
 </style>

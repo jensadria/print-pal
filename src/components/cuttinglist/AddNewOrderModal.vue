@@ -40,8 +40,6 @@
           @blur="packs.isValid"
         />
       </div>
-      {{ dueDate }}
-      {{ dueTime }}
     </div>
     <div>
       <p v-if="!petNumber.isValid">Please assign an order</p>

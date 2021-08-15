@@ -15,12 +15,12 @@ export default {};
 
 <style>
 footer {
+  margin: auto;
   background: var(--mid-blue);
   color: #ffffff;
   bottom: 0;
   height: 3rem;
-  width: 80vw;
-  position: fixed;
+  /* position: fixed; */
 }
 
 .footer-content {

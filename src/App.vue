@@ -1,8 +1,8 @@
 <template>
-  <div class="container">
+  <div class="main">
     <the-header></the-header>
     <router-view></router-view>
-    <the-footer></the-footer>
+    <the-footer class="the-footer"></the-footer>
   </div>
 </template>
 
@@ -49,7 +49,16 @@ export default {
 }
 
 .container {
-  width: 80vw;
+  max-width: 80vw;
   margin: auto;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+.the-footer {
+  margin-top: auto;
 }
 </style>

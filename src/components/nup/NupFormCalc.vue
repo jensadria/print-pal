@@ -456,4 +456,10 @@ input:focus {
   justify-content: left;
   margin-top: 30px;
 }
+
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+  }
+}
 </style>

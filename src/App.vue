@@ -9,6 +9,7 @@
 <script>
 import TheHeader from './components/layout/TheHeader.vue';
 import TheFooter from './components/layout/TheFooter.vue';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 export default {
   name: 'App',
@@ -48,14 +49,18 @@ export default {
   color: #2c3e50;
 }
 
-.container {
-  max-width: 80vw;
-  margin: auto;
+html,
+body {
+  height: 100%;
 }
 
 body {
   display: flex;
   flex-direction: column;
+}
+
+.main {
+  height: 100vh;
 }
 
 .the-footer {

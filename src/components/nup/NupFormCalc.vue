@@ -1,134 +1,178 @@
 <template>
   <!-- Finished Size -->
   <div class="container">
-    <div class="row">
-      <base-card class="col">
-        <div>
-          <form v-on:submit.prevent="imposeOnSheet">
-            <div>
-              <div class="row mb-3">
-                <div class="col-6">
-                  <label for="qty" class="form-label">Quantity</label>
-                  <input
-                    type="number"
-                    class="form-control"
-                    min="0"
-                    v-model.number="nUpInput.qty"
-                  />
+    <div class="row row-cols-1 row-cols-md-2 g-4 mt-2">
+      <div class="col h-100">
+        <div class="card p-4 border-info ">
+          <div>
+            <form v-on:submit.prevent="imposeOnSheet">
+              <div>
+                <div class="row mb-3">
+                  <div class=" col-6  ">
+                    <div class="input-group input-group-lg mb-2">
+                      <span for="qty" class="input-group-text fw-bold"
+                        >Quantity</span
+                      >
+                      <input
+                        type="number"
+                        class="form-control"
+                        min="0"
+                        v-model.number="nUpInput.qty"
+                      />
+                    </div>
+                  </div>
                 </div>
-              </div>
-              <div class="row">
-                <div class="col">
-                  <label for="width" class="form-label">Width in mm</label>
-                  <input
-                    type="number"
-                    class="form-control"
-                    id="width"
-                    min="0"
-                    v-model.number="nUpInput.width"
-                  />
-                </div>
-                <div class="col">
-                  <label for="height" class="form-label">Height in mm</label>
-                  <input
-                    type="number"
-                    class="form-control"
-                    min="0"
-                    v-model.number="nUpInput.height"
-                  />
-                </div>
-              </div>
 
-              <!-- Margins & Gutters -->
-              <div>
-                <label for="margins" class="form-label">Outside Margin</label>
-                <input
-                  type="number"
-                  class="form-control"
-                  min="0"
-                  v-model.number="nUpInput.margins"
-                />
-              </div>
-              <div>
-                <label for="gutters" class="form-label">Gutters</label>
-                <input
-                  type="number"
-                  class="form-control"
-                  min="0"
-                  v-model.number="nUpInput.gutters"
-                />
-              </div>
+                <div class="row mt-4">
+                  <h4 class="fw-bold ">Unit Size (in mm)</h4>
+                </div>
+                <div class="row mb-3">
+                  <div class="col">
+                    <div class="input-group  input-group-lg  mb-2">
+                      <span for="width" class="input-group-text fw-bold"
+                        >Width</span
+                      >
+                      <input
+                        type="number"
+                        class="form-control form-control-lg"
+                        id="width"
+                        min="0"
+                        v-model.number="nUpInput.width"
+                      />
+                    </div>
+                  </div>
+                  <div class="col">
+                    <div class="input-group input-group-lg  mb-2">
+                      <span
+                        for="height"
+                        class="input-group-text input-group-lg  fw-bold"
+                        >Height</span
+                      >
+                      <input
+                        type="number"
+                        class="form-control form-control-lg"
+                        min="0"
+                        v-model.number="nUpInput.height"
+                      />
+                    </div>
+                  </div>
+                </div>
 
-              <!-- Sheet Size -->
-              <div>
-                <label for="sheet-width" class="form-label"
-                  >Sheet Width in mm</label
-                >
-                <input
-                  type="number"
-                  class="form-control"
-                  min="0"
-                  v-model.number="nUpInput.sheetWidth"
-                />
+                <!-- Margins & Gutters -->
+                <div class="row">
+                  <div class="col-6">
+                    <div class="input-group  mb-2">
+                      <span for="margins" class="input-group-text"
+                        >Gutters</span
+                      >
+                      <input
+                        type="number"
+                        class="form-control"
+                        min="0"
+                        v-model.number="nUpInput.gutters"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Sheet Size -->
+                <div class="row mt-4">
+                  <h4 class="fw-bold">Sheet Size (in mm)</h4>
+                </div>
+                <div class="row mb-3">
+                  <div class="col">
+                    <div class="input-group  input-group-lg  mb-2">
+                      <span for="width" class="input-group-text fw-bold"
+                        >Width</span
+                      >
+                      <input
+                        type="number"
+                        class="form-control form-control-lg"
+                        id="width"
+                        min="0"
+                        v-model.number="nUpInput.sheetWidth"
+                      />
+                    </div>
+                  </div>
+                  <div class="col">
+                    <div class="input-group  input-group-lg  mb-2">
+                      <span for="height" class="input-group-text fw-bold"
+                        >Height</span
+                      >
+                      <input
+                        type="number"
+                        class="form-control form-control-lg"
+                        min="0"
+                        v-model.number="nUpInput.sheetHeight"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-6">
+                    <div class="input-group mb-2">
+                      <span for="margins" class="input-group-text">Margin</span>
+                      <input
+                        type="number"
+                        class="form-control"
+                        min="0"
+                        v-model.number="nUpInput.margins"
+                      />
+                    </div>
+                  </div>
+                </div>
               </div>
-              <div>
-                <label for="sheet-height" class="form-label"
-                  >Sheet Height in mm</label
+              <div class="buttons">
+                <!-- <base-button mode="blue-bg">Impose</base-button> -->
+                <base-button
+                  type="button"
+                  mode="blue-bg"
+                  @click="switchOrientation"
                 >
-                <input
-                  type="number"
-                  class="form-control"
-                  min="0"
-                  v-model.number="nUpInput.sheetHeight"
-                />
+                  Switch Orientation
+                </base-button>
               </div>
-            </div>
-            <div class="buttons">
-              <!-- <base-button mode="blue-bg">Impose</base-button> -->
-              <base-button
-                type="button"
-                mode="blue-bg"
-                @click="switchOrientation"
-              >
-                Switch Orientation
-              </base-button>
-            </div>
-            <p v-if="!allAreasFilled">
-              The areas "Width", "Height", "Sheet Width" and "Sheet Height"
-              cannot be 0
-            </p>
-            <p v-if="tooBigForSheet">
-              The width or height is too big for the sheet
-            </p>
-          </form>
+              <p v-if="!allAreasFilled">
+                The areas "Width", "Height", "Sheet Width" and "Sheet Height"
+                cannot be 0
+              </p>
+              <p v-if="tooBigForSheet">
+                The width or height is too big for the sheet
+              </p>
+            </form>
+          </div>
+          <div class="results">
+            <div>{{ result }} out of a page</div>
+            <div>{{ calculateSheets }} sheets required</div>
+          </div>
         </div>
-        <div class="results">
-          <div>{{ result }} out of a page</div>
-          <div>{{ calculateSheets }} sheets required</div>
-        </div>
-      </base-card>
-      <base-card class="col">
-        <!-- <div id="svgContainer"></div> -->
-        <div class="svg-wrapper">
-          <svg
-            id="svgContainer"
-            xmlns="http://www.w3.org/2000/svg"
-            xmlns:xlink="http://www.w3.org/1999/xlink"
-            width="100%"
-            height="100%"
-            style="max-height: 80vh"
-            preserveAspectRatio="xMinYMin"
-            :viewBox="'0 0 ' + nUpInput.sheetWidth + ' ' + nUpInput.sheetHeight"
-          >
-            <rect
+      </div>
+      <div class="col h-100">
+        <div class="card p-4 border-info">
+          <!-- <div id="svgContainer"></div> -->
+          <div class="svg-wrapper">
+            <svg
+              id="svgContainer"
+              xmlns="http://www.w3.org/2000/svg"
+              xmlns:xlink="http://www.w3.org/1999/xlink"
               width="100%"
               height="100%"
-              fill="lightgray"
-              id="sheetSizeSvg"
-            />
-          </svg>
+              style="max-height: 80vh"
+              preserveAspectRatio="xMinYMin"
+              :viewBox="
+                '0 0 ' + nUpInput.sheetWidth + ' ' + nUpInput.sheetHeight
+              "
+            >
+              <rect
+                width="100%"
+                height="100%"
+                fill="lightgray"
+                id="sheetSizeSvg"
+              />
+            </svg>
+          </div>
         </div>
-      </base-card>
+      </div>
     </div>
   </div>
 </template>
@@ -336,4 +380,8 @@ export default {
 /* * {
   border: 0.1px dotted red;
 } */
+
+.input-group-text.units {
+  background-color: white;
+}
 </style>

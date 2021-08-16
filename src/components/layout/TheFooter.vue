@@ -1,5 +1,5 @@
 <template>
-  <footer>
+  <footer class="fixed-bottom">
     <p>
       Copyright by Jens Adria -
       <a href="mailto:yencey@gmail.com">Contact</a>

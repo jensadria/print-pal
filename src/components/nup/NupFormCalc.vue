@@ -26,9 +26,9 @@
                 <div class="row mt-4">
                   <h4><span class="fw-bold">Unit Size</span> (in mm)</h4>
                 </div>
-                <div class="row row-cols-1 row-cols-lg-2 mb-3">
+                <div class="row row-cols-1 row-cols-xl-2 mb-3">
                   <div class="col">
-                    <div class="input-group  input-group-lg  mb-2">
+                    <div class="input-group input-group-lg mb-2">
                       <span for="width" class="input-group-text fw-bold"
                         >Width</span
                       >
@@ -42,7 +42,7 @@
                     </div>
                   </div>
                   <div class="col">
-                    <div class="input-group input-group-lg  mb-2">
+                    <div class="input-group input-group-lg mb-2">
                       <span
                         for="height"
                         class="input-group-text input-group-lg  fw-bold"
@@ -79,7 +79,7 @@
                 <div class="row mt-4">
                   <h4><span class="fw-bold">Sheet Size</span> (in mm)</h4>
                 </div>
-                <div class="row row-cols-1 row-cols-lg-2 mb-3">
+                <div class="row row-cols-1 row-cols-xl-2 mb-3">
                   <div class="col">
                     <div class="input-group  input-group-lg  mb-2">
                       <span for="width" class="input-group-text fw-bold"
@@ -127,7 +127,7 @@
               <div class="mt-3">
                 <!-- <base-button mode="blue-bg">Impose</base-button> -->
                 <div
-                  class="btn btn-primary btn-lg"
+                  class="btn btn-primary btn-lg switch-button"
                   type="button"
                   mode="blue-bg"
                   @click="switchOrientation"
@@ -393,5 +393,11 @@ export default {
 
 .input-group-text.units {
   background-color: white;
+}
+
+@media print {
+  .switch-button {
+    display: none;
+  }
 }
 </style>

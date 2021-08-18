@@ -63,4 +63,11 @@ body {
 .main {
   height: 100vh;
 }
+
+@media print {
+  header,
+  footer {
+    display: none;
+  }
+}
 </style>

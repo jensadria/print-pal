@@ -1,12 +1,12 @@
 <template>
   <header>
-    <nav class="container">
+    <nav class="container nav">
       <ul>
         <!-- <li><router-link to="/price">Price Calculator</router-link></li> -->
         <li><router-link to="/nup">N-Up Calculator</router-link></li>
-        <li><router-link to="/cuttinglist">Cutting List</router-link></li>
+        <!-- <li><router-link to="/cuttinglist">Cutting List</router-link></li> -->
       </ul>
-      <h1>Print Pal</h1>
+      <div id="logo">Print Pal</div>
     </nav>
   </header>
 </template>
@@ -16,30 +16,17 @@ export default {};
 </script>
 
 <style scoped>
+@import url('https://fonts.googleapis.com/css2?family=Changa+One&display=swap');
+
 header {
   background: var(--mid-blue);
-  padding: 0.5rem;
 }
 
-header h1 {
+#logo {
+  font-family: 'Changa One', sans-serif;
   color: #fff;
-}
-
-a {
-  text-decoration: none;
-  color: #fff;
-  display: inline-block;
-  padding: 0.75rem 1.5rem;
-  border: 1px solid transparent;
-  border-radius: 0.5rem;
-}
-
-a.router-link-active {
-  background: var(--light-blue);
-}
-
-a:not(.router-link-active):hover {
-  background: var(--dark-blue);
+  margin: 0;
+  font-size: 2rem;
 }
 
 header nav {
@@ -59,7 +46,24 @@ header ul {
   align-items: center;
 }
 
-li {
+/* li {
   margin: 0 0.5rem;
+} */
+
+a {
+  text-decoration: none;
+  color: #fff;
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  border: 1px solid transparent;
+  /* border-radius: 0.5rem; */
+}
+
+a.router-link-active {
+  background: var(--light-blue);
+}
+
+a:not(.router-link-active):hover {
+  background: var(--dark-blue);
 }
 </style>

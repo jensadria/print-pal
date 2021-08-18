@@ -1,6 +1,6 @@
 <template>
-  <footer>
-    <div class="footer-content">
+  <footer class="fixed-bottom">
+    <div class="container">
       <p>
         Copyright by Jens Adria -
         <a href="mailto:yencey@gmail.com">Contact</a>
@@ -15,15 +15,18 @@ export default {};
 
 <style>
 footer {
-  margin: auto;
   background: var(--mid-blue);
-  color: #ffffff;
-  bottom: 0;
+  padding: 0.5rem;
   height: 3rem;
-  /* position: fixed; */
 }
 
-.footer-content {
-  padding: 1rem;
+footer div {
+  color: #ffffff;
+  width: 95%;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  /* position: fixed; */
 }
 </style>

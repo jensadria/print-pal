@@ -2,13 +2,15 @@
   <div class="main">
     <the-header></the-header>
     <router-view></router-view>
-    <the-footer class="the-footer"></the-footer>
+    <the-footer></the-footer>
   </div>
 </template>
 
 <script>
 import TheHeader from './components/layout/TheHeader.vue';
 import TheFooter from './components/layout/TheFooter.vue';
+import 'bootstrap/dist/css/bootstrap.min.css';
+// import 'assets/scss/custom.scss';
 
 export default {
   name: 'App',
@@ -44,13 +46,13 @@ export default {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
+  /* text-align: center; */
   color: #2c3e50;
 }
 
-.container {
-  max-width: 80vw;
-  margin: auto;
+html,
+body {
+  height: 100%;
 }
 
 body {
@@ -58,7 +60,7 @@ body {
   flex-direction: column;
 }
 
-.the-footer {
-  margin-top: auto;
+.main {
+  height: 100vh;
 }
 </style>

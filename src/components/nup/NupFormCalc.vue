@@ -1,121 +1,186 @@
 <template>
   <!-- Finished Size -->
   <div class="container">
-    <base-card>
-      <div class="calculations">
-        <div id="form">
-          <form v-on:submit.prevent="imposeOnSheet">
-            <div class="form-input">
-              <div class="form-quantity">
-                <label for="qty">Quantity</label>
-                <input
-                  type="number"
-                  id="qty"
-                  min="0"
-                  v-model.number="nUpInput.qty"
-                />
-              </div>
-              <div class="form-width">
-                <label for="width">Width in mm</label>
-                <input
-                  type="number"
-                  id="width"
-                  min="0"
-                  v-model.number="nUpInput.width"
-                />
-              </div>
-              <div class="form-height">
-                <label for="height">Height in mm</label>
-                <input
-                  type="number"
-                  id="height"
-                  min="0"
-                  v-model.number="nUpInput.height"
-                />
-              </div>
+    <div class="row g-4 mt-2">
+      <div class="col-md-5">
+        <div class="card p-4 border-info h-100 bg-light">
+          <div>
+            <form>
+              <div>
+                <div class="row mb-3">
+                  <div class="col col-lg-6">
+                    <div class="input-group input-group-lg mb-2">
+                      <span for="qty" class="input-group-text fw-bold"
+                        >Qty</span
+                      >
+                      <input
+                        type="number"
+                        class="form-control"
+                        min="0"
+                        v-model.number="nUpInput.qty"
+                      />
+                    </div>
+                  </div>
+                </div>
 
-              <!-- Margins & Gutters -->
-              <div class="form-margins">
-                <label for="margins">Outside Margin</label>
-                <input
-                  type="number"
-                  id="margins"
-                  min="0"
-                  v-model.number="nUpInput.margins"
-                />
-              </div>
-              <div class="form-gutters">
-                <label for="gutters">Gutters</label>
-                <input
-                  type="number"
-                  id="gutters"
-                  min="0"
-                  v-model.number="nUpInput.gutters"
-                />
-              </div>
+                <div class="row mt-4">
+                  <h4><span class="fw-bold">Unit Size</span> (in mm)</h4>
+                </div>
+                <div class="row row-cols-1 row-cols-lg-2 mb-3">
+                  <div class="col">
+                    <div class="input-group  input-group-lg  mb-2">
+                      <span for="width" class="input-group-text fw-bold"
+                        >Width</span
+                      >
+                      <input
+                        type="number"
+                        class="form-control form-control-lg"
+                        id="width"
+                        min="0"
+                        v-model.number="nUpInput.width"
+                      />
+                    </div>
+                  </div>
+                  <div class="col">
+                    <div class="input-group input-group-lg  mb-2">
+                      <span
+                        for="height"
+                        class="input-group-text input-group-lg  fw-bold"
+                        >Height</span
+                      >
+                      <input
+                        type="number"
+                        class="form-control form-control-lg"
+                        min="0"
+                        v-model.number="nUpInput.height"
+                      />
+                    </div>
+                  </div>
+                </div>
 
-              <!-- Sheet Size -->
-              <div class="form-sheet-width">
-                <label for="sheet-width">Sheet Width in mm</label>
-                <input
-                  type="number"
-                  id="sheet-width"
-                  min="0"
-                  v-model.number="nUpInput.sheetWidth"
-                />
+                <!-- Gutters -->
+                <div class="row">
+                  <div class="col col-lg-6">
+                    <div class="input-group mb-2">
+                      <span for="margins" class="input-group-text"
+                        >Gutters</span
+                      >
+                      <input
+                        type="number"
+                        class="form-control"
+                        min="0"
+                        v-model.number="nUpInput.gutters"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <hr />
+                <!-- Sheet Size -->
+                <div class="row mt-4">
+                  <h4><span class="fw-bold">Sheet Size</span> (in mm)</h4>
+                </div>
+                <div class="row row-cols-1 row-cols-lg-2 mb-3">
+                  <div class="col">
+                    <div class="input-group  input-group-lg  mb-2">
+                      <span for="width" class="input-group-text fw-bold"
+                        >Width</span
+                      >
+                      <input
+                        type="number"
+                        class="form-control form-control-lg"
+                        id="width"
+                        min="0"
+                        v-model.number="nUpInput.sheetWidth"
+                      />
+                    </div>
+                  </div>
+                  <div class="col">
+                    <div class="input-group  input-group-lg  mb-2">
+                      <span for="height" class="input-group-text fw-bold"
+                        >Height</span
+                      >
+                      <input
+                        type="number"
+                        class="form-control form-control-lg"
+                        min="0"
+                        v-model.number="nUpInput.sheetHeight"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Margin -->
+                <div class="row">
+                  <div class="col col-lg-6">
+                    <div class="input-group mb-2">
+                      <span for="margins" class="input-group-text">Margin</span>
+                      <input
+                        type="number"
+                        class="form-control"
+                        min="0"
+                        v-model.number="nUpInput.margins"
+                      />
+                    </div>
+                  </div>
+                </div>
               </div>
-              <div class="form-sheet-height">
-                <label for="sheet-height">Sheet Height in mm</label>
-                <input
-                  type="number"
-                  id="sheet-height"
-                  min="0"
-                  v-model.number="nUpInput.sheetHeight"
-                />
+              <div class="mt-3">
+                <!-- <base-button mode="blue-bg">Impose</base-button> -->
+                <div
+                  class="btn btn-primary btn-lg"
+                  type="button"
+                  mode="blue-bg"
+                  @click="switchOrientation"
+                >
+                  Switch Orientation
+                </div>
               </div>
-            </div>
-            <div class="buttons">
-              <!-- <base-button mode="blue-bg">Impose</base-button> -->
-              <base-button
-                type="button"
-                mode="blue-bg"
-                @click="switchOrientation"
-              >
-                Switch Orientation
-              </base-button>
-            </div>
-            <p v-if="!allAreasFilled">
-              The areas "Width", "Height", "Sheet Width" and "Sheet Height"
-              cannot be 0
-            </p>
-            <p v-if="tooBigForSheet">
-              The width or height is too big for the sheet
-            </p>
-          </form>
-        </div>
-        <div class="results">
-          <div>{{ result }} out of a page</div>
-          <div>{{ calculateSheets }} sheets required</div>
+              <p v-if="!allAreasFilled">
+                The areas "Width", "Height", "Sheet Width" and "Sheet Height"
+                cannot be 0
+              </p>
+              <p v-if="tooBigForSheet">
+                The width or height is too big for the sheet
+              </p>
+            </form>
+          </div>
+
+          <!-- RESULTS SECTION -->
+          <div class="card my-4 p-4 shadow rounded bd-gray-500">
+            <div class="h1 fw-bold">{{ result }} out of a page</div>
+            <hr />
+            <div class="h2">{{ requiredSheets }} sheets required</div>
+            <div class="h2">{{ totalUnits }} units total</div>
+          </div>
         </div>
       </div>
-    </base-card>
-    <base-card>
-      <!-- <div id="svgContainer"></div> -->
-      <div class="svg-wrapper">
-        <svg
-          id="svgContainer"
-          xmlns="http://www.w3.org/2000/svg"
-          xmlns:xlink="http://www.w3.org/1999/xlink"
-          width="100%"
-          height="100%"
-          style="max-height: 80vh"
-          preserveAspectRatio="xMinYMin"
-          :viewBox="'0 0 ' + nUpInput.sheetWidth + ' ' + nUpInput.sheetHeight"
-        >
-          <rect width="100%" height="100%" fill="lightgray" id="sheetSizeSvg" />
-        </svg>
+      <div class="col">
+        <div class="card p-4 border-info h-100">
+          <!-- <div id="svgContainer"></div> -->
+          <div class="svg-wrapper">
+            <svg
+              id="svgContainer"
+              xmlns="http://www.w3.org/2000/svg"
+              xmlns:xlink="http://www.w3.org/1999/xlink"
+              width="100%"
+              height="100%"
+              style="max-height: 80vh"
+              preserveAspectRatio="xMinYMin"
+              :viewBox="
+                '0 0 ' + nUpInput.sheetWidth + ' ' + nUpInput.sheetHeight
+              "
+            >
+              <rect
+                width="100%"
+                height="100%"
+                fill="lightgray"
+                id="sheetSizeSvg"
+              />
+            </svg>
+          </div>
+        </div>
       </div>
-    </base-card>
+    </div>
   </div>
 </template>
 
@@ -159,11 +224,14 @@ export default {
     activeHeight() {
       return this.nUpInput.sheetHeight - 2 * this.nUpInput.margins;
     },
-    calculateSheets() {
+    requiredSheets() {
       return Math.ceil(this.nUpInput.qty / this.result);
     },
     result() {
       return this.nUpResult.nUp1;
+    },
+    totalUnits() {
+      return this.nUpResult.nUp1 * this.requiredSheets;
     },
   },
   methods: {
@@ -285,16 +353,7 @@ export default {
       this.imposeOnSheet();
       this.drawOnSheet();
     },
-    // resetNumbers() {
-    //   const svgContainer = document.getElementById('svgContainer');
-    //   svgContainer.textContent = '';
 
-    //   for (let key in this.nUpInput) {
-    //     this.nUpInput[key] = 0;
-    //   }
-    //   this.nUpInput.sheetWidth = 450;
-    //   this.nUpInput.sheetHeight = 320;
-    // },
     validateFields() {
       const { width, height, sheetWidth, sheetHeight, margins } = this.nUpInput;
 
@@ -331,135 +390,8 @@ export default {
 /* * {
   border: 0.1px dotted red;
 } */
-.container {
-  display: flex;
-  /* flex-wrap: wrap; */
-}
 
-.container > div:first-child {
-  flex: 1;
-}
-
-.container > div:nth-child(2) {
-  flex: 2;
-}
-
-.calculations {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-.form-input {
-  width: auto;
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-gap: 2rem;
-  grid-template-rows: auto;
-  grid-template-areas:
-    'qty . '
-    'width height '
-    'margins .'
-    'gutters .'
-    'sheet-width sheet-height';
-}
-
-.form-quantity {
-  grid-area: qty;
-}
-.form-width {
-  grid-area: width;
-}
-.form-height {
-  grid-area: height;
-}
-.form-margins {
-  grid-area: margins;
-}
-.form-gutters {
-  grid-area: gutters;
-}
-.form-sheet-width {
-  grid-area: sheet-width;
-}
-.form-sheet-height {
-  grid-area: sheet-height;
-}
-
-input,
-label {
-  display: block;
-  text-align: left;
-  padding: 0.5px;
-}
-
-input {
-  display: block;
-  border: 2px solid gray;
-  border-top: none;
-  border-right: none;
-  border-left: none;
-  font-size: 30px;
-  font-weight: medium;
-}
-
-input:focus {
-  border: 2px solid var(--mid-blue);
-  border-top: none;
-  border-right: none;
-  border-left: none;
-  background-color: var(--very-light-blue);
-  outline: none;
-}
-
-#sheet-width,
-#sheet-height,
-#margins,
-#gutters,
-#qty,
-#width,
-#height {
-  width: 100%;
-  text-align: left;
-}
-
-#qty,
-#width,
-#height {
-  font-size: 50px;
-  height: 70px;
-}
-
-#margins,
-#gutters {
-  font-size: 18px;
-}
-
-.results {
-  width: 100%;
-  height: 12rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: 40px;
-  background: var(--very-light-blue);
-  margin: 20px;
-  border-radius: 1rem;
-}
-
-.buttons {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: left;
-  margin-top: 30px;
-}
-
-@media (max-width: 768px) {
-  .container {
-    flex-direction: column;
-  }
+.input-group-text.units {
+  background-color: white;
 }
 </style>

@@ -10,6 +10,7 @@
 import TheHeader from './components/layout/TheHeader.vue';
 import TheFooter from './components/layout/TheFooter.vue';
 import 'bootstrap/dist/css/bootstrap.min.css';
+// import 'assets/scss/custom.scss';
 
 export default {
   name: 'App',

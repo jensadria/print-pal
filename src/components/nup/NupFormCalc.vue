@@ -74,7 +74,7 @@
                     </div>
                   </div>
                 </div>
-
+                <hr />
                 <!-- Sheet Size -->
                 <div class="row mt-4">
                   <h4><span class="fw-bold">Sheet Size</span> (in mm)</h4>
@@ -150,7 +150,7 @@
             <div class="h1 fw-bold">{{ result }} out of a page</div>
             <hr />
             <div class="h2">{{ requiredSheets }} sheets required</div>
-            <div class="h2">{{ totalUnits }} Units Total</div>
+            <div class="h2">{{ totalUnits }} units total</div>
           </div>
         </div>
       </div>

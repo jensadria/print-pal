@@ -1,17 +1,17 @@
 <template>
   <!-- Finished Size -->
   <div class="container">
-    <div class="row row-cols-1 row-cols-md-2 g-4 mt-2">
-      <div class="col h-100">
-        <div class="card p-4 border-info ">
+    <div class="row g-4 mt-2">
+      <div class="col-md-5">
+        <div class="card p-4 border-info h-100 bg-light">
           <div>
-            <form v-on:submit.prevent="imposeOnSheet">
+            <form>
               <div>
                 <div class="row mb-3">
-                  <div class=" col-6  ">
+                  <div class="col col-lg-6">
                     <div class="input-group input-group-lg mb-2">
                       <span for="qty" class="input-group-text fw-bold"
-                        >Quantity</span
+                        >Qty</span
                       >
                       <input
                         type="number"
@@ -24,9 +24,9 @@
                 </div>
 
                 <div class="row mt-4">
-                  <h4 class="fw-bold ">Unit Size (in mm)</h4>
+                  <h4><span class="fw-bold">Unit Size</span> (in mm)</h4>
                 </div>
-                <div class="row mb-3">
+                <div class="row row-cols-1 row-cols-lg-2 mb-3">
                   <div class="col">
                     <div class="input-group  input-group-lg  mb-2">
                       <span for="width" class="input-group-text fw-bold"
@@ -58,10 +58,10 @@
                   </div>
                 </div>
 
-                <!-- Margins & Gutters -->
+                <!-- Gutters -->
                 <div class="row">
-                  <div class="col-6">
-                    <div class="input-group  mb-2">
+                  <div class="col col-lg-6">
+                    <div class="input-group mb-2">
                       <span for="margins" class="input-group-text"
                         >Gutters</span
                       >
@@ -77,9 +77,9 @@
 
                 <!-- Sheet Size -->
                 <div class="row mt-4">
-                  <h4 class="fw-bold">Sheet Size (in mm)</h4>
+                  <h4><span class="fw-bold">Sheet Size</span> (in mm)</h4>
                 </div>
-                <div class="row mb-3">
+                <div class="row row-cols-1 row-cols-lg-2 mb-3">
                   <div class="col">
                     <div class="input-group  input-group-lg  mb-2">
                       <span for="width" class="input-group-text fw-bold"
@@ -108,8 +108,10 @@
                     </div>
                   </div>
                 </div>
+
+                <!-- Margin -->
                 <div class="row">
-                  <div class="col-6">
+                  <div class="col col-lg-6">
                     <div class="input-group mb-2">
                       <span for="margins" class="input-group-text">Margin</span>
                       <input
@@ -122,15 +124,16 @@
                   </div>
                 </div>
               </div>
-              <div class="buttons">
+              <div class="mt-3">
                 <!-- <base-button mode="blue-bg">Impose</base-button> -->
-                <base-button
+                <div
+                  class="btn btn-primary btn-lg"
                   type="button"
                   mode="blue-bg"
                   @click="switchOrientation"
                 >
                   Switch Orientation
-                </base-button>
+                </div>
               </div>
               <p v-if="!allAreasFilled">
                 The areas "Width", "Height", "Sheet Width" and "Sheet Height"
@@ -141,14 +144,18 @@
               </p>
             </form>
           </div>
-          <div class="results">
-            <div>{{ result }} out of a page</div>
-            <div>{{ calculateSheets }} sheets required</div>
+
+          <!-- RESULTS SECTION -->
+          <div class="card my-4 p-4 shadow rounded bd-gray-500">
+            <div class="h1 fw-bold">{{ result }} out of a page</div>
+            <hr />
+            <div class="h2">{{ requiredSheets }} sheets required</div>
+            <div class="h2">{{ totalUnits }} Units Total</div>
           </div>
         </div>
       </div>
-      <div class="col h-100">
-        <div class="card p-4 border-info">
+      <div class="col">
+        <div class="card p-4 border-info h-100">
           <!-- <div id="svgContainer"></div> -->
           <div class="svg-wrapper">
             <svg
@@ -217,11 +224,14 @@ export default {
     activeHeight() {
       return this.nUpInput.sheetHeight - 2 * this.nUpInput.margins;
     },
-    calculateSheets() {
+    requiredSheets() {
       return Math.ceil(this.nUpInput.qty / this.result);
     },
     result() {
       return this.nUpResult.nUp1;
+    },
+    totalUnits() {
+      return this.nUpResult.nUp1 * this.requiredSheets;
     },
   },
   methods: {

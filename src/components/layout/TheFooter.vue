@@ -1,9 +1,11 @@
 <template>
   <footer class="fixed-bottom">
-    <p>
-      Copyright by Jens Adria -
-      <a href="mailto:yencey@gmail.com">Contact</a>
-    </p>
+    <div class="container">
+      <p>
+        Copyright by Jens Adria -
+        <a href="mailto:yencey@gmail.com">Contact</a>
+      </p>
+    </div>
   </footer>
 </template>
 
@@ -13,12 +15,18 @@ export default {};
 
 <style>
 footer {
-  margin: inherit auto 0 auto;
   background: var(--mid-blue);
-  color: #ffffff;
+  padding: 0.5rem;
   height: 3rem;
-  padding: 1rem;
+}
 
+footer div {
+  color: #ffffff;
+  width: 95%;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   /* position: fixed; */
 }
 </style>
